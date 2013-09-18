@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Kevin Warrington]]></title>
-  <link href="http://dubbs.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: unix | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
   <updated>2013-09-17T20:53:44-06:00</updated>
   <id>http://dubbs.github.io/</id>
@@ -84,42 +84,6 @@ kill &lt;pid&gt;
 
 <pre><code>&lt;command&gt; | tee command.log | mailx -s 'PROCESS COMPLETE' test@example.com &amp;
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MySQL Import/Export Progress Bar]]></title>
-    <link href="http://dubbs.github.io/blog/2013/09/05/mysql-import-slash-export-progress-bar/"/>
-    <updated>2013-09-05T22:05:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/09/05/mysql-import-slash-export-progress-bar</id>
-    <content type="html"><![CDATA[<p>MySQL command line progress can be monitored using the terminal-based &ldquo;Pipe Viewer&rdquo; <code>pv</code>.</p>
-
-<h2>Import</h2>
-
-<pre><code>pv /path/to/sqlfile.sql | mysql -uUSERNAME -pPASSWORD -D DATABASE_NAME
-</code></pre>
-
-<h2>Export</h2>
-
-<p>We need to estimate the file size of our export to get an accurate reading.  This can be done via the information schema:</p>
-
-<pre><code>SELECT
-    Data_BB / POWER(1024,1) Data_KB,
-    Data_BB / POWER(1024,2) Data_MB,
-    Data_BB / POWER(1024,3) Data_GB
-FROM (
-    SELECT SUM(data_length) Data_BB
-    FROM information_schema.tables
-    WHERE table_schema IN ('DATABASE_NAME')
-) A;
-</code></pre>
-
-<p>We then use the estimated size to track export progress:</p>
-
-<pre><code>mysqldump -uUSERNAME -pPASSWORD DATABASE_NAME | pv -s 9999M &gt; DATABASE_NAME.sql 
-</code></pre>
-
-<p>Beer Break!</p>
 ]]></content>
   </entry>
   
