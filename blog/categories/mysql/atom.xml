@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mysql | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2013-09-17T20:53:44-06:00</updated>
+  <updated>2013-09-23T19:04:26-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Querying MySQL Configuration]]></title>
+    <link href="http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration/"/>
+    <updated>2013-09-23T12:40:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration</id>
+    <content type="html"><![CDATA[<p>MySQL system variables can be queried using the <a href="http://dev.mysql.com/doc/refman/5.7/en/show-variables.html">show variables</a> syntax:</p>
+
+<pre><code>mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"'
+</code></pre>
+
+<p>It&rsquo;s also useful to find out with <code>my.cnf</code> file MySQL will try to load on init:</p>
+
+<pre><code>mysql --help | grep cnf
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MySQL Import/Export Progress Bar]]></title>

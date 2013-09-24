@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: mysql - Kevin Warrington</title>
+  <title>Querying MySQL Configuration - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Category: mysql">
+  <meta name="description" content="MySQL system variables can be queried using the show variables syntax: mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"' It& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.ioblog/categories/mysql">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -76,50 +76,103 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Mysql</h1>
+    
+      <h1 class="entry-title">Querying MySQL Configuration</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-23T12:40:00-06:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2013</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>MySQL system variables can be queried using the <a href="http://dev.mysql.com/doc/refman/5.7/en/show-variables.html">show variables</a> syntax:</p>
 
-  
-  <h2>2013</h2>
+<pre><code>mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"'
+</code></pre>
 
-<article>
-  
-<h1><a href="/blog/2013/09/23/querying-mysql-configuration/">Querying MySQL Configuration</a></h1>
-<time datetime="2013-09-23T12:40:00-06:00" pubdate><span class='month'>Sep</span> <span class='day'>23</span> <span class='year'>2013</span></time>
+<p>It&rsquo;s also useful to find out with <code>my.cnf</code> file MySQL will try to load on init:</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mysql/'>mysql</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/09/05/mysql-import-slash-export-progress-bar/">MySQL Import/Export Progress Bar</a></h1>
-<time datetime="2013-09-05T22:05:00-06:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/mysql/'>mysql</a>, <a class='category' href='/blog/categories/unix/'>unix,</a></span>
-</footer>
-
-
-</article>
-
+<pre><code>mysql --help | grep cnf
+</code></pre>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Kevin Warrington</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-23T12:40:00-06:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mysql/'>mysql</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/09/17/moving-on-the-command-line/" title="Previous Post: Moving on the Command Line">&laquo; Moving on the Command Line</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/" title="Next Post: Forward vs Reverse Proxy using Apache">Forward vs Reverse Proxy using Apache &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -203,7 +256,10 @@
       var disqus_shortname = 'dubbs';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration/';
+        var disqus_url = 'http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
