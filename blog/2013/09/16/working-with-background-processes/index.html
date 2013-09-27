@@ -110,7 +110,7 @@
 <pre><code>&lt;command&gt; &amp;
 </code></pre>
 
-<p>To run a command in the background, detached from your prompt, with a lower priority.</p>
+<p>To run a command in the background, detached from your console.  The process will not terminate on logout.  <code>nice</code> sets a lower priority.</p>
 
 <pre><code>nohup nice &lt;command&gt; &amp;
 </code></pre>
@@ -141,6 +141,21 @@ kill &lt;pid&gt;
 <p>To receive an email notification when a background process finishes</p>
 
 <pre><code>&lt;command&gt; | tee command.log | mailx -s 'PROCESS COMPLETE' test@example.com &amp;
+</code></pre>
+
+<p>To run a set of jobs when cpu levels permit, use batch.  <kbd>ctrl</kbd>+<kbd>d</kbd> to end input.</p>
+
+<pre><code>user@example.com &gt; ~/.forward
+batch -m
+command1
+command2
+command3
+</code></pre>
+
+<p>You can list batch jobs and kill using the id</p>
+
+<pre><code>at -l
+at -r id
 </code></pre>
 </div>
 
@@ -213,6 +228,10 @@ kill &lt;pid&gt;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/26/converting-between-formats/">Converting Between Formats</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/25/unix-pipelines-vs-redirection/">Unix Pipelines vs Redirection</a>
       </li>
     
@@ -226,10 +245,6 @@ kill &lt;pid&gt;
     
       <li class="post">
         <a href="/blog/2013/09/23/querying-mysql-configuration/">Querying MySQL Configuration</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/17/moving-on-the-command-line/">Moving on the Command Line</a>
       </li>
     
   </ul>
