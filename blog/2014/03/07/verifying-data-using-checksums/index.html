@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Joining files on the command line - Kevin Warrington</title>
+  <title>Verifying Data using Checksums - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Here&rsquo;s an extremely easy way to join files in unix. It uses the () subshell operator, which waits for the enclosed command to return before &hellip;">
+  <meta name="description" content="Checksums are used verify data integrity and in some cases, authenticity. It is especially important to run checksums on large files, such as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -80,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">Joining Files on the Command Line</h1>
+      <h1 class="entry-title">Verifying Data Using Checksums</h1>
     
     
       <p class="meta">
@@ -96,17 +96,34 @@
   
 
 
-<time datetime="2013-10-15T16:00:00-06:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+<time datetime="2014-03-07T16:31:00-06:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
+<div class="entry-content"><p>Checksums are used verify data integrity and in some cases, authenticity.</p>
 
-<pre><code>(cat file1 file2)&gt; file3
+<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
+
+<p>To check a single file on Mac OS X, simply run:</p>
+
+<pre><code>shasum -a 256 file.iso
 </code></pre>
+
+<p>To check multiple files using a SHA256SUMS file:</p>
+
+<pre><code>cd ~/Downloads
+shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
+</code></pre>
+
+<p>If the file was verified you should see:</p>
+
+<pre><code>Vagrant-1.4.3.dmg: OK
+</code></pre>
+
+<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
 </div>
 
 
@@ -129,12 +146,12 @@
   
 
 
-<time datetime="2013-10-15T16:00:00-06:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+<time datetime="2014-03-07T16:31:00-06:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/unix/'>unix</a>
+    <a class='category' href='/blog/categories/mac/'>mac</a>
   
 </span>
 
@@ -143,7 +160,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/" >Tweet</a>
   
   
   
@@ -154,10 +171,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/09/26/converting-between-formats/" title="Previous Post: Converting between formats">&laquo; Converting between formats</a>
+        <a class="basic-alignment left" href="/blog/2013/10/16/mysql-server-has-gone-away/" title="Previous Post: MySQL server has gone away">&laquo; MySQL server has gone away</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/10/16/mysql-server-has-gone-away/" title="Next Post: MySQL server has gone away">MySQL server has gone away &raquo;</a>
       
     </p>
   </footer>
@@ -252,8 +267,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/';
-        var disqus_url = 'http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/';
+        var disqus_identifier = 'http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/';
+        var disqus_url = 'http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/';
         var disqus_script = 'embed.js';
       
     (function () {

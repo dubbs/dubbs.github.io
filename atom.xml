@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2013-10-16T21:09:04-06:00</updated>
+  <updated>2014-03-07T16:46:40-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Verifying Data using Checksums]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/"/>
+    <updated>2014-03-07T16:31:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums</id>
+    <content type="html"><![CDATA[<p>Checksums are used verify data integrity and in some cases, authenticity.</p>
+
+<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
+
+<p>To check a single file on Mac OS X, simply run:</p>
+
+<pre><code>shasum -a 256 file.iso
+</code></pre>
+
+<p>To check multiple files using a SHA256SUMS file:</p>
+
+<pre><code>cd ~/Downloads
+shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
+</code></pre>
+
+<p>If the file was verified you should see:</p>
+
+<pre><code>Vagrant-1.4.3.dmg: OK
+</code></pre>
+
+<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MySQL server has gone away]]></title>

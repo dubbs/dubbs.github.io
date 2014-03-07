@@ -9,7 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="When trying to create a new mysql user, I came across the error: ERROR 2006 (HY000) at line 1: MySQL server has gone away The fix turned out to be &hellip;">
+  <meta name="description" content="Checksums are used verify data integrity and in some cases, authenticity. It is especially important to run checksums on large files, such as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/07/verifying-data-using-checksums/">Verifying Data Using Checksums</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-07T16:31:00-06:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Checksums are used verify data integrity and in some cases, authenticity.</p>
+
+<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
+
+<p>To check a single file on Mac OS X, simply run:</p>
+
+<pre><code>shasum -a 256 file.iso
+</code></pre>
+
+<p>To check multiple files using a SHA256SUMS file:</p>
+
+<pre><code>cd ~/Downloads
+shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
+</code></pre>
+
+<p>If the file was verified you should see:</p>
+
+<pre><code>Vagrant-1.4.3.dmg: OK
+</code></pre>
+
+<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -650,70 +706,9 @@ at -r id
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/05/mysql-import-slash-export-progress-bar/">MySQL Import/Export Progress Bar</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-05T22:05:00-06:00" pubdate data-updated="true">Sep 5<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MySQL command line progress can be monitored using the terminal-based &ldquo;Pipe Viewer&rdquo; <code>pv</code>.</p>
-
-<h2>Import</h2>
-
-<pre><code>pv /path/to/sqlfile.sql | mysql -uUSERNAME -pPASSWORD -D DATABASE_NAME
-</code></pre>
-
-<h2>Export</h2>
-
-<p>We need to estimate the file size of our export to get an accurate reading.  This can be done via the information schema:</p>
-
-<pre><code>SELECT
-    Data_BB / POWER(1024,1) Data_KB,
-    Data_BB / POWER(1024,2) Data_MB,
-    Data_BB / POWER(1024,3) Data_GB
-FROM (
-    SELECT SUM(data_length) Data_BB
-    FROM information_schema.tables
-    WHERE table_schema IN ('DATABASE_NAME')
-) A;
-</code></pre>
-
-<p>We then use the estimated size to track export progress:</p>
-
-<pre><code>mysqldump -uUSERNAME -pPASSWORD DATABASE_NAME | pv -s 9999M &gt; DATABASE_NAME.sql 
-</code></pre>
-
-<p>Beer Break!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -724,6 +719,10 @@ FROM (
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/07/verifying-data-using-checksums/">Verifying Data Using Checksums</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/10/16/mysql-server-has-gone-away/">MySQL Server Has Gone Away</a>
@@ -739,10 +738,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2013/09/25/unix-pipelines-vs-redirection/">Unix Pipelines vs Redirection</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/23/mounting-an-afp-filesystem/">Mounting an AFP Filesystem</a>
       </li>
     
   </ul>
@@ -787,7 +782,7 @@ FROM (
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Kevin Warrington -
+  Copyright &copy; 2014 - Kevin Warrington -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
