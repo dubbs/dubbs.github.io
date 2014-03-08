@@ -9,8 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="When trying to run vagrant up, received error: There was an error while executing `VBoxManage`, a CLI used by Vagrant
-for controlling VirtualBox. The &hellip;">
+  <meta name="description" content="The hosts file is used to map hostnames to ip addresses. localhost is the hostname for the loopback network interface, in /etc/hosts: # IPv4 loopback &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,69 @@ for controlling VirtualBox. The &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/08/using-the-loopback-interface/">Using the Loopback Interface</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-08T15:14:00-06:00" pubdate data-updated="true">Mar 8<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The hosts file is used to map hostnames to ip addresses.</p>
+
+<p><strong>localhost</strong> is the hostname for the loopback network interface, in <code>/etc/hosts</code>:</p>
+
+<pre><code># IPv4 loopback address
+127.0.0.1 localhost
+
+# IPv6 loopback address
+::1 localhost
+
+# IPv6 link-local address
+fe80::1%lo0 localhost
+</code></pre>
+
+<p>An <strong>loopback</strong> address is used to send a packet to itself, whereas <strong>link-local</strong>
+allows packet transfer between devices on the local link (not routable).</p>
+
+<p>Loopback addresses are often used in web development:</p>
+
+<pre><code>127.0.0.1 localhost project1.local project2.local
+</code></pre>
+
+<p>They are also used to increase privacy and security.  Here is a very helpful <a href="http://someonewhocares.org/hosts/hosts">resource</a> on the subject.</p>
+
+<p>After updating your hosts file, be sure to clear the directory service cache:</p>
+
+<pre><code>dscacheutil -flushcache
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -619,60 +681,6 @@ to an internal resource.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/17/moving-on-the-command-line/">Moving on the Command Line</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-17T20:13:00-06:00" pubdate data-updated="true">Sep 17<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Moving along the command line will be a breeze, if you know the following shortcuts.</p>
-
-<p><kbd>ctrl</kbd>+<kbd>a</kbd> &ndash; move to start of line<br/>
-<kbd>ctrl</kbd>+<kbd>e</kbd> &ndash; move to end of line<br/>
-<kbd>alt</kbd>+<kbd>b</kbd> &ndash; move backwards a word<br/>
-<kbd>alt</kbd>+<kbd>f</kbd> &ndash; move forwards a word<br/>
-<kbd>alt</kbd>+<kbd>del</kbd> &ndash; remove word<br/>
-<kbd>ctrl</kbd>+<kbd>k</kbd> &ndash; remove to end of line</p>
-
-<p>On Mac, make sure you setup the following config in <code>Terminal &gt; Preferences &gt; Keyboard</code>:</p>
-
-<ul>
-<li>use option as meta key is checked</li>
-<li>option cursor left is set to \033b</li>
-<li>option cursor right is set to \033f</li>
-</ul>
-
-
-<p>where \033 = <kbd>esc</kbd></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -688,6 +696,10 @@ to an internal resource.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/08/using-the-loopback-interface/">Using the Loopback Interface</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/07/error-failed-to-create-host-only-adapter/">Error: Failed to Create Host-Only Adapter</a>
       </li>
     
@@ -701,10 +713,6 @@ to an internal resource.</p>
     
       <li class="post">
         <a href="/blog/2013/10/15/joining-files-on-the-command-line/">Joining Files on the Command Line</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/26/converting-between-formats/">Converting Between Formats</a>
       </li>
     
   </ul>

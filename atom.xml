@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-03-07T20:53:40-06:00</updated>
+  <updated>2014-03-08T15:17:44-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using the Loopback Interface]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/"/>
+    <updated>2014-03-08T15:14:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface</id>
+    <content type="html"><![CDATA[<p>The hosts file is used to map hostnames to ip addresses.</p>
+
+<p><strong>localhost</strong> is the hostname for the loopback network interface, in <code>/etc/hosts</code>:</p>
+
+<pre><code># IPv4 loopback address
+127.0.0.1 localhost
+
+# IPv6 loopback address
+::1 localhost
+
+# IPv6 link-local address
+fe80::1%lo0 localhost
+</code></pre>
+
+<p>An <strong>loopback</strong> address is used to send a packet to itself, whereas <strong>link-local</strong>
+allows packet transfer between devices on the local link (not routable).</p>
+
+<p>Loopback addresses are often used in web development:</p>
+
+<pre><code>127.0.0.1 localhost project1.local project2.local
+</code></pre>
+
+<p>They are also used to increase privacy and security.  Here is a very helpful <a href="http://someonewhocares.org/hosts/hosts">resource</a> on the subject.</p>
+
+<p>After updating your hosts file, be sure to clear the directory service cache:</p>
+
+<pre><code>dscacheutil -flushcache
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Error: Failed to Create Host-Only Adapter]]></title>

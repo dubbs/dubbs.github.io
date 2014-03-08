@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: unix - Kevin Warrington</title>
+  <title>Using the Loopback Interface - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Category: unix">
+  <meta name="description" content="The hosts file is used to map hostnames to ip addresses. localhost is the hostname for the loopback network interface, in /etc/hosts: # IPv4 loopback &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.ioblog/categories/unix">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -76,78 +76,120 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Unix</h1>
+    
+      <h1 class="entry-title">Using the Loopback Interface</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-08T15:14:00-06:00" pubdate data-updated="true">Mar 8<span>th</span>, 2014</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>The hosts file is used to map hostnames to ip addresses.</p>
 
-  
-  <h2>2013</h2>
+<p><strong>localhost</strong> is the hostname for the loopback network interface, in <code>/etc/hosts</code>:</p>
 
-<article>
-  
-<h1><a href="/blog/2013/10/15/joining-files-on-the-command-line/">Joining files on the command line</a></h1>
-<time datetime="2013-10-15T16:00:00-06:00" pubdate><span class='month'>Oct</span> <span class='day'>15</span> <span class='year'>2013</span></time>
+<pre><code># IPv4 loopback address
+127.0.0.1 localhost
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/unix/'>unix</a></span>
-</footer>
+# IPv6 loopback address
+::1 localhost
 
+# IPv6 link-local address
+fe80::1%lo0 localhost
+</code></pre>
 
-</article>
+<p>An <strong>loopback</strong> address is used to send a packet to itself, whereas <strong>link-local</strong>
+allows packet transfer between devices on the local link (not routable).</p>
 
+<p>Loopback addresses are often used in web development:</p>
 
+<pre><code>127.0.0.1 localhost project1.local project2.local
+</code></pre>
 
-<article>
-  
-<h1><a href="/blog/2013/09/25/unix-pipelines-vs-redirection/">Unix Pipelines vs Redirection</a></h1>
-<time datetime="2013-09-25T20:05:00-06:00" pubdate><span class='month'>Sep</span> <span class='day'>25</span> <span class='year'>2013</span></time>
+<p>They are also used to increase privacy and security.  Here is a very helpful <a href="http://someonewhocares.org/hosts/hosts">resource</a> on the subject.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/unix/'>unix</a></span>
-</footer>
+<p>After updating your hosts file, be sure to clear the directory service cache:</p>
 
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/09/17/moving-on-the-command-line/">Moving on the Command Line</a></h1>
-<time datetime="2013-09-17T20:13:00-06:00" pubdate><span class='month'>Sep</span> <span class='day'>17</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/unix/'>unix</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/09/16/working-with-background-processes/">Working with Background Processes</a></h1>
-<time datetime="2013-09-16T21:33:00-06:00" pubdate><span class='month'>Sep</span> <span class='day'>16</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/unix/'>unix</a></span>
-</footer>
-
-
-</article>
-
+<pre><code>dscacheutil -flushcache
+</code></pre>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Kevin Warrington</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-08T15:14:00-06:00" pubdate data-updated="true">Mar 8<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mac/'>mac</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/07/error-failed-to-create-host-only-adapter/" title="Previous Post: Error: Failed to Create Host-Only Adapter">&laquo; Error: Failed to Create Host-Only Adapter</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -231,7 +273,10 @@
       var disqus_shortname = 'dubbs';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/';
+        var disqus_url = 'http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
