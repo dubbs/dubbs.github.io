@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unix | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-03-08T17:31:02-06:00</updated>
+  <updated>2014-03-09T17:17:17-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -93,6 +93,21 @@ rm file
 command1 &gt; existingfile
 # -bash: existingfile: cannot overwrite existing file
 </code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mounting an AFP Filesystem]]></title>
+    <link href="http://dubbs.github.io/blog/2013/09/23/mounting-an-afp-filesystem/"/>
+    <updated>2013-09-23T13:35:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/09/23/mounting-an-afp-filesystem</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s a simple way to connect to an Apple Filing Protocol (AFP) based server and access shared files.</p>
+
+<pre><code>mkdir /Volumes/my-share
+mount_afp "afp://192.168.0.1/folder/" /Volumes/my-share
+</code></pre>
+
+<p>You can access your new connection in either <code>/Volumes</code> or in left pane of the finder.</p>
 ]]></content>
   </entry>
   
