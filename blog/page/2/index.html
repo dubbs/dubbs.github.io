@@ -9,8 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Moving along the command line will be a breeze, if you know the following shortcuts. ctrl+a &ndash; move to start of line
-ctrl+e &ndash; move to end &hellip;">
+  <meta name="description" content="MySQL system variables can be queried using the show variables syntax: mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"' It& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,50 @@ ctrl+e &ndash; move to end &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/23/querying-mysql-configuration/">Querying MySQL Configuration</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-23T12:40:00-06:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>MySQL system variables can be queried using the <a href="http://dev.mysql.com/doc/refman/5.7/en/show-variables.html">show variables</a> syntax:</p>
+
+<pre><code>mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"'
+</code></pre>
+
+<p>It&rsquo;s also useful to find out with <code>my.cnf</code> file MySQL will try to load on init:</p>
+
+<pre><code>mysql --help | grep cnf
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -300,6 +343,10 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/10/cloud-computing-service-models/">Cloud Computing Service Models</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/08/using-the-loopback-interface/">Using the Loopback Interface</a>
       </li>
     
@@ -313,10 +360,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2013/10/16/error-mysql-server-has-gone-away/">Error: MySQL Server Has Gone Away</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/10/15/joining-files-on-the-command-line/">Joining Files on the Command Line</a>
       </li>
     
   </ul>
