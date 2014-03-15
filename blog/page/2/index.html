@@ -9,8 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Here&rsquo;s a simple way to connect to an Apple Filing Protocol (AFP) based server and access shared files. mkdir /Volumes/my-share
-mount_afp "afp &hellip;">
+  <meta name="description" content="Redirection is used to send data from standard streams to specific locations. To send the standard output stream to a file, instead of the terminal: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,104 @@ mount_afp "afp &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/25/unix-pipelines-vs-redirection/">Unix Pipelines vs Redirection</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-25T20:05:00-06:00" pubdate data-updated="true">Sep 25<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Redirection is used to send data from standard streams to specific locations.</p>
+
+<p>To send the standard output stream to a file, instead of the terminal:</p>
+
+<pre><code>command1 &gt; outfile
+command1 1&gt; outfile
+</code></pre>
+
+<p>Same as above, but instead send the standard error stream:</p>
+
+<pre><code>command1 2&gt; outfile
+</code></pre>
+
+<p>To send standard output/error streams to a file, instead of the terminal:</p>
+
+<pre><code>command1 &gt; outfile 2&gt;&amp;1
+</code></pre>
+
+<p>Output can also be disposed of using the null device:</p>
+
+<pre><code>command1 &gt; /dev/null 2&gt;&amp;1
+</code></pre>
+
+<p>To use the contents of a file as the standard input stream to a command, instead of using keyboard input:</p>
+
+<pre><code>command1 &lt; infile
+</code></pre>
+
+<p>Input can be read from one file and output to another:</p>
+
+<pre><code>command1 &lt; infile &gt; outfile
+</code></pre>
+
+<p>The standard output of one command can also be used as the standard input to another using a temporary file:</p>
+
+<pre><code>command1 &gt; file
+command2 &lt; file
+rm file
+</code></pre>
+
+<p>However, this is inefficient as the second command has to wait for the first to complete before proceeding.  Also, there is a chance that the temporary file will overwrite an already existing one.</p>
+
+<p>Instead, it is more efficient to directly stream the output of one command into another via <code>pipes</code>:</p>
+
+<pre><code>command1 | command2
+</code></pre>
+
+<p>Along with the standard out, you can also send standard error, notice that it appears before the pipe.</p>
+
+<pre><code>command1 2&gt;&amp;1 | command2
+</code></pre>
+
+<p>It is also possible to direct the output of a command to standard out and an outfile using <code>tee</code>.</p>
+
+<pre><code>command1 | tee outfile
+</code></pre>
+
+<p>Lastly, if you want to avoid overwriting files when redirecting, set noclobber:</p>
+
+<pre><code>set -o noclobber
+command1 &gt; existingfile
+# -bash: existingfile: cannot overwrite existing file
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -496,6 +593,10 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/14/apache-and-or-nginx/">Apache and or Nginx</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/13/modernizr-plugin-api/">Modernizr Plugin API</a>
       </li>
     
@@ -509,10 +610,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2014/03/08/using-the-loopback-interface/">Using the Loopback Interface</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/07/error-failed-to-create-host-only-adapter/">Error: Failed to Create Host-Only Adapter</a>
       </li>
     
   </ul>

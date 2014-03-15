@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Forward vs Reverse Proxy using Apache - Kevin Warrington</title>
+  <title>Apache and or Nginx - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="A proxy server acts as an intermediary between a client and a destination server, primarily controlling access to resources and caching content. To &hellip;">
+  <meta name="description" content="Apache Apache was designed to be consistent and reliable at processing requests. It uses a process-driven architecture and handles one connection per &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -80,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">Forward vs Reverse Proxy Using Apache</h1>
+      <h1 class="entry-title">Apache and or Nginx</h1>
     
     
       <p class="meta">
@@ -96,88 +96,76 @@
   
 
 
-<time datetime="2013-09-23T13:09:00-06:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2013</time>
+<time datetime="2014-03-14T23:54:00-06:00" pubdate data-updated="true">Mar 14<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>A proxy server acts as an intermediary between a client and a destination server, primarily controlling access to resources and caching content.</p>
+<div class="entry-content"><h2>Apache</h2>
 
-<p>To enable proxy functionality in Apache, use the following:</p>
+<p>Apache was designed to be <strong>consistent</strong> and <strong>reliable</strong> at processing requests.</p>
 
-<pre><code># /etc/apache2/httpd.conf
-LoadModule proxy_module modules/mod_proxy.so
-LoadModule proxy_http_module modules/mod_proxy_http.so
-</code></pre>
+<p>It uses a <strong>process-driven</strong> architecture and handles one connection per-process or per-thread.</p>
 
-<h2>Forward Proxy</h2>
+<p>Apache comes with 2 multi processing modules (MPM), which bind to ports, accept requests and spawn processes:</p>
 
-<p>A <a href="http://en.wikipedia.org/wiki/Proxy_server#Forward_proxies">Forward Proxy</a> is typically used to:</p>
+<ol>
+<li><p><strong>Prefork</strong> MPM</p>
+
+<p> Uses multiple child processes with one thread each.
+ Each process handles one connection at a time.</p></li>
+<li><p><strong>Worker</strong> MPM</p>
+
+<p> Uses multiple child processes with many threads each.
+ Each thread handles one connection at a time.
+ If you want to use mod_php (not thread safe), it is recommended that you also use FastCGI, so that php is running in its own memory space.</p></li>
+</ol>
+
+
+<p>Apache does not scale well under high server load, often consuming large amounts of RAM and CPU.</p>
+
+<p>With Apache, it is easy to configure complex setups, it has excellent documentation and abundant module availability.</p>
+
+<h2>Nginx</h2>
+
+<p>Nginx was designed to solve the <a href="https://en.wikipedia.org/wiki/C10k_problem">c10k problem</a>, and as a result, is a highly performant http and reverse proxy server.</p>
+
+<p>It uses an <strong>event-driven</strong> architecture and handles multiple connections
+in a single event loop.</p>
+
+<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 &ndash; 95% of website requests.
+It scales very well under high server load, and is not dependent on the underlying server hardware.</p>
+
+<p>Compared to other more established web servers,
+complex site configuration is typically more difficult with Nginx,
+due to lightweight design.  It also lacking in documentation and module support.</p>
+
+<p>Some notable sites using Nginx include:</p>
 
 <ul>
-<li>hide the identities of clients</li>
-<li>provide internet access to clients blocked by firewall</li>
-<li>cache content to reduce network traffic</li>
+<li>github</li>
+<li>wordpress</li>
+<li>pinterest</li>
+<li>netflix</li>
+<li>cloudflare</li>
 </ul>
 
 
-<p>A forward proxy accepts requests from internal clients and forwards them to an external resource.</p>
+<h2>Both?</h2>
 
-<p><img src="/images/forward-proxy.png"></p>
+<p>Nginx can be used as a reverse proxy, in front of Apache, handling all
+requests for static content.  All other requests are forwarded to
+Apache via <code>proxypass</code>.  You will need to install mod_rpaf, so
+Apache picks up the <code>X-Real-IP</code> header provided by nginx.  This will make
+it seem as though Apache handled the original request.</p>
 
-<p>To configure this in Apache, we can simply control who has access to external resources by
-specifying their IP address.</p>
+<!--
+http://serverfault.com/questions/273260/when-should-i-switch-to-nginx
+http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which-web-server-is-right-for-your
+ -->
 
-<pre><code>&lt;VirtualHost *:80&gt;
-  # Enables Apache to acting as forwarding server
-  ProxyRequests On
-
-  # Adds Via header to requests
-  ProxyVia On
-
-  &lt;Proxy *&gt;
-    Order deny,allow
-    Deny from all
-
-    # Only allows this client to proxy requests
-    Allow from 192.168.0.11
-  &lt;/Proxy&gt;
-&lt;/VirtualHost&gt;
-</code></pre>
-
-<h2>Reverse Proxy</h2>
-
-<p>A <a href="http://en.wikipedia.org/wiki/Reverse_proxy">Reverse proxy</a> is typically used to:</p>
-
-<ul>
-<li>hide the identities of servers</li>
-<li>act as load balancer</li>
-<li>act as web accelerator</li>
-<li>used to perform A/B testing</li>
-</ul>
-
-
-<p>A reverse proxy accepts requests from external clients and usually forwards them
-to an internal resource.</p>
-
-<p><img src="/images/reverse-proxy.png"></p>
-
-<p>To configure this in Apache, we use the <code>ProxyPass</code> and <code>ProxyPassReverse</code> directives.</p>
-
-<pre><code>&lt;VirtualHost *:80&gt;
-  # Prevents Apache from acting as forwarding server
-  ProxyRequests Off
-
-  # http://example.com/assets/css to be internally converted into a proxy request to http://cdn.example.com/css
-  ProxyPass /assets/ http://cdn.example.com/
-
-  # if http://cdn.example.com/css has a redirect to http://cdn.example.com/v2/css
-  # Apache will adjust the request to http://example.com/assets/v2/css before forwarding response
-  ProxyPassReverse /assets/ http://cdn.example.com/
-&lt;/VirtualHost&gt;
-</code></pre>
 </div>
 
 
@@ -200,21 +188,15 @@ to an internal resource.</p>
   
 
 
-<time datetime="2013-09-23T13:09:00-06:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2013</time>
+<time datetime="2014-03-14T23:54:00-06:00" pubdate data-updated="true">Mar 14<span>th</span>, 2014</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/apache/'>apache</a>
-  
-</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx/" >Tweet</a>
   
   
   
@@ -225,10 +207,8 @@ to an internal resource.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/09/23/querying-mysql-configuration/" title="Previous Post: Querying MySQL Configuration">&laquo; Querying MySQL Configuration</a>
+        <a class="basic-alignment left" href="/blog/2014/03/13/modernizr-plugin-api/" title="Previous Post: Modernizr Plugin API">&laquo; Modernizr Plugin API</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/09/23/mounting-an-afp-filesystem/" title="Next Post: Mounting an AFP Filesystem">Mounting an AFP Filesystem &raquo;</a>
       
     </p>
   </footer>
@@ -323,8 +303,8 @@ to an internal resource.</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/';
-        var disqus_url = 'http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/';
+        var disqus_identifier = 'http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx/';
+        var disqus_url = 'http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx/';
         var disqus_script = 'embed.js';
       
     (function () {

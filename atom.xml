@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-03-13T16:34:10-06:00</updated>
+  <updated>2014-03-15T16:06:13-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,77 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Apache and or Nginx]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx/"/>
+    <updated>2014-03-14T23:54:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx</id>
+    <content type="html"><![CDATA[<h2>Apache</h2>
+
+<p>Apache was designed to be <strong>consistent</strong> and <strong>reliable</strong> at processing requests.</p>
+
+<p>It uses a <strong>process-driven</strong> architecture and handles one connection per-process or per-thread.</p>
+
+<p>Apache comes with 2 multi processing modules (MPM), which bind to ports, accept requests and spawn processes:</p>
+
+<ol>
+<li><p><strong>Prefork</strong> MPM</p>
+
+<p> Uses multiple child processes with one thread each.
+ Each process handles one connection at a time.</p></li>
+<li><p><strong>Worker</strong> MPM</p>
+
+<p> Uses multiple child processes with many threads each.
+ Each thread handles one connection at a time.
+ If you want to use mod_php (not thread safe), it is recommended that you also use FastCGI, so that php is running in its own memory space.</p></li>
+</ol>
+
+
+<p>Apache does not scale well under high server load, often consuming large amounts of RAM and CPU.</p>
+
+<p>With Apache, it is easy to configure complex setups, it has excellent documentation and abundant module availability.</p>
+
+<h2>Nginx</h2>
+
+<p>Nginx was designed to solve the <a href="https://en.wikipedia.org/wiki/C10k_problem">c10k problem</a>, and as a result, is a highly performant http and reverse proxy server.</p>
+
+<p>It uses an <strong>event-driven</strong> architecture and handles multiple connections
+in a single event loop.</p>
+
+<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 &ndash; 95% of website requests.
+It scales very well under high server load, and is not dependent on the underlying server hardware.</p>
+
+<p>Compared to other more established web servers,
+complex site configuration is typically more difficult with Nginx,
+due to lightweight design.  It also lacking in documentation and module support.</p>
+
+<p>Some notable sites using Nginx include:</p>
+
+<ul>
+<li>github</li>
+<li>wordpress</li>
+<li>pinterest</li>
+<li>netflix</li>
+<li>cloudflare</li>
+</ul>
+
+
+<h2>Both?</h2>
+
+<p>Nginx can be used as a reverse proxy, in front of Apache, handling all
+requests for static content.  All other requests are forwarded to
+Apache via <code>proxypass</code>.  You will need to install mod_rpaf, so
+Apache picks up the <code>X-Real-IP</code> header provided by nginx.  This will make
+it seem as though Apache handled the original request.</p>
+
+<!--
+http://serverfault.com/questions/273260/when-should-i-switch-to-nginx
+http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which-web-server-is-right-for-your
+ -->
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Modernizr Plugin API]]></title>
