@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: apache | Kevin Warrington]]></title>
-  <link href="http://dubbs.github.io/blog/categories/apache/atom.xml" rel="self"/>
+  <title><![CDATA[Category: nginx | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/nginx/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
   <updated>2014-03-16T13:45:45-06:00</updated>
   <id>http://dubbs.github.io/</id>
@@ -82,89 +82,6 @@ http://serverfault.com/questions/273260/when-should-i-switch-to-nginx
 http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which-web-server-is-right-for-your
  -->
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Forward vs Reverse Proxy using Apache]]></title>
-    <link href="http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/"/>
-    <updated>2013-09-23T13:09:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache</id>
-    <content type="html"><![CDATA[<p>A proxy server acts as an intermediary between a client and a destination server, primarily controlling access to resources and caching content.</p>
-
-<p>To enable proxy functionality in Apache, use the following:</p>
-
-<pre><code># /etc/apache2/httpd.conf
-LoadModule proxy_module modules/mod_proxy.so
-LoadModule proxy_http_module modules/mod_proxy_http.so
-</code></pre>
-
-<h2>Forward Proxy</h2>
-
-<p>A <a href="http://en.wikipedia.org/wiki/Proxy_server#Forward_proxies">Forward Proxy</a> is typically used to:</p>
-
-<ul>
-<li>hide the identities of clients</li>
-<li>provide internet access to clients blocked by firewall</li>
-<li>cache content to reduce network traffic</li>
-</ul>
-
-
-<p>A forward proxy accepts requests from internal clients and forwards them to an external resource.</p>
-
-<p><img src="/images/forward-proxy.png"></p>
-
-<p>To configure this in Apache, we can simply control who has access to external resources by
-specifying their IP address.</p>
-
-<pre><code>&lt;VirtualHost *:80&gt;
-  # Enables Apache to acting as forwarding server
-  ProxyRequests On
-
-  # Adds Via header to requests
-  ProxyVia On
-
-  &lt;Proxy *&gt;
-    Order deny,allow
-    Deny from all
-
-    # Only allows this client to proxy requests
-    Allow from 192.168.0.11
-  &lt;/Proxy&gt;
-&lt;/VirtualHost&gt;
-</code></pre>
-
-<h2>Reverse Proxy</h2>
-
-<p>A <a href="http://en.wikipedia.org/wiki/Reverse_proxy">Reverse proxy</a> is typically used to:</p>
-
-<ul>
-<li>hide the identities of servers</li>
-<li>act as load balancer</li>
-<li>act as web accelerator</li>
-<li>used to perform A/B testing</li>
-</ul>
-
-
-<p>A reverse proxy accepts requests from external clients and usually forwards them
-to an internal resource.</p>
-
-<p><img src="/images/reverse-proxy.png"></p>
-
-<p>To configure this in Apache, we use the <code>ProxyPass</code> and <code>ProxyPassReverse</code> directives.</p>
-
-<pre><code>&lt;VirtualHost *:80&gt;
-  # Prevents Apache from acting as forwarding server
-  ProxyRequests Off
-
-  # http://example.com/assets/css to be internally converted into a proxy request to http://cdn.example.com/css
-  ProxyPass /assets/ http://cdn.example.com/
-
-  # if http://cdn.example.com/css has a redirect to http://cdn.example.com/v2/css
-  # Apache will adjust the request to http://example.com/assets/v2/css before forwarding response
-  ProxyPassReverse /assets/ http://cdn.example.com/
-&lt;/VirtualHost&gt;
-</code></pre>
 ]]></content>
   </entry>
   

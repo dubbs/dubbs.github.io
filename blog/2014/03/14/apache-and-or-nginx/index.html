@@ -9,7 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Apache Apache was designed to be consistent and reliable at processing requests. It uses a process-driven architecture and handles one connection per &hellip;">
+  <meta name="description" content="Apache Apache was designed to process web requests in a consistent and reliable manner. It uses a process-driven architecture and handles one &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,7 +105,7 @@
 
 <div class="entry-content"><h2>Apache</h2>
 
-<p>Apache was designed to be <strong>consistent</strong> and <strong>reliable</strong> at processing requests.</p>
+<p>Apache was designed to process web requests in a <strong>consistent</strong> and <strong>reliable</strong> manner.</p>
 
 <p>It uses a <strong>process-driven</strong> architecture and handles one connection per-process or per-thread.</p>
 
@@ -158,10 +158,11 @@ due to lightweight design.  It also lacking in documentation and module support.
 <p>Nginx can be used as a reverse proxy, in front of Apache, handling all
 requests for static content.  All other requests are forwarded to
 Apache via <code>proxypass</code>.  You will need to install mod_rpaf, so
-Apache picks up the <code>X-Real-IP</code> header provided by nginx.  This will make
+Apache can pick up the <code>X-Real-IP</code> header provided by nginx.  This will make
 it seem as though Apache handled the original request.</p>
 
 <!--
+http://www.stderr.net/apache/rpaf/
 http://serverfault.com/questions/273260/when-should-i-switch-to-nginx
 http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which-web-server-is-right-for-your
  -->
@@ -190,6 +191,12 @@ http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which
 
 <time datetime="2014-03-14T23:54:00-06:00" pubdate data-updated="true">Mar 14<span>th</span>, 2014</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/apache/'>apache</a>, <a class='category' href='/blog/categories/nginx/'>nginx</a>
+  
+</span>
 
 
     </p>
