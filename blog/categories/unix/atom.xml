@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unix | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-03-16T13:45:45-06:00</updated>
+  <updated>2014-03-19T00:01:24-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Executing Shell Scripts]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts/"/>
+    <updated>2014-03-18T23:53:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts</id>
+    <content type="html"><![CDATA[<p>Here are some of the basic ways you can execute scripts on the command line.</p>
+
+<p><code>source</code> or <code>.</code> will read and execute commands from filename in the <strong>current shell</strong> environment.<br/>
+Any environment variables set within the script will remain after exit.</p>
+
+<pre><code>. test.sh
+source test.sh
+</code></pre>
+
+<p><code>sh</code> or <code>bash</code> will fork a <strong>new shell</strong> with the specified interpreter.</p>
+
+<pre><code>sh test.sh
+bash test.sh
+</code></pre>
+
+<p><code>./</code> will also fork a <strong>new shell</strong>, but the file needs to be set as executable and interpreter will be derived from the shebang (<code>#!/bin/sh</code>).</p>
+
+<pre><code>chmod +x test.sh
+./test.sh
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Joining files on the command line]]></title>
@@ -135,68 +163,6 @@ mount_afp "afp://192.168.0.1/folder/" /Volumes/my-share
 
 
 <p>where \033 = <kbd>esc</kbd></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Working with Background Processes]]></title>
-    <link href="http://dubbs.github.io/blog/2013/09/16/working-with-background-processes/"/>
-    <updated>2013-09-16T21:33:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/09/16/working-with-background-processes</id>
-    <content type="html"><![CDATA[<p>For long running processes, rather than blocking your prompt, it&rsquo;s often useful to push commands to the background and complete other tasks.</p>
-
-<p>To run a command in the background.</p>
-
-<pre><code>&lt;command&gt; &amp;
-</code></pre>
-
-<p>To run a command in the background, detached from your console.  The process will not terminate on logout.  <code>nice</code> sets a lower priority.</p>
-
-<pre><code>nohup nice &lt;command&gt; &amp;
-</code></pre>
-
-<p>List all background processes</p>
-
-<pre><code>jobs
-</code></pre>
-
-<p>To send currently running command to background, first stop the process, <code>Ctrl-z</code>.</p>
-
-<pre><code>bg
-</code></pre>
-
-<p>To bring a background process to the foreground</p>
-
-<pre><code>fg
-fg %1
-</code></pre>
-
-<p>To destroy a background process</p>
-
-<pre><code>kill %1 
-kill -9 %1  
-kill &lt;pid&gt;
-</code></pre>
-
-<p>To receive an email notification when a background process finishes</p>
-
-<pre><code>&lt;command&gt; | tee command.log | mailx -s 'PROCESS COMPLETE' test@example.com &amp;
-</code></pre>
-
-<p>To run a set of jobs when cpu levels permit, use batch.  <kbd>ctrl</kbd>+<kbd>d</kbd> to end input.</p>
-
-<pre><code>user@example.com &gt; ~/.forward
-batch -m
-command1
-command2
-command3
-</code></pre>
-
-<p>You can list batch jobs and kill using the id</p>
-
-<pre><code>at -l
-at -r id
-</code></pre>
 ]]></content>
   </entry>
   

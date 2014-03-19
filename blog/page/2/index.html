@@ -9,7 +9,8 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Redirection is used to send data from standard streams to specific locations. To send the standard output stream to a file, instead of the terminal: &hellip;">
+  <meta name="description" content="There are many tools you can use to convert between file formats. Convert bin to iso, with bchunk: brew install bchunk
+bchunk input.bin input.cue &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/26/converting-between-formats/">Converting Between Formats</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-26T13:17:00-06:00" pubdate data-updated="true">Sep 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>There are many tools you can use to convert between file formats.</p>
+
+<p>Convert <code>bin</code> to <code>iso</code>, with bchunk:</p>
+
+<pre><code>brew install bchunk
+bchunk input.bin input.cue output.iso
+</code></pre>
+
+<p>Convert <code>png</code> to <code>svg</code>, with convert and potrace, for simple images:</p>
+
+<pre><code>brew install imagemagick potrace
+convert file.png file.pnm
+potrace file.pnm -s -o file.svg -C#ff0000 -k0.6 # red foreground, more detail
+rm file.pnm
+</code></pre>
+
+<p>More to come!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -593,6 +646,10 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/18/executing-shell-scripts/">Executing Shell Scripts</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/14/apache-and-or-nginx/">Apache and or Nginx</a>
       </li>
     
@@ -606,10 +663,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2014/03/10/cloud-computing-service-models/">Cloud Computing Service Models</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/08/using-the-loopback-interface/">Using the Loopback Interface</a>
       </li>
     
   </ul>
