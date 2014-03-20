@@ -9,8 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="There are many tools you can use to convert between file formats. Convert bin to iso, with bchunk: brew install bchunk
-bchunk input.bin input.cue &hellip;">
+  <meta name="description" content="Here&rsquo;s an extremely easy way to join files in unix. It uses the () subshell operator, which waits for the enclosed command to return before &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,45 @@ bchunk input.bin input.cue &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/15/joining-files-on-the-command-line/">Joining Files on the Command Line</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T16:00:00-06:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
+
+<pre><code>(cat file1 file2)&gt; file3
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -646,6 +684,10 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/18/executing-shell-scripts/">Executing Shell Scripts</a>
       </li>
     
@@ -659,10 +701,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2014/03/12/vagrant/">Vagrant</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/10/cloud-computing-service-models/">Cloud Computing Service Models</a>
       </li>
     
   </ul>

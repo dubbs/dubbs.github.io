@@ -9,7 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Here are some of the basic ways you can execute scripts on the command line. source or . will read and execute commands from filename in the current &hellip;">
+  <meta name="description" content="Modes There are two main shell modes: Login When a user logs in with a non-graphical interface or SSH. Interactive When a user has a prompt and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-19T23:20:00-06:00" pubdate data-updated="true">Mar 19<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Modes</h2>
+
+<p>There are two main shell modes:</p>
+
+<h3>Login</h3>
+
+<p>When a user logs in with a non-graphical interface or SSH.</p>
+
+<h3>Interactive</h3>
+
+<p>When a user has a prompt and standard in/out are connected to the terminal.</p>
+
+<h2>Combinations of Modes</h2>
+
+<p>A shell can be initialized with the following mode combinations:</p>
+
+<h4>Login + Interactive</h4>
+
+<ul>
+<li>log in to a remote system via SSH</li>
+<li>new terminal tab, Mac OS X</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The systemwide initialization file
+/etc/profile
+
+# The personal initialization files, first one found, in order
+~/.bash_profile
+~/.bash_login
+~/.profile
+</code></pre>
+
+<h4>Non-login + Interactive</h4>
+
+<ul>
+<li>new terminal tab, linux</li>
+<li>start new shell process ($ bash)</li>
+<li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The individual per-interactive-shell startup file
+~/.bashrc
+</code></pre>
+
+<h4>Non-login + Non-Interactive</h4>
+
+<ul>
+<li>run an executable with #!/usr/bin/env bash shebang</li>
+<li>run a script ($ bash test.sh)</li>
+<li>execute script remotely (ssh user@host &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code>source $BASH_ENV
+</code></pre>
+
+<p>References:</p>
+
+<ul>
+<li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -753,45 +858,6 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/15/joining-files-on-the-command-line/">Joining Files on the Command Line</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-15T16:00:00-06:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
-
-<pre><code>(cat file1 file2)&gt; file3
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -807,6 +873,10 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/18/executing-shell-scripts/">Executing Shell Scripts</a>
       </li>
     
@@ -820,10 +890,6 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
     
       <li class="post">
         <a href="/blog/2014/03/12/vagrant/">Vagrant</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/10/cloud-computing-service-models/">Cloud Computing Service Models</a>
       </li>
     
   </ul>

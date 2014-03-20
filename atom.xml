@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-03-19T00:01:24-06:00</updated>
+  <updated>2014-03-19T23:22:45-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,84 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Shell Modes and Init Files]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/"/>
+    <updated>2014-03-19T23:20:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files</id>
+    <content type="html"><![CDATA[<h2>Modes</h2>
+
+<p>There are two main shell modes:</p>
+
+<h3>Login</h3>
+
+<p>When a user logs in with a non-graphical interface or SSH.</p>
+
+<h3>Interactive</h3>
+
+<p>When a user has a prompt and standard in/out are connected to the terminal.</p>
+
+<h2>Combinations of Modes</h2>
+
+<p>A shell can be initialized with the following mode combinations:</p>
+
+<h4>Login + Interactive</h4>
+
+<ul>
+<li>log in to a remote system via SSH</li>
+<li>new terminal tab, Mac OS X</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The systemwide initialization file
+/etc/profile
+
+# The personal initialization files, first one found, in order
+~/.bash_profile
+~/.bash_login
+~/.profile
+</code></pre>
+
+<h4>Non-login + Interactive</h4>
+
+<ul>
+<li>new terminal tab, linux</li>
+<li>start new shell process ($ bash)</li>
+<li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The individual per-interactive-shell startup file
+~/.bashrc
+</code></pre>
+
+<h4>Non-login + Non-Interactive</h4>
+
+<ul>
+<li>run an executable with #!/usr/bin/env bash shebang</li>
+<li>run a script ($ bash test.sh)</li>
+<li>execute script remotely (ssh user@host &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code>source $BASH_ENV
+</code></pre>
+
+<p>References:</p>
+
+<ul>
+<li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Executing Shell Scripts]]></title>
