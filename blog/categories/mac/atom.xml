@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mac | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-03-19T23:22:45-06:00</updated>
+  <updated>2014-03-20T19:43:03-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -22,11 +22,11 @@
 
 <p>There are two main shell modes:</p>
 
-<h3>Login</h3>
+<h3>1. Login</h3>
 
 <p>When a user logs in with a non-graphical interface or SSH.</p>
 
-<h3>Interactive</h3>
+<h3>2. Interactive</h3>
 
 <p>When a user has a prompt and standard in/out are connected to the terminal.</p>
 

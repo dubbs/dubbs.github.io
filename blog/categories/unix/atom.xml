@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: unix, | Kevin Warrington]]></title>
+  <title><![CDATA[Category: unix | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-03-19T23:22:45-06:00</updated>
+  <updated>2014-03-20T19:43:03-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -22,11 +22,11 @@
 
 <p>There are two main shell modes:</p>
 
-<h3>Login</h3>
+<h3>1. Login</h3>
 
 <p>When a user logs in with a non-graphical interface or SSH.</p>
 
-<h3>Interactive</h3>
+<h3>2. Interactive</h3>
 
 <p>When a user has a prompt and standard in/out are connected to the terminal.</p>
 
@@ -88,6 +88,132 @@
 <li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
 </ul>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Executing Shell Scripts]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts/"/>
+    <updated>2014-03-18T23:53:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts</id>
+    <content type="html"><![CDATA[<p>Here are some of the basic ways you can execute scripts on the command line.</p>
+
+<p><code>source</code> or <code>.</code> will read and execute commands from filename in the <strong>current shell</strong> environment.<br/>
+Any environment variables set within the script will remain after exit.</p>
+
+<pre><code>. test.sh
+source test.sh
+</code></pre>
+
+<p><code>sh</code> or <code>bash</code> will fork a <strong>new shell</strong> with the specified interpreter.</p>
+
+<pre><code>sh test.sh
+bash test.sh
+</code></pre>
+
+<p><code>./</code> will also fork a <strong>new shell</strong>, but the file needs to be set as executable and interpreter will be derived from the shebang (<code>#!/bin/sh</code>).</p>
+
+<pre><code>chmod +x test.sh
+./test.sh
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Joining files on the command line]]></title>
+    <link href="http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/"/>
+    <updated>2013-10-15T16:00:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
+
+<pre><code>(cat file1 file2)&gt; file3
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unix Pipelines vs Redirection]]></title>
+    <link href="http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection/"/>
+    <updated>2013-09-25T20:05:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection</id>
+    <content type="html"><![CDATA[<p>Redirection is used to send data from standard streams to specific locations.</p>
+
+<p>To send the standard output stream to a file, instead of the terminal:</p>
+
+<pre><code>command1 &gt; outfile
+command1 1&gt; outfile
+</code></pre>
+
+<p>Same as above, but instead send the standard error stream:</p>
+
+<pre><code>command1 2&gt; outfile
+</code></pre>
+
+<p>To send standard output/error streams to a file, instead of the terminal:</p>
+
+<pre><code>command1 &gt; outfile 2&gt;&amp;1
+</code></pre>
+
+<p>Output can also be disposed of using the null device:</p>
+
+<pre><code>command1 &gt; /dev/null 2&gt;&amp;1
+</code></pre>
+
+<p>To use the contents of a file as the standard input stream to a command, instead of using keyboard input:</p>
+
+<pre><code>command1 &lt; infile
+</code></pre>
+
+<p>Input can be read from one file and output to another:</p>
+
+<pre><code>command1 &lt; infile &gt; outfile
+</code></pre>
+
+<p>The standard output of one command can also be used as the standard input to another using a temporary file:</p>
+
+<pre><code>command1 &gt; file
+command2 &lt; file
+rm file
+</code></pre>
+
+<p>However, this is inefficient as the second command has to wait for the first to complete before proceeding.  Also, there is a chance that the temporary file will overwrite an already existing one.</p>
+
+<p>Instead, it is more efficient to directly stream the output of one command into another via <code>pipes</code>:</p>
+
+<pre><code>command1 | command2
+</code></pre>
+
+<p>Along with the standard out, you can also send standard error, notice that it appears before the pipe.</p>
+
+<pre><code>command1 2&gt;&amp;1 | command2
+</code></pre>
+
+<p>It is also possible to direct the output of a command to standard out and an outfile using <code>tee</code>.</p>
+
+<pre><code>command1 | tee outfile
+</code></pre>
+
+<p>Lastly, if you want to avoid overwriting files when redirecting, set noclobber:</p>
+
+<pre><code>set -o noclobber
+command1 &gt; existingfile
+# -bash: existingfile: cannot overwrite existing file
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mounting an AFP Filesystem]]></title>
+    <link href="http://dubbs.github.io/blog/2013/09/23/mounting-an-afp-filesystem/"/>
+    <updated>2013-09-23T13:35:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/09/23/mounting-an-afp-filesystem</id>
+    <content type="html"><![CDATA[<p>Here&rsquo;s a simple way to connect to an Apple Filing Protocol (AFP) based server and access shared files.</p>
+
+<pre><code>mkdir /Volumes/my-share
+mount_afp "afp://192.168.0.1/folder/" /Volumes/my-share
+</code></pre>
+
+<p>You can access your new connection in either <code>/Volumes</code> or in left pane of the finder.</p>
 ]]></content>
   </entry>
   
