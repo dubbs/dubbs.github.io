@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Vagrant - Kevin Warrington</title>
+  <title>Non-Blocking MySQL database export for InnoDB tables - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Vagrant is used to create and configure
-lightweight, reproducible, and portable (Linux, Mac OS X or Windows) development environments Setup A &hellip;">
+  <meta name="description" content="To quickly dump a large InnoDB database to file without locking it up: mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ lightweight, reproducible, and portable (Linux, Mac OS X or Windows) development
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2014/03/12/vagrant">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -81,7 +80,7 @@ lightweight, reproducible, and portable (Linux, Mac OS X or Windows) development
   
   <header>
     
-      <h1 class="entry-title">Vagrant</h1>
+      <h1 class="entry-title">Non-Blocking MySQL Database Export for InnoDB Tables</h1>
     
     
       <p class="meta">
@@ -97,125 +96,25 @@ lightweight, reproducible, and portable (Linux, Mac OS X or Windows) development
   
 
 
-<time datetime="2014-03-12T10:45:00-06:00" pubdate data-updated="true">Mar 12<span>th</span>, 2014</time>
+<time datetime="2014-08-17T16:03:00-06:00" pubdate data-updated="true">Aug 17<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Vagrant is used to <em>create</em> and <em>configure</em>
-lightweight, reproducible, and portable (Linux, Mac OS X or Windows) development environments</p>
+<div class="entry-content"><p>To quickly dump a large InnoDB database to file without locking it up:</p>
 
-<h2>Setup</h2>
-
-<p>A <code>Vagrantfile</code> is used to describe your project&rsquo;s environment, specifically:</p>
-
-<ol>
-<li>root directory</li>
-<li>box or machine type, allocated resources and how it is accessed</li>
-<li>software installed</li>
-</ol>
-
-
-<p>Software installation can be deferred to provisioning tools such as <strong>shell scripts</strong>, <strong>Chef</strong>, or <strong>Puppet</strong>.</p>
-
-<p>To create a new Vagrantfile, run:</p>
-
-<pre><code>vagrant init
+<pre><code>mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt; dbname.sql
 </code></pre>
 
-<h2>Boxes</h2>
+<p>This will issue a START TRANSACTION and as long as the following commands are not
+issued before your export completes, you will have a perfect snapshot:</p>
 
-<p>Vagrant uses as a box (base image) to clone a virtual machine.</p>
-
-<p>So, the first step is to add a box from the <a href="https://www.vagrantcloud.com/discover/">Vagrant Cloud</a>:</p>
-
-<pre><code>vagrant box add chef/ubuntu-13.10
+<pre><code>ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE
 </code></pre>
 
-<p>Inside your <code>Vagrantfile</code>, reference this box:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.box = "chef/ubuntu-13.10"
-end
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>vagrant up
-vagrant ssh
-</code></pre>
-
-<h2>Provisioning</h2>
-
-<p>Vagrant has built in provisioning via the <strong>shell</strong> provisioner.</p>
-
-<p>First create a public directory to house our web files:</p>
-
-<pre><code>mkdir public
-echo "HI" &gt; public/index.html
-</code></pre>
-
-<p>Simply create a bootstrap.sh file at the root of our project:</p>
-
-<pre><code>#!/usr/bin/env bash
-
-apt-get update
-apt-get install -y apache2
-rm -rf /var/www
-ln -fs /vagrant/public /var/www
-</code></pre>
-
-<p>Add this script reference to our Vagrantfile:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.provision :shell, :path =&gt; "bootstrap.sh"
-end
-</code></pre>
-
-<p>Then reload and run the provisoner</p>
-
-<pre><code>vagrant reload --provision
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>vagrant ssh
-wget -qO- 127.0.0.1
-</code></pre>
-
-<h2>Networking</h2>
-
-<p>Vagrant supports port forwarding, public and private networks</p>
-
-<p>To setup port forwarding for our apache server simply:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.network :forwarded_port, host: 4567, guest: 80
-end
-</code></pre>
-
-<p>Then reload</p>
-
-<pre><code>vagrant reload
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>http://localhost:4567
-</code></pre>
-
-<h2>Teardown</h2>
-
-<p>Vagrant supports a number of teardown options:</p>
-
-<ul>
-<li><strong>Suspend</strong> saves VM RAM and contents to disk, fast boot</li>
-<li><strong>Halt</strong> saves VM contents to disk, cold boot</li>
-<li><strong>Destroy</strong> removes VM from disk</li>
-</ul>
-
+<p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
 </div>
 
 
@@ -238,12 +137,12 @@ end
   
 
 
-<time datetime="2014-03-12T10:45:00-06:00" pubdate data-updated="true">Mar 12<span>th</span>, 2014</time>
+<time datetime="2014-08-17T16:03:00-06:00" pubdate data-updated="true">Aug 17<span>th</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/vagrant/'>vagrant</a>
+    <a class='category' href='/blog/categories/mysql/'>mysql</a>, <a class='category' href='/blog/categories/unix/'>unix</a>
   
 </span>
 
@@ -252,7 +151,7 @@ end
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/03/12/vagrant/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/03/12/vagrant/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/" >Tweet</a>
   
   
   
@@ -263,10 +162,10 @@ end
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/10/cloud-computing-service-models/" title="Previous Post: Cloud Computing Service Models">&laquo; Cloud Computing Service Models</a>
+        <a class="basic-alignment left" href="/blog/2014/03/19/shell-modes-and-init-files/" title="Previous Post: Shell Modes and Init Files">&laquo; Shell Modes and Init Files</a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/03/13/modernizr-plugin-api/" title="Next Post: Modernizr Plugin API">Modernizr Plugin API &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2014/08/18/deleting-mysql-bin-files/" title="Next Post: Deleting MySQL bin files">Deleting MySQL bin files &raquo;</a>
       
     </p>
   </footer>
@@ -361,8 +260,8 @@ end
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2014/03/12/vagrant/';
-        var disqus_url = 'http://dubbs.github.io/blog/2014/03/12/vagrant/';
+        var disqus_identifier = 'http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/';
+        var disqus_url = 'http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/';
         var disqus_script = 'embed.js';
       
     (function () {

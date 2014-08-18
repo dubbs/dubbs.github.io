@@ -129,6 +129,53 @@ mysql&gt; SHOW MASTER LOGS;
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/">Non-Blocking MySQL Database Export for InnoDB Tables</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-17T16:03:00-06:00" pubdate data-updated="true">Aug 17<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To quickly dump a large InnoDB database to file without locking it up:</p>
+
+<pre><code>mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt; dbname.sql
+</code></pre>
+
+<p>This will issue a START TRANSACTION and as long as the following commands are not
+issued before your export completes, you will have a perfect snapshot:</p>
+
+<pre><code>ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE
+</code></pre>
+
+<p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a></h1>
     
     
@@ -805,62 +852,6 @@ rm -r VirtualBox
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/07/verifying-data-using-checksums/">Verifying Data Using Checksums</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-07T16:31:00-06:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Checksums are used verify data integrity and in some cases, authenticity.</p>
-
-<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
-
-<p>To check a single file on Mac OS X, simply run:</p>
-
-<pre><code>shasum -a 256 file.iso
-</code></pre>
-
-<p>To check multiple files using a SHA256SUMS file:</p>
-
-<pre><code>cd ~/Downloads
-shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
-</code></pre>
-
-<p>If the file was verified you should see:</p>
-
-<pre><code>Vagrant-1.4.3.dmg: OK
-</code></pre>
-
-<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -880,6 +871,10 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
       </li>
     
       <li class="post">
+        <a href="/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/">Non-Blocking MySQL Database Export for InnoDB Tables</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
       </li>
     
@@ -889,10 +884,6 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
     
       <li class="post">
         <a href="/blog/2014/03/14/apache-and-or-nginx/">Apache and or Nginx</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/13/modernizr-plugin-api/">Modernizr Plugin API</a>
       </li>
     
   </ul>

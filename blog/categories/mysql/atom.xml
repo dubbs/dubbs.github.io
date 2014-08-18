@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mysql | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-08-18T15:43:55-06:00</updated>
+  <updated>2014-08-18T16:04:54-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -28,6 +28,26 @@ mysql&gt; SHOW MASTER LOGS;
 
 <pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
 </code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Non-Blocking MySQL database export for InnoDB tables]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/"/>
+    <updated>2014-08-17T16:03:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables</id>
+    <content type="html"><![CDATA[<p>To quickly dump a large InnoDB database to file without locking it up:</p>
+
+<pre><code>mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt; dbname.sql
+</code></pre>
+
+<p>This will issue a START TRANSACTION and as long as the following commands are not
+issued before your export completes, you will have a perfect snapshot:</p>
+
+<pre><code>ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE
+</code></pre>
+
+<p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
 ]]></content>
   </entry>
   
