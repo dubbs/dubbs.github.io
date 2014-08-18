@@ -9,7 +9,8 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Modes There are two main shell modes: 1. Login When a user logs in with a non-graphical interface or SSH. 2. Interactive When a user has a prompt and &hellip;">
+  <meta name="description" content="To view your current bin files: $ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS; To clear all logs but the last one: mysql&gt; PURGE MASTER LOGS TO ' &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-18T15:25:00-06:00" pubdate data-updated="true">Aug 18<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To view your current bin files:</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
+
+<p>To clear all logs but the last one:</p>
+
+<pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -173,6 +219,7 @@
 <p>References:</p>
 
 <ul>
+<li><a href="http://linuxcommand.org/">Linux Command</a></li>
 <li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
 </ul>
 
@@ -814,50 +861,6 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/error-mysql-server-has-gone-away/">Error: MySQL Server Has Gone Away</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-10-16T13:17:00-06:00" pubdate data-updated="true">Oct 16<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When trying to create a new mysql user, I came across the error:</p>
-
-<pre><code>ERROR 2006 (HY000) at line 1: MySQL server has gone away
-</code></pre>
-
-<p>The fix turned out to be simple, as the documentation states, &ldquo;<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-upgrade.html">mysql_upgrade</a> should be executed each time you upgrade MySQL&rdquo;.  The following command fixed the problem.</p>
-
-<pre><code>mysql_upgrade --password
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -873,6 +876,10 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
       </li>
     
@@ -886,10 +893,6 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
     
       <li class="post">
         <a href="/blog/2014/03/13/modernizr-plugin-api/">Modernizr Plugin API</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/12/vagrant/">Vagrant</a>
       </li>
     
   </ul>
