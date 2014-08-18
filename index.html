@@ -176,6 +176,51 @@ issued before your export completes, you will have a perfect snapshot:</p>
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/08/16/update-your-locate-database/">Update Your Locate Database</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-16T16:15:00-06:00" pubdate data-updated="true">Aug 16<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The <code>locate</code> command is great for searching the entire filesystem for files:</p>
+
+<pre><code>locate my.cnf
+</code></pre>
+
+<p>Recently created files and directories might not show up, so update the index:</p>
+
+<pre><code>locate updatedb
+/usr/libexec/locate.updatedb
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a></h1>
     
     
@@ -791,67 +836,6 @@ allows packet transfer between devices on the local link (not routable).</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/07/error-failed-to-create-host-only-adapter/">Error: Failed to Create Host-Only Adapter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-07T20:50:00-06:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When trying to run <code>vagrant up</code>, received error:</p>
-
-<pre><code>There was an error while executing `VBoxManage`, a CLI used by Vagrant
-for controlling VirtualBox. The command and stderr is shown below.
-
-Command: ["hostonlyif", "create"]
-
-Stderr: 0%...
-Progress state: NS_ERROR_FAILURE
-VBoxManage: error: Failed to create the host-only adapter
-VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
-
-VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component HostNetworkInterface, interface IHostNetworkInterface
-VBoxManage: error: Context: "int handleCreate(HandlerArg*, int, int*)" at line 68 of file VBoxManageHostonly.cpp
-</code></pre>
-
-<p>This happens because another VM is running in VirtualBox, run:</p>
-
-<pre><code>sudo /Library/StartupItems/VirtualBox/VirtualBox restart
-</code></pre>
-
-<p>If VirtualBox is loading on startup, remove it:</p>
-
-<pre><code>cd /Library/StartupItems
-rm -r VirtualBox
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -875,15 +859,15 @@ rm -r VirtualBox
       </li>
     
       <li class="post">
+        <a href="/blog/2014/08/16/update-your-locate-database/">Update Your Locate Database</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/03/18/executing-shell-scripts/">Executing Shell Scripts</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/14/apache-and-or-nginx/">Apache and or Nginx</a>
       </li>
     
   </ul>

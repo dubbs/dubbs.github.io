@@ -4,7 +4,7 @@
   <title><![CDATA[Category: unix | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-08-18T16:04:54-06:00</updated>
+  <updated>2014-08-18T16:16:27-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -48,6 +48,24 @@ issued before your export completes, you will have a perfect snapshot:</p>
 </code></pre>
 
 <p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Update your locate database]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/16/update-your-locate-database/"/>
+    <updated>2014-08-16T16:15:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/16/update-your-locate-database</id>
+    <content type="html"><![CDATA[<p>The <code>locate</code> command is great for searching the entire filesystem for files:</p>
+
+<pre><code>locate my.cnf
+</code></pre>
+
+<p>Recently created files and directories might not show up, so update the index:</p>
+
+<pre><code>locate updatedb
+/usr/libexec/locate.updatedb
+</code></pre>
 ]]></content>
   </entry>
   
@@ -154,18 +172,6 @@ bash test.sh
 
 <pre><code>chmod +x test.sh
 ./test.sh
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Joining files on the command line]]></title>
-    <link href="http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/"/>
-    <updated>2013-10-15T16:00:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line</id>
-    <content type="html"><![CDATA[<p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
-
-<pre><code>(cat file1 file2)&gt; file3
 </code></pre>
 ]]></content>
   </entry>
