@@ -114,6 +114,18 @@ mysql&gt; SHOW MASTER LOGS;
 
 <pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
 </code></pre>
+
+<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
+
+<pre><code># log-bin=mysql-bin
+</code></pre>
+
+<p>Restart your server and confirm logging is now disabled:</p>
+
+<pre><code>$ mysql.server restart
+$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
 </div>
 
 
