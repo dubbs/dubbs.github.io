@@ -9,8 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="To view your current bin files: $ mysql -u root -p
-mysql&gt; SHOW MASTER LOGS; To clear all logs but the last one: mysql&gt; PURGE MASTER LOGS TO ' &hellip;">
+  <meta name="description" content="I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation). To prevent them from installing during gem install, just add this line to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +83,47 @@ mysql&gt; SHOW MASTER LOGS; To clear all logs but the last one: mysql&gt; PURGE 
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T11:56:00-06:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation).</p>
+
+<p>To prevent them from installing during <code>gem install</code>, just add this line to your ~/.gemrc or /etc/gemrc:</p>
+
+<pre><code>gem: --no-rdoc --no-ri
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a></h1>
     
     
@@ -116,18 +156,6 @@ mysql&gt; SHOW MASTER LOGS;
 <p>To clear all logs but the last one:</p>
 
 <pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
-</code></pre>
-
-<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
-
-<pre><code># log-bin=mysql-bin
-</code></pre>
-
-<p>Restart your server and confirm logging is now disabled:</p>
-
-<pre><code>$ mysql.server restart
-$ mysql -u root -p
-mysql&gt; SHOW MASTER LOGS;
 </code></pre>
 </div>
   
@@ -785,69 +813,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/08/using-the-loopback-interface/">Using the Loopback Interface</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-08T15:14:00-06:00" pubdate data-updated="true">Mar 8<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The hosts file is used to map hostnames to ip addresses.</p>
-
-<p><strong>localhost</strong> is the hostname for the loopback network interface, in <code>/etc/hosts</code>:</p>
-
-<pre><code># IPv4 loopback address
-127.0.0.1 localhost
-
-# IPv6 loopback address
-::1 localhost
-
-# IPv6 link-local address
-fe80::1%lo0 localhost
-</code></pre>
-
-<p>An <strong>loopback</strong> address is used to send a packet to itself, whereas <strong>link-local</strong>
-allows packet transfer between devices on the local link (not routable).</p>
-
-<p>Loopback addresses are often used in web development:</p>
-
-<pre><code>127.0.0.1 localhost project1.local project2.local
-</code></pre>
-
-<p>They are also used to increase privacy and security.  Here is a very helpful <a href="http://someonewhocares.org/hosts/hosts">resource</a> on the subject.</p>
-
-<p>After updating your hosts file, be sure to clear the directory service cache:</p>
-
-<pre><code>dscacheutil -flushcache
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -863,6 +828,10 @@ allows packet transfer between devices on the local link (not routable).</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a>
       </li>
     
@@ -876,10 +845,6 @@ allows packet transfer between devices on the local link (not routable).</p>
     
       <li class="post">
         <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/18/executing-shell-scripts/">Executing Shell Scripts</a>
       </li>
     
   </ul>

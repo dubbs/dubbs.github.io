@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-08-22T11:59:17-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ignorning ri and RDoc during gem install]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/"/>
+    <updated>2014-08-22T11:56:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install</id>
+    <content type="html"><![CDATA[<p>I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation).</p>
+
+<p>To prevent them from installing during <code>gem install</code>, just add this line to your ~/.gemrc or /etc/gemrc:</p>
+
+<pre><code>gem: --no-rdoc --no-ri
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

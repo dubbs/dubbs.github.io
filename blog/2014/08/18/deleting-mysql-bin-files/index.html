@@ -114,18 +114,6 @@ mysql&gt; SHOW MASTER LOGS;
 
 <pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
 </code></pre>
-
-<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
-
-<pre><code># log-bin=mysql-bin
-</code></pre>
-
-<p>Restart your server and confirm logging is now disabled:</p>
-
-<pre><code>$ mysql.server restart
-$ mysql -u root -p
-mysql&gt; SHOW MASTER LOGS;
-</code></pre>
 </div>
 
 
@@ -176,6 +164,8 @@ mysql&gt; SHOW MASTER LOGS;
         <a class="basic-alignment left" href="/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/" title="Previous Post: Non-Blocking MySQL database export for InnoDB tables">&laquo; Non-Blocking MySQL database export for InnoDB tables</a>
       
       
+        <a class="basic-alignment right" href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/" title="Next Post: Ignorning ri and RDoc during gem install">Ignorning ri and RDoc during gem install &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -195,6 +185,10 @@ mysql&gt; SHOW MASTER LOGS;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a>
       </li>
     
@@ -208,10 +202,6 @@ mysql&gt; SHOW MASTER LOGS;
     
       <li class="post">
         <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/18/executing-shell-scripts/">Executing Shell Scripts</a>
       </li>
     
   </ul>

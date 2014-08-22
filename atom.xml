@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-08-18T23:49:44-06:00</updated>
+  <updated>2014-08-22T11:59:17-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ignorning ri and RDoc during gem install]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/"/>
+    <updated>2014-08-22T11:56:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install</id>
+    <content type="html"><![CDATA[<p>I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation).</p>
+
+<p>To prevent them from installing during <code>gem install</code>, just add this line to your ~/.gemrc or /etc/gemrc:</p>
+
+<pre><code>gem: --no-rdoc --no-ri
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Deleting MySQL bin files]]></title>
@@ -27,18 +41,6 @@ mysql&gt; SHOW MASTER LOGS;
 <p>To clear all logs but the last one:</p>
 
 <pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
-</code></pre>
-
-<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
-
-<pre><code># log-bin=mysql-bin
-</code></pre>
-
-<p>Restart your server and confirm logging is now disabled:</p>
-
-<pre><code>$ mysql.server restart
-$ mysql -u root -p
-mysql&gt; SHOW MASTER LOGS;
 </code></pre>
 ]]></content>
   </entry>
@@ -812,33 +814,6 @@ to an internal resource.</p>
 
 <pre><code>mysql --help | grep cnf
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Moving on the Command Line]]></title>
-    <link href="http://dubbs.github.io/blog/2013/09/17/moving-on-the-command-line/"/>
-    <updated>2013-09-17T20:13:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/09/17/moving-on-the-command-line</id>
-    <content type="html"><![CDATA[<p>Moving along the command line will be a breeze, if you know the following shortcuts.</p>
-
-<p><kbd>ctrl</kbd>+<kbd>a</kbd> &ndash; move to start of line<br/>
-<kbd>ctrl</kbd>+<kbd>e</kbd> &ndash; move to end of line<br/>
-<kbd>alt</kbd>+<kbd>b</kbd> &ndash; move backwards a word<br/>
-<kbd>alt</kbd>+<kbd>f</kbd> &ndash; move forwards a word<br/>
-<kbd>alt</kbd>+<kbd>del</kbd> &ndash; remove word<br/>
-<kbd>ctrl</kbd>+<kbd>k</kbd> &ndash; remove to end of line</p>
-
-<p>On Mac, make sure you setup the following config in <code>Terminal &gt; Preferences &gt; Keyboard</code>:</p>
-
-<ul>
-<li>use option as meta key is checked</li>
-<li>option cursor left is set to \033b</li>
-<li>option cursor right is set to \033f</li>
-</ul>
-
-
-<p>where \033 = <kbd>esc</kbd></p>
 ]]></content>
   </entry>
   

@@ -2,106 +2,112 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/05/mysql-import-slash-export-progress-bar/</loc>
-        <lastmod>2014-03-09T17:10:56-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/16/working-with-background-processes/</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/17/moving-on-the-command-line/</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration/</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/23/mounting-an-afp-filesystem/</loc>
-        <lastmod>2014-03-09T17:10:48-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection/</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/09/26/converting-between-formats/</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away/</loc>
-        <lastmod>2014-03-09T17:12:43-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/</loc>
-        <lastmod>2014-03-07T16:43:48-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>
             http://dubbs.github.io/blog/2014/03/07/error-failed-to-create-host-only-adapter/
         </loc>
-        <lastmod>2014-03-09T17:10:30-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/</loc>
-        <lastmod>2014-03-08T15:17:01-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/10/cloud-computing-service-models/</loc>
-        <lastmod>2014-03-10T12:52:23-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/12/vagrant/</loc>
-        <lastmod>2014-03-12T12:00:16-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/13/modernizr-plugin-api/</loc>
-        <lastmod>2014-03-13T16:33:36-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/14/apache-and-or-nginx/</loc>
-        <lastmod>2014-03-16T13:45:18-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts/</loc>
-        <lastmod>2014-03-19T00:00:19-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/</loc>
-        <lastmod>2014-03-20T19:44:39-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/08/16/update-your-locate-database/</loc>
-        <lastmod>2014-08-18T23:41:40-06:00</lastmod>
+        <lastmod>2014-08-18T16:16:10-06:00</lastmod>
     </url>
     <url>
         <loc>
             http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/
         </loc>
-        <lastmod>2014-08-18T23:41:40-06:00</lastmod>
+        <lastmod>2014-08-18T16:04:13-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/2014/08/18/deleting-mysql-bin-files/</loc>
-        <lastmod>2014-08-18T23:46:25-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/
+        </loc>
+        <lastmod>2014-08-22T11:59:00-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/blog/archives/</loc>
-        <lastmod>2014-08-18T23:46:25-06:00</lastmod>
+        <lastmod>2014-08-22T11:59:00-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/</loc>
-        <lastmod>2014-08-18T23:46:25-06:00</lastmod>
+        <lastmod>2014-08-22T11:59:00-06:00</lastmod>
     </url>
     <url>
         <loc>http://dubbs.github.io/robots.txt</loc>
-        <lastmod>2014-03-07T16:27:55-06:00</lastmod>
+        <lastmod>2014-08-18T15:38:31-06:00</lastmod>
     </url>
 </urlset>
