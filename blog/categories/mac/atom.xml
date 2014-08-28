@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mac | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-08-27T21:19:24-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Shell Modes and Init Files]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/"/>
+    <updated>2014-03-19T23:20:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files</id>
+    <content type="html"><![CDATA[<h2>Modes</h2>
+
+<p>There are two main shell modes:</p>
+
+<h3>1. Login</h3>
+
+<p>When a user logs in with a non-graphical interface or SSH.</p>
+
+<h3>2. Interactive</h3>
+
+<p>When a user has a prompt and standard in/out are connected to the terminal.</p>
+
+<h2>Combinations of Modes</h2>
+
+<p>A shell can be initialized with the following mode combinations:</p>
+
+<h4>Login + Interactive</h4>
+
+<ul>
+<li>log in to a remote system via SSH</li>
+<li>new terminal tab, Mac OS X</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The systemwide initialization file
+/etc/profile
+
+# The personal initialization files, first one found, in order
+~/.bash_profile
+~/.bash_login
+~/.profile
+</code></pre>
+
+<h4>Non-login + Interactive</h4>
+
+<ul>
+<li>new terminal tab, linux</li>
+<li>start new shell process ($ bash)</li>
+<li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The individual per-interactive-shell startup file
+~/.bashrc
+</code></pre>
+
+<h4>Non-login + Non-Interactive</h4>
+
+<ul>
+<li>run an executable with #!/usr/bin/env bash shebang</li>
+<li>run a script ($ bash test.sh)</li>
+<li>execute script remotely (ssh user@host &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code>source $BASH_ENV
+</code></pre>
+
+<p>References:</p>
+
+<ul>
+<li><a href="http://linuxcommand.org/">Linux Command</a></li>
+<li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Executing Shell Scripts]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts/"/>
+    <updated>2014-03-18T23:53:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts</id>
+    <content type="html"><![CDATA[<p>Here are some of the basic ways you can execute scripts on the command line.</p>
+
+<p><code>source</code> or <code>.</code> will read and execute commands from filename in the <strong>current shell</strong> environment.<br/>
+Any environment variables set within the script will remain after exit.</p>
+
+<pre><code>. test.sh
+source test.sh
+</code></pre>
+
+<p><code>sh</code> or <code>bash</code> will fork a <strong>new shell</strong> with the specified interpreter.</p>
+
+<pre><code>sh test.sh
+bash test.sh
+</code></pre>
+
+<p><code>./</code> will also fork a <strong>new shell</strong>, but the file needs to be set as executable and interpreter will be derived from the shebang (<code>#!/bin/sh</code>).</p>
+
+<pre><code>chmod +x test.sh
+./test.sh
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using the Loopback Interface]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/"/>
+    <updated>2014-03-08T15:14:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface</id>
+    <content type="html"><![CDATA[<p>The hosts file is used to map hostnames to ip addresses.</p>
+
+<p><strong>localhost</strong> is the hostname for the loopback network interface, in <code>/etc/hosts</code>:</p>
+
+<pre><code># IPv4 loopback address
+127.0.0.1 localhost
+
+# IPv6 loopback address
+::1 localhost
+
+# IPv6 link-local address
+fe80::1%lo0 localhost
+</code></pre>
+
+<p>An <strong>loopback</strong> address is used to send a packet to itself, whereas <strong>link-local</strong>
+allows packet transfer between devices on the local link (not routable).</p>
+
+<p>Loopback addresses are often used in web development:</p>
+
+<pre><code>127.0.0.1 localhost project1.local project2.local
+</code></pre>
+
+<p>They are also used to increase privacy and security.  Here is a very helpful <a href="http://someonewhocares.org/hosts/hosts">resource</a> on the subject.</p>
+
+<p>After updating your hosts file, be sure to clear the directory service cache:</p>
+
+<pre><code>dscacheutil -flushcache
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Verifying Data Using Checksums]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/"/>
+    <updated>2014-03-07T16:31:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums</id>
+    <content type="html"><![CDATA[<p>Checksums are used verify data integrity and in some cases, authenticity.</p>
+
+<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
+
+<p>To check a single file on Mac OS X, simply run:</p>
+
+<pre><code>shasum -a 256 file.iso
+</code></pre>
+
+<p>To check multiple files using a SHA256SUMS file:</p>
+
+<pre><code>cd ~/Downloads
+shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
+</code></pre>
+
+<p>If the file was verified you should see:</p>
+
+<pre><code>Vagrant-1.4.3.dmg: OK
+</code></pre>
+
+<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Converting Between Formats]]></title>
+    <link href="http://dubbs.github.io/blog/2013/09/26/converting-between-formats/"/>
+    <updated>2013-09-26T13:17:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/09/26/converting-between-formats</id>
+    <content type="html"><![CDATA[<p>There are many tools you can use to convert between file formats.</p>
+
+<p>Convert <code>bin</code> to <code>iso</code>, with bchunk:</p>
+
+<pre><code>brew install bchunk
+bchunk input.bin input.cue output.iso
+</code></pre>
+
+<p>Convert <code>png</code> to <code>svg</code>, with convert and potrace, for simple images:</p>
+
+<pre><code>brew install imagemagick potrace
+convert file.png file.pnm
+potrace file.pnm -s -o file.svg -C#ff0000 -k0.6 # red foreground, more detail
+rm file.pnm
+</code></pre>
+
+<p>More to come!</p>
+]]></content>
+  </entry>
+  
+</feed>

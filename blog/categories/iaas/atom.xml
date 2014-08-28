@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Iaas | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/iaas/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-08-27T21:19:24-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Cloud Computing Service Models]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/10/cloud-computing-service-models/"/>
+    <updated>2014-03-10T12:50:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/10/cloud-computing-service-models</id>
+    <content type="html"><![CDATA[<h2>IaaS (Infrastructure as a Service)</h2>
+
+<ul>
+<li>Provider manages underlying infrastructure, eg. storage, network and computing resources</li>
+<li>You can deploy, run and control software</li>
+<li>Pricing model: usage and component based</li>
+</ul>
+
+
+<p>Providers:</p>
+
+<ul>
+<li>AWS EC2</li>
+<li>Joyent</li>
+<li>Rackspace</li>
+</ul>
+
+
+<h2>PaaS (Platform as a Service)</h2>
+
+<ul>
+<li>Provider manages underlying infrastructure</li>
+<li>Provider manages operating system</li>
+<li>Provider manages programming languages, frameworks, libraries, services and tools for you to create and deploy applications.</li>
+<li>You control deployed applications and configuration</li>
+<li>Pricing model: usage and component based</li>
+</ul>
+
+
+<p>Providers:</p>
+
+<ul>
+<li>Heroku</li>
+<li>AWS Elastic Beanstalk</li>
+<li>Engine Yard</li>
+<li>Google App Engine</li>
+<li>Windows Azure</li>
+<li>OpenStack</li>
+<li>Nodejitsu</li>
+</ul>
+
+
+<h2>SaaS (Software as a Service)</h2>
+
+<ul>
+<li>Provider manages underlying infrastructure</li>
+<li>Provider manages operating system</li>
+<li>Provider manages application platform and even individual application capabilities</li>
+<li>You control user-specific configuration</li>
+<li>You use application on client devices through either a web browser or API</li>
+<li>Pricing model: monthly or yearly flat fee</li>
+</ul>
+
+
+<p>Providers:</p>
+
+<ul>
+<li>Salesforce CRM</li>
+<li>Dropbox</li>
+<li>Google Apps</li>
+<li>LinkedIn</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

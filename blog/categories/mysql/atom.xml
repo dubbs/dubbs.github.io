@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mysql | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-08-27T21:19:24-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Deleting MySQL Bin Files]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/18/deleting-mysql-bin-files/"/>
+    <updated>2014-08-18T15:25:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/18/deleting-mysql-bin-files</id>
+    <content type="html"><![CDATA[<p>To view your current bin files:</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
+
+<p>To clear all logs but the last one:</p>
+
+<pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
+</code></pre>
+
+<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
+
+<pre><code># log-bin=mysql-bin
+</code></pre>
+
+<p>Restart your server and confirm logging is now disabled:</p>
+
+<pre><code>$ mysql.server restart
+$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Non-Blocking MySQL Database Export for InnoDB Tables]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/"/>
+    <updated>2014-08-17T16:03:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables</id>
+    <content type="html"><![CDATA[<p>To quickly dump a large InnoDB database to file without locking it up:</p>
+
+<pre><code>mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt; dbname.sql
+</code></pre>
+
+<p>This will issue a START TRANSACTION and as long as the following commands are not
+issued before your export completes, you will have a perfect snapshot:</p>
+
+<pre><code>ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE
+</code></pre>
+
+<p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Error: MySQL Server Has Gone Away]]></title>
+    <link href="http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away/"/>
+    <updated>2013-10-16T13:17:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away</id>
+    <content type="html"><![CDATA[<p>When trying to create a new mysql user, I came across the error:</p>
+
+<pre><code>ERROR 2006 (HY000) at line 1: MySQL server has gone away
+</code></pre>
+
+<p>The fix turned out to be simple, as the documentation states, &ldquo;<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-upgrade.html">mysql_upgrade</a> should be executed each time you upgrade MySQL&rdquo;.  The following command fixed the problem.</p>
+
+<pre><code>mysql_upgrade --password
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Querying MySQL Configuration]]></title>
+    <link href="http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration/"/>
+    <updated>2013-09-23T12:40:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/09/23/querying-mysql-configuration</id>
+    <content type="html"><![CDATA[<p>MySQL system variables can be queried using the <a href="http://dev.mysql.com/doc/refman/5.7/en/show-variables.html">show variables</a> syntax:</p>
+
+<pre><code>mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"'
+</code></pre>
+
+<p>It&rsquo;s also useful to find out with <code>my.cnf</code> file MySQL will try to load on init:</p>
+
+<pre><code>mysql --help | grep cnf
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL Import/Export Progress Bar]]></title>
+    <link href="http://dubbs.github.io/blog/2013/09/05/mysql-import-slash-export-progress-bar/"/>
+    <updated>2013-09-05T22:05:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/09/05/mysql-import-slash-export-progress-bar</id>
+    <content type="html"><![CDATA[<p>MySQL command line progress can be monitored using the terminal-based &ldquo;Pipe Viewer&rdquo; <code>pv</code>.</p>
+
+<h2>Import</h2>
+
+<pre><code>pv /path/to/sqlfile.sql | mysql -uUSERNAME -pPASSWORD -D DATABASE_NAME
+</code></pre>
+
+<h2>Export</h2>
+
+<p>We need to estimate the file size of our export to get an accurate reading.  This can be done via the information schema:</p>
+
+<pre><code>SELECT
+    Data_BB / POWER(1024,1) Data_KB,
+    Data_BB / POWER(1024,2) Data_MB,
+    Data_BB / POWER(1024,3) Data_GB
+FROM (
+    SELECT SUM(data_length) Data_BB
+    FROM information_schema.tables
+    WHERE table_schema IN ('DATABASE_NAME')
+) A;
+</code></pre>
+
+<p>We then use the estimated size to track export progress:</p>
+
+<pre><code>mysqldump -uUSERNAME -pPASSWORD DATABASE_NAME | pv -s 9999M &gt; DATABASE_NAME.sql 
+</code></pre>
+
+<p>Beer Break!</p>
+]]></content>
+  </entry>
+  
+</feed>

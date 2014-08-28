@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Locate | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/locate/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-08-27T21:19:24-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Update Your Locate Database]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/16/update-your-locate-database/"/>
+    <updated>2014-08-16T16:15:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/16/update-your-locate-database</id>
+    <content type="html"><![CDATA[<p>The <code>locate</code> command is great for searching the entire filesystem for files:</p>
+
+<pre><code>locate my.cnf
+</code></pre>
+
+<p>Recently created files and directories might not show up, so update the index:</p>
+
+<pre><code>locate updatedb
+/usr/libexec/locate.updatedb
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

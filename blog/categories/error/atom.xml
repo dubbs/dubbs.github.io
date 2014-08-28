@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Error | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/error/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-08-27T21:19:24-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Error: Failed to Create Host-Only Adapter]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/07/error-failed-to-create-host-only-adapter/"/>
+    <updated>2014-03-07T20:50:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/07/error-failed-to-create-host-only-adapter</id>
+    <content type="html"><![CDATA[<p>When trying to run <code>vagrant up</code>, received error:</p>
+
+<pre><code>There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: ["hostonlyif", "create"]
+
+Stderr: 0%...
+Progress state: NS_ERROR_FAILURE
+VBoxManage: error: Failed to create the host-only adapter
+VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
+
+VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component HostNetworkInterface, interface IHostNetworkInterface
+VBoxManage: error: Context: "int handleCreate(HandlerArg*, int, int*)" at line 68 of file VBoxManageHostonly.cpp
+</code></pre>
+
+<p>This happens because another VM is running in VirtualBox, run:</p>
+
+<pre><code>sudo /Library/StartupItems/VirtualBox/VirtualBox restart
+</code></pre>
+
+<p>If VirtualBox is loading on startup, remove it:</p>
+
+<pre><code>cd /Library/StartupItems
+rm -r VirtualBox
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Error: MySQL Server Has Gone Away]]></title>
+    <link href="http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away/"/>
+    <updated>2013-10-16T13:17:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away</id>
+    <content type="html"><![CDATA[<p>When trying to create a new mysql user, I came across the error:</p>
+
+<pre><code>ERROR 2006 (HY000) at line 1: MySQL server has gone away
+</code></pre>
+
+<p>The fix turned out to be simple, as the documentation states, &ldquo;<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-upgrade.html">mysql_upgrade</a> should be executed each time you upgrade MySQL&rdquo;.  The following command fixed the problem.</p>
+
+<pre><code>mysql_upgrade --password
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Unix | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-08-27T21:19:24-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Deleting MySQL Bin Files]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/18/deleting-mysql-bin-files/"/>
+    <updated>2014-08-18T15:25:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/18/deleting-mysql-bin-files</id>
+    <content type="html"><![CDATA[<p>To view your current bin files:</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
+
+<p>To clear all logs but the last one:</p>
+
+<pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
+</code></pre>
+
+<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
+
+<pre><code># log-bin=mysql-bin
+</code></pre>
+
+<p>Restart your server and confirm logging is now disabled:</p>
+
+<pre><code>$ mysql.server restart
+$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Non-Blocking MySQL Database Export for InnoDB Tables]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/"/>
+    <updated>2014-08-17T16:03:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables</id>
+    <content type="html"><![CDATA[<p>To quickly dump a large InnoDB database to file without locking it up:</p>
+
+<pre><code>mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt; dbname.sql
+</code></pre>
+
+<p>This will issue a START TRANSACTION and as long as the following commands are not
+issued before your export completes, you will have a perfect snapshot:</p>
+
+<pre><code>ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE
+</code></pre>
+
+<p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Update Your Locate Database]]></title>
+    <link href="http://dubbs.github.io/blog/2014/08/16/update-your-locate-database/"/>
+    <updated>2014-08-16T16:15:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/08/16/update-your-locate-database</id>
+    <content type="html"><![CDATA[<p>The <code>locate</code> command is great for searching the entire filesystem for files:</p>
+
+<pre><code>locate my.cnf
+</code></pre>
+
+<p>Recently created files and directories might not show up, so update the index:</p>
+
+<pre><code>locate updatedb
+/usr/libexec/locate.updatedb
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shell Modes and Init Files]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/"/>
+    <updated>2014-03-19T23:20:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files</id>
+    <content type="html"><![CDATA[<h2>Modes</h2>
+
+<p>There are two main shell modes:</p>
+
+<h3>1. Login</h3>
+
+<p>When a user logs in with a non-graphical interface or SSH.</p>
+
+<h3>2. Interactive</h3>
+
+<p>When a user has a prompt and standard in/out are connected to the terminal.</p>
+
+<h2>Combinations of Modes</h2>
+
+<p>A shell can be initialized with the following mode combinations:</p>
+
+<h4>Login + Interactive</h4>
+
+<ul>
+<li>log in to a remote system via SSH</li>
+<li>new terminal tab, Mac OS X</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The systemwide initialization file
+/etc/profile
+
+# The personal initialization files, first one found, in order
+~/.bash_profile
+~/.bash_login
+~/.profile
+</code></pre>
+
+<h4>Non-login + Interactive</h4>
+
+<ul>
+<li>new terminal tab, linux</li>
+<li>start new shell process ($ bash)</li>
+<li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The individual per-interactive-shell startup file
+~/.bashrc
+</code></pre>
+
+<h4>Non-login + Non-Interactive</h4>
+
+<ul>
+<li>run an executable with #!/usr/bin/env bash shebang</li>
+<li>run a script ($ bash test.sh)</li>
+<li>execute script remotely (ssh user@host &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code>source $BASH_ENV
+</code></pre>
+
+<p>References:</p>
+
+<ul>
+<li><a href="http://linuxcommand.org/">Linux Command</a></li>
+<li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Executing Shell Scripts]]></title>
+    <link href="http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts/"/>
+    <updated>2014-03-18T23:53:00-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts</id>
+    <content type="html"><![CDATA[<p>Here are some of the basic ways you can execute scripts on the command line.</p>
+
+<p><code>source</code> or <code>.</code> will read and execute commands from filename in the <strong>current shell</strong> environment.<br/>
+Any environment variables set within the script will remain after exit.</p>
+
+<pre><code>. test.sh
+source test.sh
+</code></pre>
+
+<p><code>sh</code> or <code>bash</code> will fork a <strong>new shell</strong> with the specified interpreter.</p>
+
+<pre><code>sh test.sh
+bash test.sh
+</code></pre>
+
+<p><code>./</code> will also fork a <strong>new shell</strong>, but the file needs to be set as executable and interpreter will be derived from the shebang (<code>#!/bin/sh</code>).</p>
+
+<pre><code>chmod +x test.sh
+./test.sh
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
