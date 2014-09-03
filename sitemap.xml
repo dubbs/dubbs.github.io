@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date/</loc>
+    <lastmod>2014-09-02T20:42:51-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/</loc>
     <lastmod>2014-08-22T11:56:00-06:00</lastmod>
     <priority>0.8</priority>
@@ -143,14 +149,14 @@
   
   <url>
     <loc>http://dubbs.github.io/blog/archives/</loc>
-    <lastmod>2014-08-28T21:08:48-06:00</lastmod>
+    <lastmod>2014-09-02T20:59:15-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://dubbs.github.io/</loc>
-    <lastmod>2014-08-28T21:08:48-06:00</lastmod>
+    <lastmod>2014-09-02T20:59:15-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

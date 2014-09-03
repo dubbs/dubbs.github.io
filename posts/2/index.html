@@ -9,7 +9,8 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="The hosts file is used to map hostnames to ip addresses. localhost is the hostname for the loopback network interface, in /etc/hosts: # IPv4 loopback &hellip;">
+  <meta name="description" content="IaaS (Infrastructure as a Service) Provider manages underlying infrastructure, eg. storage, network and computing resources
+You can deploy, run and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,97 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/10/cloud-computing-service-models/">Cloud Computing Service Models</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-10T12:50:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:50 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>IaaS (Infrastructure as a Service)</h2>
+
+<ul>
+<li>Provider manages underlying infrastructure, eg. storage, network and computing resources</li>
+<li>You can deploy, run and control software</li>
+<li>Pricing model: usage and component based</li>
+</ul>
+
+
+<p>Providers:</p>
+
+<ul>
+<li>AWS EC2</li>
+<li>Joyent</li>
+<li>Rackspace</li>
+</ul>
+
+
+<h2>PaaS (Platform as a Service)</h2>
+
+<ul>
+<li>Provider manages underlying infrastructure</li>
+<li>Provider manages operating system</li>
+<li>Provider manages programming languages, frameworks, libraries, services and tools for you to create and deploy applications.</li>
+<li>You control deployed applications and configuration</li>
+<li>Pricing model: usage and component based</li>
+</ul>
+
+
+<p>Providers:</p>
+
+<ul>
+<li>Heroku</li>
+<li>AWS Elastic Beanstalk</li>
+<li>Engine Yard</li>
+<li>Google App Engine</li>
+<li>Windows Azure</li>
+<li>OpenStack</li>
+<li>Nodejitsu</li>
+</ul>
+
+
+<h2>SaaS (Software as a Service)</h2>
+
+<ul>
+<li>Provider manages underlying infrastructure</li>
+<li>Provider manages operating system</li>
+<li>Provider manages application platform and even individual application capabilities</li>
+<li>You control user-specific configuration</li>
+<li>You use application on client devices through either a web browser or API</li>
+<li>Pricing model: monthly or yearly flat fee</li>
+</ul>
+
+
+<p>Providers:</p>
+
+<ul>
+<li>Salesforce CRM</li>
+<li>Dropbox</li>
+<li>Google Apps</li>
+<li>LinkedIn</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -579,43 +671,6 @@ to an internal resource.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/23/querying-mysql-configuration/">Querying MySQL Configuration</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-09-23T12:40:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2013</span></span> <span class='time'>12:40 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MySQL system variables can be queried using the <a href="http://dev.mysql.com/doc/refman/5.7/en/show-variables.html">show variables</a> syntax:</p>
-
-<pre><code>mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"'
-</code></pre>
-
-<p>It&rsquo;s also useful to find out with <code>my.cnf</code> file MySQL will try to load on init:</p>
-
-<pre><code>mysql --help | grep cnf
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -633,6 +688,10 @@ to an internal resource.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a>
       </li>
     
@@ -646,10 +705,6 @@ to an internal resource.</p>
     
       <li class="post">
         <a href="/blog/2014/08/16/update-your-locate-database/">Update Your Locate Database</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
       </li>
     
   </ul>

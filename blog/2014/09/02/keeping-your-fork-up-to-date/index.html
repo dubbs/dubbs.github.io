@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Ignorning Ri and RDoc During Gem Install - Kevin Warrington</title>
+  <title>Keeping Your Git Fork Up-to-date - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation). To prevent them from installing during gem install, just add this line to &hellip;">
+  <meta name="description" content="When your fork falls behind, and it will, here&rsquo;s how to quickly sync it up with master. First, clone your forked repo, if you havent already: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Ignorning Ri and RDoc During Gem Install</h1>
+      <h1 class="entry-title">Keeping Your Git Fork Up-to-date</h1>
     
     
       <p class="meta">
@@ -88,18 +88,28 @@
 
 
 
-<time class='entry-date' datetime='2014-08-22T11:56:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>11:56 am</span></time>
+<time class='entry-date' datetime='2014-09-02T20:42:51-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>8:42 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation).</p>
+<div class="entry-content"><p>When your fork falls behind, and it will, here&rsquo;s how to quickly sync it up with master.</p>
 
-<p>To prevent them from installing during <code>gem install</code>, just add this line to your ~/.gemrc or /etc/gemrc:</p>
+<p>First, clone your forked repo, if you havent already:</p>
 
-<pre><code>gem: --no-rdoc --no-ri
+<pre><code>git clone git@github.com:&lt;fork&gt;/&lt;repo&gt;.git
+cd drush
+</code></pre>
+
+<p>Then, merge upstream and push to github:</p>
+
+<pre><code>git remote add upstream git@github.com:&lt;original&gt;/&lt;repo&gt;.git
+git fetch upstream
+git checkout master
+git merge upstream/master
+git push origin master
 </code></pre>
 </div>
 
@@ -116,12 +126,12 @@
 
 
 
-<time class='entry-date' datetime='2014-08-22T11:56:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>11:56 am</span></time>
+<time class='entry-date' datetime='2014-09-02T20:42:51-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>8:42 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/git/'>git</a>
   
 </span>
 
@@ -130,7 +140,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date/" >Tweet</a>
   
   
   
@@ -141,10 +151,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/08/18/deleting-mysql-bin-files/" title="Previous Post: Deleting MySQL bin files">&laquo; Deleting MySQL bin files</a>
+        <a class="basic-alignment left" href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/" title="Previous Post: Ignorning ri and RDoc during gem install">&laquo; Ignorning ri and RDoc during gem install</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/09/02/keeping-your-fork-up-to-date/" title="Next Post: Keeping your git fork up-to-date">Keeping your git fork up-to-date &raquo;</a>
       
     </p>
   </footer>
@@ -239,8 +247,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/';
-        var disqus_url = 'http://dubbs.github.io/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/';
+        var disqus_identifier = 'http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date/';
+        var disqus_url = 'http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date/';
         var disqus_script = 'embed.js';
       
     (function () {
