@@ -2,6 +2,7 @@
 layout: post
 title: "Unix Pipelines vs Redirection"
 date: 2013-09-25 20:05
+updated: 2013-09-25 20:05
 comments: true
 categories: unix
 ---

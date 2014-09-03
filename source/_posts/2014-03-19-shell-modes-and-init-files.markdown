@@ -2,6 +2,7 @@
 layout: post
 title: "Shell Modes and Init Files"
 date: 2014-03-19 23:20
+updated: 2014-03-19 23:20
 comments: true
 categories: [unix, mac]
 ---

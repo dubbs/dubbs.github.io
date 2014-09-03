@@ -2,6 +2,7 @@
 layout: post
 title: "Verifying Data using Checksums"
 date: 2014-03-07 16:31
+updated: 2014-03-07 16:31
 comments: true
 categories: mac
 ---

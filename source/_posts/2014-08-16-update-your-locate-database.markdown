@@ -2,6 +2,7 @@
 layout: post
 title: "Update your locate database"
 date: 2014-08-16 16:15
+updated: 2014-08-16 16:15
 comments: true
 categories: [unix, locate]
 ---

@@ -2,6 +2,7 @@
 layout: post
 title: "Cloud Computing Service Models"
 date: 2014-03-10 12:50
+updated: 2014-03-10 12:50
 comments: true
 categories: [iaas, paas, saas]
 ---

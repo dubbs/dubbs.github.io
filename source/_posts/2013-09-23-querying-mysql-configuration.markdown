@@ -2,6 +2,7 @@
 layout: post
 title: "Querying MySQL Configuration"
 date: 2013-09-23 12:40
+updated: 2013-09-23 12:40
 comments: true
 categories: mysql
 ---

@@ -2,6 +2,7 @@
 layout: post
 title: "Non-Blocking MySQL database export for InnoDB tables"
 date: 2014-08-17 16:03
+updated: 2014-08-17 16:03
 comments: true
 categories: [unix, mysql]
 ---

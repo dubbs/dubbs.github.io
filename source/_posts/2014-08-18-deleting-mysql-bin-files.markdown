@@ -2,6 +2,7 @@
 layout: post
 title: "Deleting MySQL bin files"
 date: 2014-08-18 15:25
+updated: 2014-08-18 15:25
 comments: true
 categories: [unix, mysql]
 ---

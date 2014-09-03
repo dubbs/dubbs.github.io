@@ -2,6 +2,7 @@
 layout: post
 title: "Mounting an AFP Filesystem"
 date: 2013-09-23 13:35
+updated: 2013-09-23 13:35
 comments: true
 categories: [unix, mac]
 ---

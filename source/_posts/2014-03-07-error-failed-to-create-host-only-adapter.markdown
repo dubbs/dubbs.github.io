@@ -2,6 +2,7 @@
 layout: post
 title: "Error: Failed to Create Host-Only Adapter"
 date: 2014-03-07 20:50
+updated: 2014-03-07 20:50
 comments: true
 categories: [error, vagrant]
 ---

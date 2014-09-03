@@ -2,6 +2,7 @@
 layout: post
 title: "MySQL Import/Export Progress Bar"
 date: 2013-09-05 22:05
+updated: 2013-09-05 22:05
 comments: true
 categories: [unix, mysql]
 ---

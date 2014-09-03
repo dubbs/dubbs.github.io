@@ -2,6 +2,7 @@
 layout: post
 title: "Keeping your git fork up-to-date"
 date: 2014-09-02 20:42:51 -0600
+updated: 2014-09-02 20:42:51 -0600
 comments: true
 categories: [git]
 ---

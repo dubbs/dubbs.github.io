@@ -2,6 +2,7 @@
 layout: post
 title: "Executing Shell Scripts"
 date: 2014-03-18 23:53
+updated: 2014-03-18 23:53
 comments: true
 categories: [unix, mac]
 ---

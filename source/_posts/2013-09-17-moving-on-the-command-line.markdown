@@ -2,6 +2,7 @@
 layout: post
 title: "Moving on the Command Line"
 date: 2013-09-17 20:13
+updated: 2013-09-17 20:13
 comments: true
 categories: unix
 ---

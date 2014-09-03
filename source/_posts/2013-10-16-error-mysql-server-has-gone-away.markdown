@@ -2,6 +2,7 @@
 layout: post
 title: "Error: MySQL server has gone away"
 date: 2013-10-16 13:17
+updated: 2013-10-16 13:17
 comments: true
 categories: [error, mysql]
 ---

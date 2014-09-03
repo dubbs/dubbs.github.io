@@ -2,6 +2,7 @@
 layout: post
 title: "Modernizr Plugin API"
 date: 2014-03-13 16:22
+updated: 2014-03-13 16:22
 comments: true
 categories: js
 ---

@@ -2,6 +2,7 @@
 layout: post
 title: "Joining files on the command line"
 date: 2013-10-15 16:00
+updated: 2013-10-15 16:00
 comments: true
 categories: unix
 ---
