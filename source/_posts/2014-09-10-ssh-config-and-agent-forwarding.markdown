@@ -82,6 +82,18 @@ Subsequent logins do not:
 	exit
 	ssh remoteServer1
 
+Lock your agent when you are away:
+
+	ssh-add -x
+
+Unlock your agent when you are back:
+
+	ssh-add -X
+
+Delete all keys from your agent:
+
+	ssh-add -D
+
 ### Resources:
 
 http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  
@@ -89,4 +101,5 @@ https://developer.github.com/guides/using-ssh-agent-forwarding/
 http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  
 https://kimmo.suominen.com/docs/ssh/  
 http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html  
+http://www.symantec.com/connect/articles/ssh-and-ssh-agent
 
