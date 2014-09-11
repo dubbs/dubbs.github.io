@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: error | Kevin Warrington]]></title>
+  <title><![CDATA[Category: Error | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/error/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-08-22T11:59:17-06:00</updated>
+  <updated>2014-09-11T09:52:54-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -48,7 +48,7 @@ rm -r VirtualBox
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Error: MySQL server has gone away]]></title>
+    <title type="html"><![CDATA[Error: MySQL Server Has Gone Away]]></title>
     <link href="http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away/"/>
     <updated>2013-10-16T13:17:00-06:00</updated>
     <id>http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away</id>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: apache | Kevin Warrington]]></title>
+  <title><![CDATA[Category: Apache | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/apache/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-08-22T11:59:17-06:00</updated>
+  <updated>2014-09-11T09:52:54-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -50,7 +50,7 @@
 <p>It uses an <strong>event-driven</strong> architecture and handles multiple connections
 in a single event loop.</p>
 
-<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 &ndash; 95% of website requests.
+<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 - 95% of website requests.
 It scales very well under high server load, and is not dependent on the underlying server hardware.</p>
 
 <p>Compared to other more established web servers,
@@ -86,7 +86,7 @@ http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Forward vs Reverse Proxy using Apache]]></title>
+    <title type="html"><![CDATA[Forward vs Reverse Proxy Using Apache]]></title>
     <link href="http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/"/>
     <updated>2013-09-23T13:09:00-06:00</updated>
     <id>http://dubbs.github.io/blog/2013/09/23/forward-vs-reverse-proxy-using-apache</id>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: nginx | Kevin Warrington]]></title>
+  <title><![CDATA[Category: Nginx | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/nginx/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-08-22T11:59:17-06:00</updated>
+  <updated>2014-09-11T09:52:54-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -50,7 +50,7 @@
 <p>It uses an <strong>event-driven</strong> architecture and handles multiple connections
 in a single event loop.</p>
 
-<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 &ndash; 95% of website requests.
+<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 - 95% of website requests.
 It scales very well under high server load, and is not dependent on the underlying server hardware.</p>
 
 <p>Compared to other more established web servers,

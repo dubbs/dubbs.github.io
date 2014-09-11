@@ -9,7 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation). To prevent them from installing during gem install, just add this line to &hellip;">
+  <meta name="description" content="Quick guide to setting up ssh config and agent forwarding. 1. Setup remote server Enable authorized keys on remote, /etc/sshd_config: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -24,11 +24,10 @@
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Inconsolata|Merriweather:400,400italic,700,700italic|Merriweather+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
   
   <script type="text/javascript">
@@ -83,6 +82,203 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-10T21:50:59-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:50 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quick guide to setting up ssh config and agent forwarding.</p>
+
+<h2>1. Setup remote server</h2>
+
+<p>Enable authorized keys on remote, <code>/etc/sshd_config</code>:</p>
+
+<pre><code>AuthorizedKeysFile  .ssh/authorized_keys
+</code></pre>
+
+<h2>2. Setup client keys</h2>
+
+<p>Generate an ssh key</p>
+
+<pre><code>ssh-keygen -t rsa
+</code></pre>
+
+<p>Copy public key to remote server</p>
+
+<pre><code>ssh-copy-id -i ~/.ssh/id_rsa.pub user@example.com
+</code></pre>
+
+<p>Test connection using private key</p>
+
+<pre><code>ssh -i ~/.ssh/id_rsa user@example.com date
+</code></pre>
+
+<h2>3. Setup client config</h2>
+
+<p>This allows for separate ssh configuration per host:</p>
+
+<pre><code>touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+</code></pre>
+
+<p>Add the following to <code>~/.ssh/config</code>:</p>
+
+<pre><code>Host remoteServer1
+HostName example.com
+User user
+PubkeyAuthentication yes
+IdentityFile ~/.ssh/id_rsa
+</code></pre>
+
+<p>Test the connection:</p>
+
+<pre><code>ssh remoteServer1 date
+</code></pre>
+
+<h2>4. Setup agent forwarding</h2>
+
+<p><code>ssh-agent</code> is a user daemon which holds unencrypted ssh keys in memory.  This saves you from having to supply your passphrase for each connection.</p>
+
+<p>Update <code>~/.ssh/config</code>:</p>
+
+<pre><code>Host remoteServer1
+...
+ForwardAgent yes
+</code></pre>
+
+<p>Verify ssh-agent is running:</p>
+
+<pre><code>echo "$SSH_AUTH_SOCK"
+</code></pre>
+
+<p>Verify your public key available to ssh-agent:</p>
+
+<pre><code>ssh-add -L
+</code></pre>
+
+<p>If not, add a specific identity:</p>
+
+<pre><code>ssh-add ~/.ssh/id_project1
+</code></pre>
+
+<h3>Resources:</h3>
+
+<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  ">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  </a>
+<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/  ">https://developer.github.com/guides/using-ssh-agent-forwarding/  </a>
+<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  ">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  </a>
+<a href="https://kimmo.suominen.com/docs/ssh/  ">https://kimmo.suominen.com/docs/ssh/  </a>
+<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/04/clear-the-dns-cache/">Clear the DNS Cache</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-04T12:55:27-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:55 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>You&rsquo;ve updated <code>/etc/hosts</code> and your changes aren&rsquo;t reflected in Google Chrome.  Try clearing the DNS cache.</p>
+
+<h2>Chrome</h2>
+
+<p>Navigate to <code>chrome://net-internals/#dns</code> and click &ldquo;Clear Host Cache&rdquo;<br/>
+Navigate to <code>chrome://net-internals/#sockets</code> and click &ldquo;Flush Socket Pools&rdquo;</p>
+
+<h2>Mac OS X v10.6</h2>
+
+<pre><code>sudo dscacheutil -flushcache
+</code></pre>
+
+<h2>Mac OS X v10.7+</h2>
+
+<pre><code>sudo killall -HUP mDNSResponder
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-02T20:42:51-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>8:42 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When your fork falls behind, and it will, here&rsquo;s how to quickly sync it up with master.</p>
+
+<p>First, clone your forked repo, if you havent already:</p>
+
+<pre><code>git clone git@github.com:&lt;fork&gt;/&lt;repo&gt;.git
+cd drush
+</code></pre>
+
+<p>Then, merge upstream and push to github:</p>
+
+<pre><code>git remote add upstream git@github.com:&lt;original&gt;/&lt;repo&gt;.git
+git fetch upstream
+git checkout master
+git merge upstream/master
+git push origin master
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a></h1>
     
     
@@ -92,14 +288,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-08-22T11:56:00-06:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2014</time>
+<time class='entry-date' datetime='2014-08-22T11:56:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>11:56 am</span></time>
         
       </p>
     
@@ -133,14 +322,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-08-18T15:25:00-06:00" pubdate data-updated="true">Aug 18<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-08-18T15:25:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:25 pm</span></time>
         
       </p>
     
@@ -156,6 +338,18 @@ mysql&gt; SHOW MASTER LOGS;
 <p>To clear all logs but the last one:</p>
 
 <pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
+</code></pre>
+
+<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
+
+<pre><code># log-bin=mysql-bin
+</code></pre>
+
+<p>Restart your server and confirm logging is now disabled:</p>
+
+<pre><code>$ mysql.server restart
+$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
 </code></pre>
 </div>
   
@@ -178,14 +372,7 @@ mysql&gt; SHOW MASTER LOGS;
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-08-17T16:03:00-06:00" pubdate data-updated="true">Aug 17<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-08-17T16:03:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:03 pm</span></time>
         
       </p>
     
@@ -225,14 +412,7 @@ issued before your export completes, you will have a perfect snapshot:</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-08-16T16:15:00-06:00" pubdate data-updated="true">Aug 16<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-08-16T16:15:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:15 pm</span></time>
         
       </p>
     
@@ -270,14 +450,7 @@ issued before your export completes, you will have a perfect snapshot:</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-03-19T23:20:00-06:00" pubdate data-updated="true">Mar 19<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time>
         
       </p>
     
@@ -376,14 +549,7 @@ issued before your export completes, you will have a perfect snapshot:</p>
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-03-18T23:53:00-06:00" pubdate data-updated="true">Mar 18<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-03-18T23:53:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:53 pm</span></time>
         
       </p>
     
@@ -431,14 +597,7 @@ bash test.sh
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-03-14T23:54:00-06:00" pubdate data-updated="true">Mar 14<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-03-14T23:54:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:54 pm</span></time>
         
       </p>
     
@@ -477,7 +636,7 @@ bash test.sh
 <p>It uses an <strong>event-driven</strong> architecture and handles multiple connections
 in a single event loop.</p>
 
-<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 &ndash; 95% of website requests.
+<p>Nginx is very good at serving <em>static content</em>, which accounts for 80 - 95% of website requests.
 It scales very well under high server load, and is not dependent on the underlying server hardware.</p>
 
 <p>Compared to other more established web servers,
@@ -516,306 +675,9 @@ http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/13/modernizr-plugin-api/">Modernizr Plugin API</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-13T16:22:00-06:00" pubdate data-updated="true">Mar 13<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modernizr provides a great plugin API, where custom tests can be added, for features that are currently not supported.</p>
-
-<p>To add a test, simply call the <code>addTest</code> method.</p>
-
-<p>Here is a example of a test used to determine if a browser <a href="http://responsivenews.co.uk/post/18948466399/cutting-the-mustard">cuts the mustard</a>:</p>
-
-<pre><code>(function (window, document, Modernizr) {
-  'use strict';
-  Modernizr.addTest('mustard', function () {
-    if('querySelector' in document &amp;&amp;
-        'localStorage' in window &amp;&amp;
-        'addEventListener' in window) {
-      return true;
-    }
-  });
-}(this, document, this.Modernizr));
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/12/vagrant/">Vagrant</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-12T10:45:00-06:00" pubdate data-updated="true">Mar 12<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Vagrant is used to <em>create</em> and <em>configure</em>
-lightweight, reproducible, and portable (Linux, Mac OS X or Windows) development environments</p>
-
-<h2>Setup</h2>
-
-<p>A <code>Vagrantfile</code> is used to describe your project&rsquo;s environment, specifically:</p>
-
-<ol>
-<li>root directory</li>
-<li>box or machine type, allocated resources and how it is accessed</li>
-<li>software installed</li>
-</ol>
-
-
-<p>Software installation can be deferred to provisioning tools such as <strong>shell scripts</strong>, <strong>Chef</strong>, or <strong>Puppet</strong>.</p>
-
-<p>To create a new Vagrantfile, run:</p>
-
-<pre><code>vagrant init
-</code></pre>
-
-<h2>Boxes</h2>
-
-<p>Vagrant uses as a box (base image) to clone a virtual machine.</p>
-
-<p>So, the first step is to add a box from the <a href="https://www.vagrantcloud.com/discover/">Vagrant Cloud</a>:</p>
-
-<pre><code>vagrant box add chef/ubuntu-13.10
-</code></pre>
-
-<p>Inside your <code>Vagrantfile</code>, reference this box:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.box = "chef/ubuntu-13.10"
-end
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>vagrant up
-vagrant ssh
-</code></pre>
-
-<h2>Provisioning</h2>
-
-<p>Vagrant has built in provisioning via the <strong>shell</strong> provisioner.</p>
-
-<p>First create a public directory to house our web files:</p>
-
-<pre><code>mkdir public
-echo "HI" &gt; public/index.html
-</code></pre>
-
-<p>Simply create a bootstrap.sh file at the root of our project:</p>
-
-<pre><code>#!/usr/bin/env bash
-
-apt-get update
-apt-get install -y apache2
-rm -rf /var/www
-ln -fs /vagrant/public /var/www
-</code></pre>
-
-<p>Add this script reference to our Vagrantfile:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.provision :shell, :path =&gt; "bootstrap.sh"
-end
-</code></pre>
-
-<p>Then reload and run the provisoner</p>
-
-<pre><code>vagrant reload --provision
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>vagrant ssh
-wget -qO- 127.0.0.1
-</code></pre>
-
-<h2>Networking</h2>
-
-<p>Vagrant supports port forwarding, public and private networks</p>
-
-<p>To setup port forwarding for our apache server simply:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.network :forwarded_port, host: 4567, guest: 80
-end
-</code></pre>
-
-<p>Then reload</p>
-
-<pre><code>vagrant reload
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>http://localhost:4567
-</code></pre>
-
-<h2>Teardown</h2>
-
-<p>Vagrant supports a number of teardown options:</p>
-
-<ul>
-<li><strong>Suspend</strong> saves VM RAM and contents to disk, fast boot</li>
-<li><strong>Halt</strong> saves VM contents to disk, cold boot</li>
-<li><strong>Destroy</strong> removes VM from disk</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/10/cloud-computing-service-models/">Cloud Computing Service Models</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-10T12:50:00-06:00" pubdate data-updated="true">Mar 10<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>IaaS (Infrastructure as a Service)</h2>
-
-<ul>
-<li>Provider manages underlying infrastructure, eg. storage, network and computing resources</li>
-<li>You can deploy, run and control software</li>
-<li>Pricing model: usage and component based</li>
-</ul>
-
-
-<p>Providers:</p>
-
-<ul>
-<li>AWS EC2</li>
-<li>Joyent</li>
-<li>Rackspace</li>
-</ul>
-
-
-<h2>PaaS (Platform as a Service)</h2>
-
-<ul>
-<li>Provider manages underlying infrastructure</li>
-<li>Provider manages operating system</li>
-<li>Provider manages programming languages, frameworks, libraries, services and tools for you to create and deploy applications.</li>
-<li>You control deployed applications and configuration</li>
-<li>Pricing model: usage and component based</li>
-</ul>
-
-
-<p>Providers:</p>
-
-<ul>
-<li>Heroku</li>
-<li>AWS Elastic Beanstalk</li>
-<li>Engine Yard</li>
-<li>Google App Engine</li>
-<li>Windows Azure</li>
-<li>OpenStack</li>
-<li>Nodejitsu</li>
-</ul>
-
-
-<h2>SaaS (Software as a Service)</h2>
-
-<ul>
-<li>Provider manages underlying infrastructure</li>
-<li>Provider manages operating system</li>
-<li>Provider manages application platform and even individual application capabilities</li>
-<li>You control user-specific configuration</li>
-<li>You use application on client devices through either a web browser or API</li>
-<li>Pricing model: monthly or yearly flat fee</li>
-</ul>
-
-
-<p>Providers:</p>
-
-<ul>
-<li>Salesforce CRM</li>
-<li>Dropbox</li>
-<li>Google Apps</li>
-<li>LinkedIn</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="/posts/2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -828,23 +690,23 @@ end
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/04/clear-the-dns-cache/">Clear the DNS Cache</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/">Non-Blocking MySQL Database Export for InnoDB Tables</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/16/update-your-locate-database/">Update Your Locate Database</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a>
       </li>
     
   </ul>
@@ -853,7 +715,7 @@ end
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/dubbs">@dubbs</a> on GitHub
@@ -904,7 +766,7 @@ end
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>

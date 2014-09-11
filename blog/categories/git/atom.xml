@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-09-11T09:52:54-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Keeping Your Git Fork Up-to-date]]></title>
+    <link href="http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date/"/>
+    <updated>2014-09-02T20:42:51-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date</id>
+    <content type="html"><![CDATA[<p>When your fork falls behind, and it will, here&rsquo;s how to quickly sync it up with master.</p>
+
+<p>First, clone your forked repo, if you havent already:</p>
+
+<pre><code>git clone git@github.com:&lt;fork&gt;/&lt;repo&gt;.git
+cd drush
+</code></pre>
+
+<p>Then, merge upstream and push to github:</p>
+
+<pre><code>git remote add upstream git@github.com:&lt;original&gt;/&lt;repo&gt;.git
+git fetch upstream
+git checkout master
+git merge upstream/master
+git push origin master
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

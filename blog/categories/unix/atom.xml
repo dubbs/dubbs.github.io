@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: unix | Kevin Warrington]]></title>
+  <title><![CDATA[Category: Unix | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-08-22T11:59:17-06:00</updated>
+  <updated>2014-09-11T09:52:54-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -14,7 +14,96 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Deleting MySQL bin files]]></title>
+    <title type="html"><![CDATA[SSH Config and Agent Forwarding]]></title>
+    <link href="http://dubbs.github.io/blog/2014/09/10/ssh-config-and-agent-forwarding/"/>
+    <updated>2014-09-10T21:50:59-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/09/10/ssh-config-and-agent-forwarding</id>
+    <content type="html"><![CDATA[<p>Quick guide to setting up ssh config and agent forwarding.</p>
+
+<h2>1. Setup remote server</h2>
+
+<p>Enable authorized keys on remote, <code>/etc/sshd_config</code>:</p>
+
+<pre><code>AuthorizedKeysFile  .ssh/authorized_keys
+</code></pre>
+
+<h2>2. Setup client keys</h2>
+
+<p>Generate an ssh key</p>
+
+<pre><code>ssh-keygen -t rsa
+</code></pre>
+
+<p>Copy public key to remote server</p>
+
+<pre><code>ssh-copy-id -i ~/.ssh/id_rsa.pub user@example.com
+</code></pre>
+
+<p>Test connection using private key</p>
+
+<pre><code>ssh -i ~/.ssh/id_rsa user@example.com date
+</code></pre>
+
+<h2>3. Setup client config</h2>
+
+<p>This allows for separate ssh configuration per host:</p>
+
+<pre><code>touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+</code></pre>
+
+<p>Add the following to <code>~/.ssh/config</code>:</p>
+
+<pre><code>Host remoteServer1
+HostName example.com
+User user
+PubkeyAuthentication yes
+IdentityFile ~/.ssh/id_rsa
+</code></pre>
+
+<p>Test the connection:</p>
+
+<pre><code>ssh remoteServer1 date
+</code></pre>
+
+<h2>4. Setup agent forwarding</h2>
+
+<p><code>ssh-agent</code> is a user daemon which holds unencrypted ssh keys in memory.  This saves you from having to supply your passphrase for each connection.</p>
+
+<p>Update <code>~/.ssh/config</code>:</p>
+
+<pre><code>Host remoteServer1
+...
+ForwardAgent yes
+</code></pre>
+
+<p>Verify ssh-agent is running:</p>
+
+<pre><code>echo "$SSH_AUTH_SOCK"
+</code></pre>
+
+<p>Verify your public key available to ssh-agent:</p>
+
+<pre><code>ssh-add -L
+</code></pre>
+
+<p>If not, add a specific identity:</p>
+
+<pre><code>ssh-add ~/.ssh/id_project1
+</code></pre>
+
+<h3>Resources:</h3>
+
+<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  ">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  </a>
+<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/  ">https://developer.github.com/guides/using-ssh-agent-forwarding/  </a>
+<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  ">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  </a>
+<a href="https://kimmo.suominen.com/docs/ssh/  ">https://kimmo.suominen.com/docs/ssh/  </a>
+<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Deleting MySQL Bin Files]]></title>
     <link href="http://dubbs.github.io/blog/2014/08/18/deleting-mysql-bin-files/"/>
     <updated>2014-08-18T15:25:00-06:00</updated>
     <id>http://dubbs.github.io/blog/2014/08/18/deleting-mysql-bin-files</id>
@@ -28,11 +117,23 @@ mysql&gt; SHOW MASTER LOGS;
 
 <pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
 </code></pre>
+
+<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
+
+<pre><code># log-bin=mysql-bin
+</code></pre>
+
+<p>Restart your server and confirm logging is now disabled:</p>
+
+<pre><code>$ mysql.server restart
+$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Non-Blocking MySQL database export for InnoDB tables]]></title>
+    <title type="html"><![CDATA[Non-Blocking MySQL Database Export for InnoDB Tables]]></title>
     <link href="http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/"/>
     <updated>2014-08-17T16:03:00-06:00</updated>
     <id>http://dubbs.github.io/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables</id>
@@ -52,7 +153,7 @@ issued before your export completes, you will have a perfect snapshot:</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Update your locate database]]></title>
+    <title type="html"><![CDATA[Update Your Locate Database]]></title>
     <link href="http://dubbs.github.io/blog/2014/08/16/update-your-locate-database/"/>
     <updated>2014-08-16T16:15:00-06:00</updated>
     <id>http://dubbs.github.io/blog/2014/08/16/update-your-locate-database</id>
@@ -145,34 +246,6 @@ issued before your export completes, you will have a perfect snapshot:</p>
 <li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Executing Shell Scripts]]></title>
-    <link href="http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts/"/>
-    <updated>2014-03-18T23:53:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2014/03/18/executing-shell-scripts</id>
-    <content type="html"><![CDATA[<p>Here are some of the basic ways you can execute scripts on the command line.</p>
-
-<p><code>source</code> or <code>.</code> will read and execute commands from filename in the <strong>current shell</strong> environment.<br/>
-Any environment variables set within the script will remain after exit.</p>
-
-<pre><code>. test.sh
-source test.sh
-</code></pre>
-
-<p><code>sh</code> or <code>bash</code> will fork a <strong>new shell</strong> with the specified interpreter.</p>
-
-<pre><code>sh test.sh
-bash test.sh
-</code></pre>
-
-<p><code>./</code> will also fork a <strong>new shell</strong>, but the file needs to be set as executable and interpreter will be derived from the shebang (<code>#!/bin/sh</code>).</p>
-
-<pre><code>chmod +x test.sh
-./test.sh
-</code></pre>
 ]]></content>
   </entry>
   

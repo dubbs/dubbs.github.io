@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Dns | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/dns/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2014-09-11T09:52:54-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Clear the DNS Cache]]></title>
+    <link href="http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache/"/>
+    <updated>2014-09-04T12:55:27-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache</id>
+    <content type="html"><![CDATA[<p>You&rsquo;ve updated <code>/etc/hosts</code> and your changes aren&rsquo;t reflected in Google Chrome.  Try clearing the DNS cache.</p>
+
+<h2>Chrome</h2>
+
+<p>Navigate to <code>chrome://net-internals/#dns</code> and click &ldquo;Clear Host Cache&rdquo;<br/>
+Navigate to <code>chrome://net-internals/#sockets</code> and click &ldquo;Flush Socket Pools&rdquo;</p>
+
+<h2>Mac OS X v10.6</h2>
+
+<pre><code>sudo dscacheutil -flushcache
+</code></pre>
+
+<h2>Mac OS X v10.7+</h2>
+
+<pre><code>sudo killall -HUP mDNSResponder
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
