@@ -3,6 +3,18 @@
   
   
   <url>
+    <loc>http://dubbs.github.io/blog/2014/09/10/ssh-config-and-agent-forwarding/</loc>
+    <lastmod>2014-09-10T21:50:59-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache/</loc>
+    <lastmod>2014-09-04T12:55:27-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://dubbs.github.io/blog/2014/09/02/keeping-your-fork-up-to-date/</loc>
     <lastmod>2014-09-02T20:42:51-06:00</lastmod>
     <priority>0.8</priority>
@@ -149,14 +161,14 @@
   
   <url>
     <loc>http://dubbs.github.io/blog/archives/</loc>
-    <lastmod>2014-09-02T21:32:08-06:00</lastmod>
+    <lastmod>2014-09-10T22:00:37-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://dubbs.github.io/</loc>
-    <lastmod>2014-09-02T21:32:08-06:00</lastmod>
+    <lastmod>2014-09-10T22:00:37-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

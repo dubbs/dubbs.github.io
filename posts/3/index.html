@@ -9,7 +9,8 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="MySQL system variables can be queried using the show variables syntax: mysql -uUSERNAME -pPASSWORD -e 'SHOW VARIABLES LIKE "ft_min_word_len"' It& &hellip;">
+  <meta name="description" content="Here&rsquo;s a simple way to connect to an Apple Filing Protocol (AFP) based server and access shared files. mkdir /Volumes/my-share
+mount_afp "afp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,144 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/23/mounting-an-afp-filesystem/">Mounting an AFP Filesystem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-09-23T13:35:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2013</span></span> <span class='time'>1:35 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here&rsquo;s a simple way to connect to an Apple Filing Protocol (AFP) based server and access shared files.</p>
+
+<pre><code>mkdir /Volumes/my-share
+mount_afp "afp://192.168.0.1/folder/" /Volumes/my-share
+</code></pre>
+
+<p>You can access your new connection in either <code>/Volumes</code> or in left pane of the finder.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/23/forward-vs-reverse-proxy-using-apache/">Forward vs Reverse Proxy Using Apache</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-09-23T13:09:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2013</span></span> <span class='time'>1:09 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A proxy server acts as an intermediary between a client and a destination server, primarily controlling access to resources and caching content.</p>
+
+<p>To enable proxy functionality in Apache, use the following:</p>
+
+<pre><code># /etc/apache2/httpd.conf
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+</code></pre>
+
+<h2>Forward Proxy</h2>
+
+<p>A <a href="http://en.wikipedia.org/wiki/Proxy_server#Forward_proxies">Forward Proxy</a> is typically used to:</p>
+
+<ul>
+<li>hide the identities of clients</li>
+<li>provide internet access to clients blocked by firewall</li>
+<li>cache content to reduce network traffic</li>
+</ul>
+
+
+<p>A forward proxy accepts requests from internal clients and forwards them to an external resource.</p>
+
+<p><img src="/images/forward-proxy.png"></p>
+
+<p>To configure this in Apache, we can simply control who has access to external resources by
+specifying their IP address.</p>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+  # Enables Apache to acting as forwarding server
+  ProxyRequests On
+
+  # Adds Via header to requests
+  ProxyVia On
+
+  &lt;Proxy *&gt;
+    Order deny,allow
+    Deny from all
+
+    # Only allows this client to proxy requests
+    Allow from 192.168.0.11
+  &lt;/Proxy&gt;
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<h2>Reverse Proxy</h2>
+
+<p>A <a href="http://en.wikipedia.org/wiki/Reverse_proxy">Reverse proxy</a> is typically used to:</p>
+
+<ul>
+<li>hide the identities of servers</li>
+<li>act as load balancer</li>
+<li>act as web accelerator</li>
+<li>used to perform A/B testing</li>
+</ul>
+
+
+<p>A reverse proxy accepts requests from external clients and usually forwards them
+to an internal resource.</p>
+
+<p><img src="/images/reverse-proxy.png"></p>
+
+<p>To configure this in Apache, we use the <code>ProxyPass</code> and <code>ProxyPassReverse</code> directives.</p>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+  # Prevents Apache from acting as forwarding server
+  ProxyRequests Off
+
+  # http://example.com/assets/css to be internally converted into a proxy request to http://cdn.example.com/css
+  ProxyPass /assets/ http://cdn.example.com/
+
+  # if http://cdn.example.com/css has a redirect to http://cdn.example.com/v2/css
+  # Apache will adjust the request to http://example.com/assets/v2/css before forwarding response
+  ProxyPassReverse /assets/ http://cdn.example.com/
+&lt;/VirtualHost&gt;
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -314,6 +453,14 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/04/clear-the-dns-cache/">Clear the DNS Cache</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
       </li>
     
@@ -323,14 +470,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/">Non-Blocking MySQL Database Export for InnoDB Tables</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/16/update-your-locate-database/">Update Your Locate Database</a>
       </li>
     
   </ul>
