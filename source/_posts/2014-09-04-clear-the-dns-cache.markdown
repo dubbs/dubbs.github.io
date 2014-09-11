@@ -2,6 +2,7 @@
 layout: post
 title: "Clear the DNS Cache"
 date: 2014-09-04 12:55:27 -0600
+updated: 2014-09-04 12:55:27 -0600
 comments: true
 categories: [mac, dns]
 ---
