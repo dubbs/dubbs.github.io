@@ -2,7 +2,7 @@
 layout: post
 title: "SSH Config and Agent Forwarding"
 date: 2014-09-10 21:50:59 -0600
-updated: 2014-09-10 21:50:59 -0600
+updated: 2014-09-11 11:14:59 -0600
 comments: true
 categories: [unix, ssh]
 ---
@@ -13,6 +13,8 @@ Quick guide to setting up ssh config and agent forwarding.
 
 Enable authorized keys on remote, `/etc/sshd_config`:
 
+	RSAAuthentication yes
+	PubkeyAuthentication yes
 	AuthorizedKeysFile  .ssh/authorized_keys
 
 ## 2. Setup client keys
@@ -44,15 +46,18 @@ Add the following to `~/.ssh/config`:
 	PubkeyAuthentication yes
 	IdentityFile ~/.ssh/id_rsa
 
-Test connection:
+Test the connection:
 
-	ssh -T remoteServer1
+	ssh remoteServer1 date
 
 ## 4. Setup agent forwarding
 
-`ssh-agent` is a user daemon which holds unencrypted ssh keys in memory.  This saves you from having to supply your passphrase for each connection.
+`ssh-agent` is a user daemon which holds unencrypted ssh keys in memory.  Key 
+challenges are sent from a remote machine, through any intermediary servers 
+and back to your local machine.  This saves you from having to store your
+private keys on remote servers.
 
-Update `~/.ssh/config`:
+Turn on agent forwarding for your host, `~/.ssh/config`:
 
 	Host remoteServer1
 	...
@@ -62,13 +67,20 @@ Verify ssh-agent is running:
 
 	echo "$SSH_AUTH_SOCK"
 
-Verify your public key available to ssh-agent:
+Verify you have an identity loaded:
 
 	ssh-add -L
 
-If not, add a specific identity:
+If not, add an identity:
 
-	ssh-add ~/.ssh/id_project1
+	ssh-add ~/.ssh/id_rsa
+
+Login, logout, login to remote, first login requires passphrase.
+Subsequent logins do not:
+
+	ssh remoteServer1
+	exit
+	ssh remoteServer1
 
 ### Resources:
 
