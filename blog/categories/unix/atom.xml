@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Unix | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-09-11T09:52:54-06:00</updated>
+  <updated>2014-09-11T11:15:48-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -24,7 +24,9 @@
 
 <p>Enable authorized keys on remote, <code>/etc/sshd_config</code>:</p>
 
-<pre><code>AuthorizedKeysFile  .ssh/authorized_keys
+<pre><code>RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile  .ssh/authorized_keys
 </code></pre>
 
 <h2>2. Setup client keys</h2>
@@ -68,9 +70,12 @@ IdentityFile ~/.ssh/id_rsa
 
 <h2>4. Setup agent forwarding</h2>
 
-<p><code>ssh-agent</code> is a user daemon which holds unencrypted ssh keys in memory.  This saves you from having to supply your passphrase for each connection.</p>
+<p><code>ssh-agent</code> is a user daemon which holds unencrypted ssh keys in memory.  Key
+challenges are sent from a remote machine, through any intermediary servers
+and back to your local machine.  This saves you from having to store your
+private keys on remote servers.</p>
 
-<p>Update <code>~/.ssh/config</code>:</p>
+<p>Turn on agent forwarding for your host, <code>~/.ssh/config</code>:</p>
 
 <pre><code>Host remoteServer1
 ...
@@ -82,14 +87,22 @@ ForwardAgent yes
 <pre><code>echo "$SSH_AUTH_SOCK"
 </code></pre>
 
-<p>Verify your public key available to ssh-agent:</p>
+<p>Verify you have an identity loaded:</p>
 
 <pre><code>ssh-add -L
 </code></pre>
 
-<p>If not, add a specific identity:</p>
+<p>If not, add an identity:</p>
 
-<pre><code>ssh-add ~/.ssh/id_project1
+<pre><code>ssh-add ~/.ssh/id_rsa
+</code></pre>
+
+<p>Login, logout, login to remote, first login requires passphrase.
+Subsequent logins do not:</p>
+
+<pre><code>ssh remoteServer1
+exit
+ssh remoteServer1
 </code></pre>
 
 <h3>Resources:</h3>
