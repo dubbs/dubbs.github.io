@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Using the Loopback Interface - Kevin Warrington</title>
+  <title>Executing Drush Commands Outside of Vagrant Using Aliases - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="The hosts file is used to map hostnames to ip addresses. localhost is the hostname for the loopback network interface, in /etc/hosts: # IPv4 loopback &hellip;">
+  <meta name="description" content="Drush aliases make it possible to run commands from outside your
+vagrant box, and even outside of your project directory. To start, you need a ~/. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -79,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">Using the Loopback Interface</h1>
+      <h1 class="entry-title">Executing Drush Commands Outside of Vagrant Using Aliases</h1>
     
     
       <p class="meta">
@@ -88,41 +89,58 @@
 
 
 
-<time class='entry-date' datetime='2014-03-08T15:14:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:14 pm</span></time>
+<time class='entry-date' datetime='2014-09-18T11:17:42-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:17 am</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>The hosts file is used to map hostnames to ip addresses.</p>
+<div class="entry-content"><p>Drush aliases make it possible to run commands from outside your
+vagrant box, and even outside of your project directory.</p>
 
-<p><strong>localhost</strong> is the hostname for the loopback network interface, in <code>/etc/hosts</code>:</p>
+<p>To start, you need a <code>~/.drush/dev.aliases.drushrc.php</code> file:</p>
 
-<pre><code># IPv4 loopback address
-127.0.0.1 localhost
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$aliases</span><span class="p">[</span><span class="s1">&#39;project1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>  <span class="s1">&#39;root&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;10.0.0.124&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="nv">$aliases</span><span class="p">[</span><span class="s1">&#39;project2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>  <span class="s1">&#39;root&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;10.0.0.125&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-# IPv6 loopback address
-::1 localhost
 
-# IPv6 link-local address
-fe80::1%lo0 localhost
-</code></pre>
+<p>Next, you need to copy your public key to your vagrant box, the password
+is <code>vagrant</code>:</p>
 
-<p>An <strong>loopback</strong> address is used to send a packet to itself, whereas <strong>link-local</strong>
-allows packet transfer between devices on the local link (not routable).</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ssh-copy-id -i ~/.ssh/id_rsa.pub vagrant@10.0.0.124
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>Loopback addresses are often used in web development:</p>
 
-<pre><code>127.0.0.1 localhost project1.local project2.local
-</code></pre>
+<p>And finally, test the connection:</p>
 
-<p>They are also used to increase privacy and security.  Here is a very helpful <a href="http://someonewhocares.org/hosts/hosts">resource</a> on the subject.</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>drush @project1 status
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>After updating your hosts file, be sure to clear the directory service cache:</p>
 
-<pre><code>dscacheutil -flushcache
-</code></pre>
+<p>Drush will use your alias configuration to select the appropriate root directory and remote
+host.  You should be able to run the above command from any directory.</p>
 </div>
 
 
@@ -138,12 +156,12 @@ allows packet transfer between devices on the local link (not routable).</p>
 
 
 
-<time class='entry-date' datetime='2014-03-08T15:14:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:14 pm</span></time> <time class='updated' datetime='2014-03-08T15:14:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:14 pm</span></time>
+<time class='entry-date' datetime='2014-09-18T11:17:42-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:17 am</span></time> <time class='updated' datetime='2014-09-11T11:14:59-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:14 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/mac/'>mac</a>
+    <a class='category' href='/blog/categories/drupal/'>drupal</a>, <a class='category' href='/blog/categories/drush/'>drush</a>, <a class='category' href='/blog/categories/ssh/'>ssh</a>
   
 </span>
 
@@ -152,7 +170,7 @@ allows packet transfer between devices on the local link (not routable).</p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/" >Tweet</a>
   
   
   
@@ -163,10 +181,8 @@ allows packet transfer between devices on the local link (not routable).</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/07/error-failed-to-create-host-only-adapter/" title="Previous Post: Error: Failed to Create Host-Only Adapter">&laquo; Error: Failed to Create Host-Only Adapter</a>
+        <a class="basic-alignment left" href="/blog/2014/09/10/ssh-config-and-agent-forwarding/" title="Previous Post: SSH Config and Agent Forwarding">&laquo; SSH Config and Agent Forwarding</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/03/10/cloud-computing-service-models/" title="Next Post: Cloud Computing Service Models">Cloud Computing Service Models &raquo;</a>
       
     </p>
   </footer>
@@ -261,8 +277,8 @@ allows packet transfer between devices on the local link (not routable).</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/';
-        var disqus_url = 'http://dubbs.github.io/blog/2014/03/08/using-the-loopback-interface/';
+        var disqus_identifier = 'http://dubbs.github.io/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/';
+        var disqus_url = 'http://dubbs.github.io/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/';
         var disqus_script = 'embed.js';
       
     (function () {

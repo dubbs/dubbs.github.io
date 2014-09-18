@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-09-11T11:26:02-06:00</updated>
+  <updated>2014-09-18T11:34:49-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Executing Drush Commands Outside of Vagrant Using Aliases]]></title>
+    <link href="http://dubbs.github.io/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/"/>
+    <updated>2014-09-18T11:17:42-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases</id>
+    <content type="html"><![CDATA[<p>Drush aliases make it possible to run commands from outside your
+vagrant box, and even outside of your project directory.</p>
+
+<p>To start, you need a <code>~/.drush/dev.aliases.drushrc.php</code> file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="nv">$aliases</span><span class="p">[</span><span class="s1">&#39;project1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>  <span class="s1">&#39;root&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;10.0.0.124&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="nv">$aliases</span><span class="p">[</span><span class="s1">&#39;project2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span><span class='line'>  <span class="s1">&#39;root&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;10.0.0.125&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="s1">&#39;remote-user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;vagrant&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, you need to copy your public key to your vagrant box, the password
+is <code>vagrant</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ssh-copy-id -i ~/.ssh/id_rsa.pub vagrant@10.0.0.124
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And finally, test the connection:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>drush @project1 status
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Drush will use your alias configuration to select the appropriate root directory and remote
+host.  You should be able to run the above command from any directory.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SSH Config and Agent Forwarding]]></title>
@@ -806,77 +859,6 @@ rm file.pnm
 </code></pre>
 
 <p>More to come!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Unix Pipelines vs Redirection]]></title>
-    <link href="http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection/"/>
-    <updated>2013-09-25T20:05:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection</id>
-    <content type="html"><![CDATA[<p>Redirection is used to send data from standard streams to specific locations.</p>
-
-<p>To send the standard output stream to a file, instead of the terminal:</p>
-
-<pre><code>command1 &gt; outfile
-command1 1&gt; outfile
-</code></pre>
-
-<p>Same as above, but instead send the standard error stream:</p>
-
-<pre><code>command1 2&gt; outfile
-</code></pre>
-
-<p>To send standard output/error streams to a file, instead of the terminal:</p>
-
-<pre><code>command1 &gt; outfile 2&gt;&amp;1
-</code></pre>
-
-<p>Output can also be disposed of using the null device:</p>
-
-<pre><code>command1 &gt; /dev/null 2&gt;&amp;1
-</code></pre>
-
-<p>To use the contents of a file as the standard input stream to a command, instead of using keyboard input:</p>
-
-<pre><code>command1 &lt; infile
-</code></pre>
-
-<p>Input can be read from one file and output to another:</p>
-
-<pre><code>command1 &lt; infile &gt; outfile
-</code></pre>
-
-<p>The standard output of one command can also be used as the standard input to another using a temporary file:</p>
-
-<pre><code>command1 &gt; file
-command2 &lt; file
-rm file
-</code></pre>
-
-<p>However, this is inefficient as the second command has to wait for the first to complete before proceeding.  Also, there is a chance that the temporary file will overwrite an already existing one.</p>
-
-<p>Instead, it is more efficient to directly stream the output of one command into another via <code>pipes</code>:</p>
-
-<pre><code>command1 | command2
-</code></pre>
-
-<p>Along with the standard out, you can also send standard error, notice that it appears before the pipe.</p>
-
-<pre><code>command1 2&gt;&amp;1 | command2
-</code></pre>
-
-<p>It is also possible to direct the output of a command to standard out and an outfile using <code>tee</code>.</p>
-
-<pre><code>command1 | tee outfile
-</code></pre>
-
-<p>Lastly, if you want to avoid overwriting files when redirecting, set noclobber:</p>
-
-<pre><code>set -o noclobber
-command1 &gt; existingfile
-# -bash: existingfile: cannot overwrite existing file
-</code></pre>
 ]]></content>
   </entry>
   
