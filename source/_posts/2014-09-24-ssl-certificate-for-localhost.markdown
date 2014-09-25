@@ -54,3 +54,14 @@ Restart Apache
 ```sh
 sudo apachectl restart
 ```
+
+(Optional) - Add as trusted certificate
+
+```sh
+open /etc/apache2/server.crt
+
+# Always trust for all users
+# Always trust when using the certificate
+```
+
+Restart Chrome
