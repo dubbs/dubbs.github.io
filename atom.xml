@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-09-24T22:53:03-06:00</updated>
+  <updated>2014-09-24T23:18:05-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -89,6 +89,21 @@ directory.</p>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apachectl restart
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>(Optional) - Add as trusted certificate</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>open /etc/apache2/server.crt
+</span><span class='line'>
+</span><span class='line'><span class="c"># Always trust for all users</span>
+</span><span class='line'><span class="c"># Always trust when using the certificate</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart Chrome</p>
 ]]></content>
   </entry>
   
