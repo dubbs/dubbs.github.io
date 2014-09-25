@@ -9,8 +9,25 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Drush aliases make it possible to run commands from outside your
-vagrant box, and even outside of your project directory. To start, you need a ~/. &hellip;">
+  <meta name="description" content="Create a self-signed certificate and move it to the apache conf
+directory. 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+# generate private key
+openssl &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +94,105 @@ vagrant box, and even outside of your project directory. To start, you need a ~/
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-24T22:22:09-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:22 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Create a self-signed certificate and move it to the apache conf
+directory.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># generate private key</span>
+</span><span class='line'>openssl genrsa -des3 -out server.key 1024
+</span><span class='line'>
+</span><span class='line'><span class="c"># generate csr</span>
+</span><span class='line'>openssl req -new -key server.key -out server.csr
+</span><span class='line'>
+</span><span class='line'><span class="c"># remove passphrase from private key</span>
+</span><span class='line'>cp server.key server.key.org
+</span><span class='line'>openssl rsa -in server.key.org -out server.key
+</span><span class='line'>
+</span><span class='line'><span class="c"># create self-signed cert </span>
+</span><span class='line'>openssl x509 -req -days <span class="m">365</span> -in server.csr -signkey server.key -out server.crt
+</span><span class='line'>
+</span><span class='line'><span class="c"># move to apache conf dir</span>
+</span><span class='line'>cp server.crt /etc/apache2/server.crt
+</span><span class='line'>cp server.key /etc/apache2/server.key
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enable the default ssl configuration, <code>/etc/apache2/httpd.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># uncomment the following line</span>
+</span><span class='line'>Include /private/etc/apache2/extra/httpd-ssl.conf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add host entry for development site, <code>/etc/hosts</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>127.0.0.1 devsite.local
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Modify the default virtual host entry, <code>/etc/apache2/extra/httpd-ssl.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># update config for site</span>
+</span><span class='line'>DocumentRoot <span class="s2">&quot;/Library/WebServer/Documents/devsite&quot;</span>
+</span><span class='line'>ServerName devsite.local:433
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart Apache</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apachectl restart
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -638,54 +754,6 @@ issued before your export completes, you will have a perfect snapshot:</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/18/executing-shell-scripts/">Executing Shell Scripts</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-18T23:53:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:53 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here are some of the basic ways you can execute scripts on the command line.</p>
-
-<p><code>source</code> or <code>.</code> will read and execute commands from filename in the <strong>current shell</strong> environment.<br/>
-Any environment variables set within the script will remain after exit.</p>
-
-<pre><code>. test.sh
-source test.sh
-</code></pre>
-
-<p><code>sh</code> or <code>bash</code> will fork a <strong>new shell</strong> with the specified interpreter.</p>
-
-<pre><code>sh test.sh
-bash test.sh
-</code></pre>
-
-<p><code>./</code> will also fork a <strong>new shell</strong>, but the file needs to be set as executable and interpreter will be derived from the shebang (<code>#!/bin/sh</code>).</p>
-
-<pre><code>chmod +x test.sh
-./test.sh
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -701,6 +769,10 @@ bash test.sh
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
       </li>
     
@@ -714,10 +786,6 @@ bash test.sh
     
       <li class="post">
         <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a>
       </li>
     
   </ul>

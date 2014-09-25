@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-09-18T11:34:49-06:00</updated>
+  <updated>2014-09-24T22:53:03-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SSL Certificate for Localhost]]></title>
+    <link href="http://dubbs.github.io/blog/2014/09/24/ssl-certificate-for-localhost/"/>
+    <updated>2014-09-24T22:22:09-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/09/24/ssl-certificate-for-localhost</id>
+    <content type="html"><![CDATA[<p>Create a self-signed certificate and move it to the apache conf
+directory.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># generate private key</span>
+</span><span class='line'>openssl genrsa -des3 -out server.key 1024
+</span><span class='line'>
+</span><span class='line'><span class="c"># generate csr</span>
+</span><span class='line'>openssl req -new -key server.key -out server.csr
+</span><span class='line'>
+</span><span class='line'><span class="c"># remove passphrase from private key</span>
+</span><span class='line'>cp server.key server.key.org
+</span><span class='line'>openssl rsa -in server.key.org -out server.key
+</span><span class='line'>
+</span><span class='line'><span class="c"># create self-signed cert </span>
+</span><span class='line'>openssl x509 -req -days <span class="m">365</span> -in server.csr -signkey server.key -out server.crt
+</span><span class='line'>
+</span><span class='line'><span class="c"># move to apache conf dir</span>
+</span><span class='line'>cp server.crt /etc/apache2/server.crt
+</span><span class='line'>cp server.key /etc/apache2/server.key
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enable the default ssl configuration, <code>/etc/apache2/httpd.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># uncomment the following line</span>
+</span><span class='line'>Include /private/etc/apache2/extra/httpd-ssl.conf
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add host entry for development site, <code>/etc/hosts</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>127.0.0.1 devsite.local
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Modify the default virtual host entry, <code>/etc/apache2/extra/httpd-ssl.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># update config for site</span>
+</span><span class='line'>DocumentRoot <span class="s2">&quot;/Library/WebServer/Documents/devsite&quot;</span>
+</span><span class='line'>ServerName devsite.local:433
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Restart Apache</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apachectl restart
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Executing Drush Commands Outside of Vagrant Using Aliases]]></title>
@@ -834,31 +913,6 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
 
 <pre><code>(cat file1 file2)&gt; file3
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Converting Between Formats]]></title>
-    <link href="http://dubbs.github.io/blog/2013/09/26/converting-between-formats/"/>
-    <updated>2013-09-26T13:17:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/09/26/converting-between-formats</id>
-    <content type="html"><![CDATA[<p>There are many tools you can use to convert between file formats.</p>
-
-<p>Convert <code>bin</code> to <code>iso</code>, with bchunk:</p>
-
-<pre><code>brew install bchunk
-bchunk input.bin input.cue output.iso
-</code></pre>
-
-<p>Convert <code>png</code> to <code>svg</code>, with convert and potrace, for simple images:</p>
-
-<pre><code>brew install imagemagick potrace
-convert file.png file.pnm
-potrace file.pnm -s -o file.svg -C#ff0000 -k0.6 # red foreground, more detail
-rm file.pnm
-</code></pre>
-
-<p>More to come!</p>
 ]]></content>
   </entry>
   
