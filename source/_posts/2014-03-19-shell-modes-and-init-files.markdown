@@ -2,7 +2,7 @@
 layout: post
 title: "Shell Modes and Init Files"
 date: 2014-03-19 23:20
-updated: 2014-03-19 23:20
+updated: 2014-10-10 17:52
 comments: true
 categories: [unix, mac]
 ---
@@ -25,8 +25,12 @@ A shell can be initialized with the following mode combinations:
 
 #### Login + Interactive
 
+You will be forwarded to the users home directory, with the users
+environment.
+
 - log in to a remote system via SSH
 - new terminal tab, Mac OS X
+- `sudo su -`
 
 files sourced:
 
@@ -40,9 +44,13 @@ files sourced:
 
 #### Non-login + Interactive
 
+You will stay in the current directory, but will have the users 
+environment.
+
 - new terminal tab, linux
 - start new shell process ($ bash)
 - execute script remotely and request terminal (ssh user@host -t 'echo $PWD')
+- `sudo su`
 
 files sourced:
 
@@ -50,6 +58,9 @@ files sourced:
 	~/.bashrc
 
 #### Non-login + Non-Interactive
+
+You will stay in the current directory and keep your current
+environment.
 
 - run an executable with #!/usr/bin/env bash shebang
 - run a script ($ bash test.sh)
@@ -64,4 +75,5 @@ References:
 
 - [Linux Command](http://linuxcommand.org/)
 - [Unix Shell Initialization](https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization)
+- [Switch User] (http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used)
 
