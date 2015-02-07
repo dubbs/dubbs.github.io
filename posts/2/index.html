@@ -9,7 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Here are some of the basic ways you can execute scripts on the command line. source or . will read and execute commands from filename in the current &hellip;">
+  <meta name="description" content="To quickly dump a large InnoDB database to file without locking it up: mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,195 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/">Non-Blocking MySQL Database Export for InnoDB Tables</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-08-17T16:03:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:03 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To quickly dump a large InnoDB database to file without locking it up:</p>
+
+<pre><code>mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt; dbname.sql
+</code></pre>
+
+<p>This will issue a START TRANSACTION and as long as the following commands are not
+issued before your export completes, you will have a perfect snapshot:</p>
+
+<pre><code>ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE
+</code></pre>
+
+<p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/16/update-your-locate-database/">Update Your Locate Database</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-08-16T16:15:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:15 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The <code>locate</code> command is great for searching the entire filesystem for files:</p>
+
+<pre><code>locate my.cnf
+</code></pre>
+
+<p>Recently created files and directories might not show up, so update the index:</p>
+
+<pre><code>locate updatedb
+/usr/libexec/locate.updatedb
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Modes</h2>
+
+<p>There are two main shell modes:</p>
+
+<h3>1. Login</h3>
+
+<p>When a user logs in with a non-graphical interface or SSH.</p>
+
+<h3>2. Interactive</h3>
+
+<p>When a user has a prompt and standard in/out are connected to the terminal.</p>
+
+<h2>Combinations of Modes</h2>
+
+<p>A shell can be initialized with the following mode combinations:</p>
+
+<h4>Login + Interactive</h4>
+
+<p>You will be forwarded to the users home directory, with the users
+environment.</p>
+
+<ul>
+<li>log in to a remote system via SSH</li>
+<li>new terminal tab, Mac OS X</li>
+<li><code>sudo su -</code></li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The systemwide initialization file
+/etc/profile
+
+# The personal initialization files, first one found, in order
+~/.bash_profile
+~/.bash_login
+~/.profile
+</code></pre>
+
+<h4>Non-login + Interactive</h4>
+
+<p>You will stay in the current directory, but will have the users
+environment.</p>
+
+<ul>
+<li>new terminal tab, linux</li>
+<li>start new shell process ($ bash)</li>
+<li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
+<li><code>sudo su</code></li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code># The individual per-interactive-shell startup file
+~/.bashrc
+</code></pre>
+
+<h4>Non-login + Non-Interactive</h4>
+
+<p>You will stay in the current directory and keep your current
+environment.</p>
+
+<ul>
+<li>run an executable with #!/usr/bin/env bash shebang</li>
+<li>run a script ($ bash test.sh)</li>
+<li>execute script remotely (ssh user@host &lsquo;echo $PWD&rsquo;)</li>
+</ul>
+
+
+<p>files sourced:</p>
+
+<pre><code>source $BASH_ENV
+</code></pre>
+
+<p>References:</p>
+
+<ul>
+<li><a href="http://linuxcommand.org/">Linux Command</a></li>
+<li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
+<li>[Switch User] (<a href="http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used">http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used</a>)</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -603,124 +792,6 @@ rm -r VirtualBox
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/07/verifying-data-using-checksums/">Verifying Data Using Checksums</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-07T16:31:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:31 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Checksums are used verify data integrity and in some cases, authenticity.</p>
-
-<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
-
-<p>To check a single file on Mac OS X, simply run:</p>
-
-<pre><code>shasum -a 256 file.iso
-</code></pre>
-
-<p>To check multiple files using a SHA256SUMS file:</p>
-
-<pre><code>cd ~/Downloads
-shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
-</code></pre>
-
-<p>If the file was verified you should see:</p>
-
-<pre><code>Vagrant-1.4.3.dmg: OK
-</code></pre>
-
-<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/16/error-mysql-server-has-gone-away/">Error: MySQL Server Has Gone Away</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-10-16T13:17:00-06:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>1:17 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When trying to create a new mysql user, I came across the error:</p>
-
-<pre><code>ERROR 2006 (HY000) at line 1: MySQL server has gone away
-</code></pre>
-
-<p>The fix turned out to be simple, as the documentation states, &ldquo;<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-upgrade.html">mysql_upgrade</a> should be executed each time you upgrade MySQL&rdquo;.  The following command fixed the problem.</p>
-
-<pre><code>mysql_upgrade --password
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/10/15/joining-files-on-the-command-line/">Joining Files on the Command Line</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-10-15T16:00:00-06:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>4:00 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
-
-<pre><code>(cat file1 file2)&gt; file3
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -738,23 +809,23 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/07/manipulating-unix-routing-tables/">Manipulating Unix Routing Tables</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/04/clear-the-dns-cache/">Clear the DNS Cache</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
       </li>
     
   </ul>
@@ -799,7 +870,7 @@ shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Kevin Warrington -
+  Copyright &copy; 2015 - Kevin Warrington -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

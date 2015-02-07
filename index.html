@@ -9,25 +9,8 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Create a self-signed certificate and move it to the apache conf
-directory. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-# generate private key
-openssl &hellip;">
+  <meta name="description" content="Sort branches by last commit 1
+git for-each-ref --sort=-committerdate --format=&#39;%(color:yellow)%(committerdate:short)%(color:reset) %(refname)&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,6 +77,185 @@ openssl &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/07/git-snippets/">Git Snippets</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-02-07T13:11:08-06:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:11 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h4>Sort branches by last commit</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate --format<span class="o">=</span><span class="s1">&#39;%(color:yellow)%(committerdate:short)%(color:reset) %(refname)&#39;</span> refs/heads refs/remotes
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/07/manipulating-unix-routing-tables/">Manipulating Unix Routing Tables</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-02-07T12:25:20-06:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:25 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For one of our latest projects, we needed to restrict incoming connections on the destination server prior to launching the our website.</p>
+
+<p>So, we had our developers route their traffic through a VPN gateway by adding entries to the routing table:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo route -nv add IP_DESTINATION IP_GATEWAY
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can verify the route was added by using <code>netstat</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>netstat -rn
+</span><span class='line'><span class="c"># Routing tables</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># Internet:</span>
+</span><span class='line'><span class="c"># Destination        Gateway            Flags        Refs      Use   Netif Expire</span>
+</span><span class='line'><span class="c"># IP_DESTINATION     IP_GATEWAY         UGHS            0        0     en0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can verify the connection is going through the vpn by using <code>traceroute</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>traceroute IP_DESTINATION
+</span><span class='line'><span class="c"># traceroute to IP_DESTINATION, 64 hops max, 52 byte packets</span>
+</span><span class='line'><span class="c">#  1  IP_GATEWAY  1.586 ms  2.257 ms  0.885 ms</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can remove the route by using the delete option</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo route delete IP_DESTINATION
+</span><span class='line'><span class="c"># delete host IP_DESTINATION</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-12-05T10:59:20-06:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:59 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>WinXP</h2>
+
+<p>Start > Run > <code>cmd</code></p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>Win7</h2>
+
+<p>Start > Search programs and files > <code>cmd</code> > Right click > Run as administrator</p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>Win8</h2>
+
+<p>Start Screen > <code>cmd</code> > Right click > Run as administrator</p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>IPhone</h2>
+
+<p>Simply toggle &ldquo;Airplane Mode&rdquo;</p>
+
+<h2>MAC OS X 10.7+</h2>
+
+<pre><code>sudo killall -HUP mDNSResponder
+</code></pre>
+
+<h2>MAC OS X 10.6</h2>
+
+<pre><code>sudo dscacheutil -flushcache
+</code></pre>
+
+<h2>MAC OS X 10.5.1</h2>
+
+<pre><code>sudo lookupd -flushcache
+</code></pre>
+
+<h2>Linux</h2>
+
+<pre><code>sudo /etc/init.d/nscd restart
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -592,183 +754,6 @@ mysql&gt; SHOW MASTER LOGS;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/17/non-blocking-mysql-database-export-for-innodb-tables/">Non-Blocking MySQL Database Export for InnoDB Tables</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-08-17T16:03:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:03 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>To quickly dump a large InnoDB database to file without locking it up:</p>
-
-<pre><code>mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt; dbname.sql
-</code></pre>
-
-<p>This will issue a START TRANSACTION and as long as the following commands are not
-issued before your export completes, you will have a perfect snapshot:</p>
-
-<pre><code>ALTER TABLE, CREATE TABLE, DROP TABLE, RENAME TABLE, TRUNCATE TABLE
-</code></pre>
-
-<p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/16/update-your-locate-database/">Update Your Locate Database</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-08-16T16:15:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:15 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The <code>locate</code> command is great for searching the entire filesystem for files:</p>
-
-<pre><code>locate my.cnf
-</code></pre>
-
-<p>Recently created files and directories might not show up, so update the index:</p>
-
-<pre><code>locate updatedb
-/usr/libexec/locate.updatedb
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/19/shell-modes-and-init-files/">Shell Modes and Init Files</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Modes</h2>
-
-<p>There are two main shell modes:</p>
-
-<h3>1. Login</h3>
-
-<p>When a user logs in with a non-graphical interface or SSH.</p>
-
-<h3>2. Interactive</h3>
-
-<p>When a user has a prompt and standard in/out are connected to the terminal.</p>
-
-<h2>Combinations of Modes</h2>
-
-<p>A shell can be initialized with the following mode combinations:</p>
-
-<h4>Login + Interactive</h4>
-
-<ul>
-<li>log in to a remote system via SSH</li>
-<li>new terminal tab, Mac OS X</li>
-</ul>
-
-
-<p>files sourced:</p>
-
-<pre><code># The systemwide initialization file
-/etc/profile
-
-# The personal initialization files, first one found, in order
-~/.bash_profile
-~/.bash_login
-~/.profile
-</code></pre>
-
-<h4>Non-login + Interactive</h4>
-
-<ul>
-<li>new terminal tab, linux</li>
-<li>start new shell process ($ bash)</li>
-<li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
-</ul>
-
-
-<p>files sourced:</p>
-
-<pre><code># The individual per-interactive-shell startup file
-~/.bashrc
-</code></pre>
-
-<h4>Non-login + Non-Interactive</h4>
-
-<ul>
-<li>run an executable with #!/usr/bin/env bash shebang</li>
-<li>run a script ($ bash test.sh)</li>
-<li>execute script remotely (ssh user@host &lsquo;echo $PWD&rsquo;)</li>
-</ul>
-
-
-<p>files sourced:</p>
-
-<pre><code>source $BASH_ENV
-</code></pre>
-
-<p>References:</p>
-
-<ul>
-<li><a href="http://linuxcommand.org/">Linux Command</a></li>
-<li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -784,23 +769,23 @@ issued before your export completes, you will have a perfect snapshot:</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/07/manipulating-unix-routing-tables/">Manipulating Unix Routing Tables</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/04/clear-the-dns-cache/">Clear the DNS Cache</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
       </li>
     
   </ul>
@@ -845,7 +830,7 @@ issued before your export completes, you will have a perfect snapshot:</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Kevin Warrington -
+  Copyright &copy; 2015 - Kevin Warrington -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -9,8 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="There are many tools you can use to convert between file formats. Convert bin to iso, with bchunk: brew install bchunk
-bchunk input.bin input.cue &hellip;">
+  <meta name="description" content="Checksums are used verify data integrity and in some cases, authenticity. It is especially important to run checksums on large files, such as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +76,124 @@ bchunk input.bin input.cue &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/07/verifying-data-using-checksums/">Verifying Data Using Checksums</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-07T16:31:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:31 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Checksums are used verify data integrity and in some cases, authenticity.</p>
+
+<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
+
+<p>To check a single file on Mac OS X, simply run:</p>
+
+<pre><code>shasum -a 256 file.iso
+</code></pre>
+
+<p>To check multiple files using a SHA256SUMS file:</p>
+
+<pre><code>cd ~/Downloads
+shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
+</code></pre>
+
+<p>If the file was verified you should see:</p>
+
+<pre><code>Vagrant-1.4.3.dmg: OK
+</code></pre>
+
+<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/16/error-mysql-server-has-gone-away/">Error: MySQL Server Has Gone Away</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-10-16T13:17:00-06:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>1:17 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>When trying to create a new mysql user, I came across the error:</p>
+
+<pre><code>ERROR 2006 (HY000) at line 1: MySQL server has gone away
+</code></pre>
+
+<p>The fix turned out to be simple, as the documentation states, &ldquo;<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-upgrade.html">mysql_upgrade</a> should be executed each time you upgrade MySQL&rdquo;.  The following command fixed the problem.</p>
+
+<pre><code>mysql_upgrade --password
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/15/joining-files-on-the-command-line/">Joining Files on the Command Line</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-10-15T16:00:00-06:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>4:00 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
+
+<pre><code>(cat file1 file2)&gt; file3
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -518,63 +635,9 @@ at -r id
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/05/mysql-import-slash-export-progress-bar/">MySQL Import/Export Progress Bar</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2013-09-05T22:05:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>5</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>10:05 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MySQL command line progress can be monitored using the terminal-based &ldquo;Pipe Viewer&rdquo; <code>pv</code>.</p>
-
-<h2>Import</h2>
-
-<pre><code>pv /path/to/sqlfile.sql | mysql -uUSERNAME -pPASSWORD -D DATABASE_NAME
-</code></pre>
-
-<h2>Export</h2>
-
-<p>We need to estimate the file size of our export to get an accurate reading.  This can be done via the information schema:</p>
-
-<pre><code>SELECT
-    Data_BB / POWER(1024,1) Data_KB,
-    Data_BB / POWER(1024,2) Data_MB,
-    Data_BB / POWER(1024,3) Data_GB
-FROM (
-    SELECT SUM(data_length) Data_BB
-    FROM information_schema.tables
-    WHERE table_schema IN ('DATABASE_NAME')
-) A;
-</code></pre>
-
-<p>We then use the estimated size to track export progress:</p>
-
-<pre><code>mysqldump -uUSERNAME -pPASSWORD DATABASE_NAME | pv -s 9999M &gt; DATABASE_NAME.sql 
-</code></pre>
-
-<p>Beer Break!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/4">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -589,23 +652,23 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/07/manipulating-unix-routing-tables/">Manipulating Unix Routing Tables</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/04/clear-the-dns-cache/">Clear the DNS Cache</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
       </li>
     
   </ul>
@@ -650,7 +713,7 @@ FROM (
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Kevin Warrington -
+  Copyright &copy; 2015 - Kevin Warrington -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -3,6 +3,24 @@
   
   
   <url>
+    <loc>http://dubbs.github.io/blog/2015/02/07/git-snippets/</loc>
+    <lastmod>2015-02-07T13:11:08-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://dubbs.github.io/blog/2015/02/07/manipulating-unix-routing-tables/</loc>
+    <lastmod>2015-02-07T12:25:20-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://dubbs.github.io/blog/2014/12/05/how-to-flush-dns/</loc>
+    <lastmod>2014-12-05T10:59:20-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://dubbs.github.io/blog/2014/09/24/ssl-certificate-for-localhost/</loc>
     <lastmod>2014-09-24T22:22:09-06:00</lastmod>
     <priority>0.8</priority>
@@ -173,14 +191,14 @@
   
   <url>
     <loc>http://dubbs.github.io/blog/archives/</loc>
-    <lastmod>2014-09-24T23:18:05-06:00</lastmod>
+    <lastmod>2015-02-07T13:15:23-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://dubbs.github.io/</loc>
-    <lastmod>2014-09-24T23:18:05-06:00</lastmod>
+    <lastmod>2015-02-07T13:15:23-06:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

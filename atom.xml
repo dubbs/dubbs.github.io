@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-09-24T23:18:05-06:00</updated>
+  <updated>2015-02-07T13:15:23-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,125 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Snippets]]></title>
+    <link href="http://dubbs.github.io/blog/2015/02/07/git-snippets/"/>
+    <updated>2015-02-07T13:11:08-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/02/07/git-snippets</id>
+    <content type="html"><![CDATA[<h4>Sort branches by last commit</h4>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate --format<span class="o">=</span><span class="s1">&#39;%(color:yellow)%(committerdate:short)%(color:reset) %(refname)&#39;</span> refs/heads refs/remotes
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Manipulating Unix Routing Tables]]></title>
+    <link href="http://dubbs.github.io/blog/2015/02/07/manipulating-unix-routing-tables/"/>
+    <updated>2015-02-07T12:25:20-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/02/07/manipulating-unix-routing-tables</id>
+    <content type="html"><![CDATA[<p>For one of our latest projects, we needed to restrict incoming connections on the destination server prior to launching the our website.</p>
+
+<p>So, we had our developers route their traffic through a VPN gateway by adding entries to the routing table:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo route -nv add IP_DESTINATION IP_GATEWAY
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can verify the route was added by using <code>netstat</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>netstat -rn
+</span><span class='line'><span class="c"># Routing tables</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># Internet:</span>
+</span><span class='line'><span class="c"># Destination        Gateway            Flags        Refs      Use   Netif Expire</span>
+</span><span class='line'><span class="c"># IP_DESTINATION     IP_GATEWAY         UGHS            0        0     en0</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can verify the connection is going through the vpn by using <code>traceroute</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>traceroute IP_DESTINATION
+</span><span class='line'><span class="c"># traceroute to IP_DESTINATION, 64 hops max, 52 byte packets</span>
+</span><span class='line'><span class="c">#  1  IP_GATEWAY  1.586 ms  2.257 ms  0.885 ms</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can remove the route by using the delete option</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo route delete IP_DESTINATION
+</span><span class='line'><span class="c"># delete host IP_DESTINATION</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to Flush DNS]]></title>
+    <link href="http://dubbs.github.io/blog/2014/12/05/how-to-flush-dns/"/>
+    <updated>2014-12-05T10:59:20-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/12/05/how-to-flush-dns</id>
+    <content type="html"><![CDATA[<h2>WinXP</h2>
+
+<p>Start > Run > <code>cmd</code></p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>Win7</h2>
+
+<p>Start > Search programs and files > <code>cmd</code> > Right click > Run as administrator</p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>Win8</h2>
+
+<p>Start Screen > <code>cmd</code> > Right click > Run as administrator</p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>IPhone</h2>
+
+<p>Simply toggle &ldquo;Airplane Mode&rdquo;</p>
+
+<h2>MAC OS X 10.7+</h2>
+
+<pre><code>sudo killall -HUP mDNSResponder
+</code></pre>
+
+<h2>MAC OS X 10.6</h2>
+
+<pre><code>sudo dscacheutil -flushcache
+</code></pre>
+
+<h2>MAC OS X 10.5.1</h2>
+
+<pre><code>sudo lookupd -flushcache
+</code></pre>
+
+<h2>Linux</h2>
+
+<pre><code>sudo /etc/init.d/nscd restart
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SSL Certificate for Localhost]]></title>
@@ -431,9 +550,13 @@ issued before your export completes, you will have a perfect snapshot:</p>
 
 <h4>Login + Interactive</h4>
 
+<p>You will be forwarded to the users home directory, with the users
+environment.</p>
+
 <ul>
 <li>log in to a remote system via SSH</li>
 <li>new terminal tab, Mac OS X</li>
+<li><code>sudo su -</code></li>
 </ul>
 
 
@@ -450,10 +573,14 @@ issued before your export completes, you will have a perfect snapshot:</p>
 
 <h4>Non-login + Interactive</h4>
 
+<p>You will stay in the current directory, but will have the users
+environment.</p>
+
 <ul>
 <li>new terminal tab, linux</li>
 <li>start new shell process ($ bash)</li>
 <li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
+<li><code>sudo su</code></li>
 </ul>
 
 
@@ -464,6 +591,9 @@ issued before your export completes, you will have a perfect snapshot:</p>
 </code></pre>
 
 <h4>Non-login + Non-Interactive</h4>
+
+<p>You will stay in the current directory and keep your current
+environment.</p>
 
 <ul>
 <li>run an executable with #!/usr/bin/env bash shebang</li>
@@ -482,6 +612,7 @@ issued before your export completes, you will have a perfect snapshot:</p>
 <ul>
 <li><a href="http://linuxcommand.org/">Linux Command</a></li>
 <li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
+<li>[Switch User] (<a href="http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used">http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used</a>)</li>
 </ul>
 
 ]]></content>
@@ -869,64 +1000,6 @@ VBoxManage: error: Context: "int handleCreate(HandlerArg*, int, int*)" at line 6
 
 <pre><code>cd /Library/StartupItems
 rm -r VirtualBox
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Verifying Data Using Checksums]]></title>
-    <link href="http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums/"/>
-    <updated>2014-03-07T16:31:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2014/03/07/verifying-data-using-checksums</id>
-    <content type="html"><![CDATA[<p>Checksums are used verify data integrity and in some cases, authenticity.</p>
-
-<p>It is especially important to run checksums on large files, such as operating systems, where 100% completeness is desired.  As file size increases, so will the possibility of errors during transmission.</p>
-
-<p>To check a single file on Mac OS X, simply run:</p>
-
-<pre><code>shasum -a 256 file.iso
-</code></pre>
-
-<p>To check multiple files using a SHA256SUMS file:</p>
-
-<pre><code>cd ~/Downloads
-shasum -a 256 -c 1.4.3_SHA256SUMS 2&gt;&amp;1 | grep OK
-</code></pre>
-
-<p>If the file was verified you should see:</p>
-
-<pre><code>Vagrant-1.4.3.dmg: OK
-</code></pre>
-
-<p><a href="https://help.ubuntu.com/community/HowToSHA256SUM">HowToSHA256SUM</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Error: MySQL Server Has Gone Away]]></title>
-    <link href="http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away/"/>
-    <updated>2013-10-16T13:17:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/10/16/error-mysql-server-has-gone-away</id>
-    <content type="html"><![CDATA[<p>When trying to create a new mysql user, I came across the error:</p>
-
-<pre><code>ERROR 2006 (HY000) at line 1: MySQL server has gone away
-</code></pre>
-
-<p>The fix turned out to be simple, as the documentation states, &ldquo;<a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-upgrade.html">mysql_upgrade</a> should be executed each time you upgrade MySQL&rdquo;.  The following command fixed the problem.</p>
-
-<pre><code>mysql_upgrade --password
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Joining Files on the Command Line]]></title>
-    <link href="http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line/"/>
-    <updated>2013-10-15T16:00:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/10/15/joining-files-on-the-command-line</id>
-    <content type="html"><![CDATA[<p>Here&rsquo;s an extremely easy way to join files in unix.  It uses the <code>()</code> subshell operator, which waits for the enclosed command to return before passing the result to standard out.</p>
-
-<pre><code>(cat file1 file2)&gt; file3
 </code></pre>
 ]]></content>
   </entry>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2014-09-24T23:18:05-06:00</updated>
+  <updated>2015-02-07T13:15:23-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git Snippets]]></title>
+    <link href="http://dubbs.github.io/blog/2015/02/07/git-snippets/"/>
+    <updated>2015-02-07T13:11:08-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/02/07/git-snippets</id>
+    <content type="html"><![CDATA[<h4>Sort branches by last commit</h4>
+
+<pre><code class="bash">git for-each-ref --sort=-committerdate --format='%(color:yellow)%(committerdate:short)%(color:reset) %(refname)' refs/heads refs/remotes
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Keeping Your Git Fork Up-to-date]]></title>

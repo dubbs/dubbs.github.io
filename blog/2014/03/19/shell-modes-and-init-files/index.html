@@ -113,9 +113,13 @@
 
 <h4>Login + Interactive</h4>
 
+<p>You will be forwarded to the users home directory, with the users
+environment.</p>
+
 <ul>
 <li>log in to a remote system via SSH</li>
 <li>new terminal tab, Mac OS X</li>
+<li><code>sudo su -</code></li>
 </ul>
 
 
@@ -132,10 +136,14 @@
 
 <h4>Non-login + Interactive</h4>
 
+<p>You will stay in the current directory, but will have the users
+environment.</p>
+
 <ul>
 <li>new terminal tab, linux</li>
 <li>start new shell process ($ bash)</li>
 <li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
+<li><code>sudo su</code></li>
 </ul>
 
 
@@ -146,6 +154,9 @@
 </code></pre>
 
 <h4>Non-login + Non-Interactive</h4>
+
+<p>You will stay in the current directory and keep your current
+environment.</p>
 
 <ul>
 <li>run an executable with #!/usr/bin/env bash shebang</li>
@@ -164,6 +175,7 @@
 <ul>
 <li><a href="http://linuxcommand.org/">Linux Command</a></li>
 <li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
+<li>[Switch User] (<a href="http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used">http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used</a>)</li>
 </ul>
 
 </div>
@@ -181,7 +193,7 @@
 
 
 
-<time class='entry-date' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time> <time class='updated' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time>
+<time class='entry-date' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time> <time class='updated' datetime='2014-10-10T17:52:00-06:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>5:52 pm</span></time>
       
 
 <span class="categories">
@@ -230,23 +242,23 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/02/07/manipulating-unix-routing-tables/">Manipulating Unix Routing Tables</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/04/clear-the-dns-cache/">Clear the DNS Cache</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/02/keeping-your-fork-up-to-date/">Keeping Your Git Fork Up-to-date</a>
       </li>
     
   </ul>
@@ -292,7 +304,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Kevin Warrington -
+  Copyright &copy; 2015 - Kevin Warrington -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

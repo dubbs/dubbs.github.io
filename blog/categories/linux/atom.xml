@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Linux, | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2015-02-07T13:15:23-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to Flush DNS]]></title>
+    <link href="http://dubbs.github.io/blog/2014/12/05/how-to-flush-dns/"/>
+    <updated>2014-12-05T10:59:20-06:00</updated>
+    <id>http://dubbs.github.io/blog/2014/12/05/how-to-flush-dns</id>
+    <content type="html"><![CDATA[<h2>WinXP</h2>
+
+<p>Start > Run > <code>cmd</code></p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>Win7</h2>
+
+<p>Start > Search programs and files > <code>cmd</code> > Right click > Run as administrator</p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>Win8</h2>
+
+<p>Start Screen > <code>cmd</code> > Right click > Run as administrator</p>
+
+<pre><code>ipconfig /flushdns
+</code></pre>
+
+<h2>IPhone</h2>
+
+<p>Simply toggle &ldquo;Airplane Mode&rdquo;</p>
+
+<h2>MAC OS X 10.7+</h2>
+
+<pre><code>sudo killall -HUP mDNSResponder
+</code></pre>
+
+<h2>MAC OS X 10.6</h2>
+
+<pre><code>sudo dscacheutil -flushcache
+</code></pre>
+
+<h2>MAC OS X 10.5.1</h2>
+
+<pre><code>sudo lookupd -flushcache
+</code></pre>
+
+<h2>Linux</h2>
+
+<pre><code>sudo /etc/init.d/nscd restart
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
