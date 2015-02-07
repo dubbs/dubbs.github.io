@@ -2,6 +2,7 @@
 layout: post
 title: "SSL Certificate for Localhost"
 date: 2014-09-24 22:22:09 -0600
+updated: 2014-09-24 22:22:09 -0600
 comments: true
 categories: [ssl, apache]
 ---

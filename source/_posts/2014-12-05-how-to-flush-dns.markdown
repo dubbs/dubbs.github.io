@@ -2,6 +2,7 @@
 layout: post
 title: "How to Flush DNS"
 date: 2014-12-05 10:59:20 -0600
+updated: 2014-12-05 10:59:20 -0600
 comments: true
 categories: linux, mac
 ---
