@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Shell Modes and Init Files - Kevin Warrington</title>
+  <title>Category: Cli - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Modes There are two main shell modes: 1. Login When a user logs in with a non-graphical interface or SSH. 2. Interactive When a user has a prompt and &hellip;">
+  <meta name="description" content="Category: cli">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files">
+  <link rel="canonical" href="http://dubbs.github.io/blog/categories/cli">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -75,163 +75,36 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Shell Modes and Init Files</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time>
-        
-      </p>
+    <h1 class="entry-title">Category: Cli</h1>
     
   </header>
-
-
-<div class="entry-content"><h2>Modes</h2>
-
-<p>There are two main shell modes:</p>
-
-<h3>1. Login</h3>
-
-<p>When a user logs in with a non-graphical interface or SSH.</p>
-
-<h3>2. Interactive</h3>
-
-<p>When a user has a prompt and standard in/out are connected to the terminal.</p>
-
-<h2>Combinations of Modes</h2>
-
-<p>A shell can be initialized with the following mode combinations:</p>
-
-<h4>Login + Interactive</h4>
-
-<p>You will be forwarded to the users home directory, with the users
-environment.</p>
-
-<ul>
-<li>log in to a remote system via SSH</li>
-<li>new terminal tab, Mac OS X</li>
-<li><code>sudo su -</code></li>
-</ul>
-
-
-<p>files sourced:</p>
-
-<pre><code># The systemwide initialization file
-/etc/profile
-
-# The personal initialization files, first one found, in order
-~/.bash_profile
-~/.bash_login
-~/.profile
-</code></pre>
-
-<h4>Non-login + Interactive</h4>
-
-<p>You will stay in the current directory, but will have the users
-environment.</p>
-
-<ul>
-<li>new terminal tab, linux</li>
-<li>start new shell process ($ bash)</li>
-<li>execute script remotely and request terminal (ssh user@host -t &lsquo;echo $PWD&rsquo;)</li>
-<li><code>sudo su</code></li>
-</ul>
-
-
-<p>files sourced:</p>
-
-<pre><code># The individual per-interactive-shell startup file
-~/.bashrc
-</code></pre>
-
-<h4>Non-login + Non-Interactive</h4>
-
-<p>You will stay in the current directory and keep your current
-environment.</p>
-
-<ul>
-<li>run an executable with #!/usr/bin/env bash shebang</li>
-<li>run a script ($ bash test.sh)</li>
-<li>execute script remotely (ssh user@host &lsquo;echo $PWD&rsquo;)</li>
-</ul>
-
-
-<p>files sourced:</p>
-
-<pre><code>source $BASH_ENV
-</code></pre>
-
-<p>References:</p>
-
-<ul>
-<li><a href="http://linuxcommand.org/">Linux Command</a></li>
-<li><a href="https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization">Unix Shell Initialization</a></li>
-<li>[Switch User] (<a href="http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used">http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used</a>)</li>
-</ul>
-
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Kevin Warrington</span></span>
-
-      
+  <div id="blog-archives" class="category">
 
 
 
-
-<time class='entry-date' datetime='2014-03-19T23:20:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:20 pm</span></time> <time class='updated' datetime='2014-10-10T17:52:00-06:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>5:52 pm</span></time>
-      
-
-<span class="categories">
   
-    <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/unix/'>unix</a>
+  <h2>2015</h2>
+
+<article>
   
-</span>
+<h1><a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a></h1>
+<time datetime="2015-02-14T11:59:16-06:00" pubdate><span class='month'>Feb</span> <span class='day'>14</span> <span class='year'>2015</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/apache/'>apache</a>, <a class='category' href='/blog/categories/cli/'>cli</a>, <a class='category' href='/blog/categories/php/'>php</a></span>
+</footer>
 
 
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/03/18/executing-shell-scripts/" title="Previous Post: Executing Shell Scripts">&laquo; Executing Shell Scripts</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/08/16/update-your-locate-database/" title="Next Post: Update your locate database">Update your locate database &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-  </section>
+
+  
+</article>
 
 </div>
 
@@ -315,10 +188,7 @@ environment.</p>
       var disqus_shortname = 'dubbs';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/';
-        var disqus_url = 'http://dubbs.github.io/blog/2014/03/19/shell-modes-and-init-files/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

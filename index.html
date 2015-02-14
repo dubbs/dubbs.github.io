@@ -9,8 +9,16 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Sort branches by last commit 1
-git for-each-ref --sort=-committerdate --format=&#39;%(color:yellow)%(committerdate:short)%(color:reset) %(refname)&# &hellip;">
+  <meta name="description" content="Install PHP using brew: 1
+2
+3
+brew update
+brew search php5
+brew install php56 Locate libphp.so 1
+2
+3
+sudo /usr/libexec/locate.updatedb
+locate libphp5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +85,79 @@ git for-each-ref --sort=-committerdate --format=&#39;%(color:yellow)%(committerd
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-02-14T11:59:16-06:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:59 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Install PHP using brew:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew update
+</span><span class='line'>brew search php5
+</span><span class='line'>brew install php56
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Locate <code>libphp.so</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo /usr/libexec/locate.updatedb
+</span><span class='line'>locate libphp5.so
+</span><span class='line'><span class="c"># /usr/local/Cellar/php56/5.6.5/libexec/apache2/libphp5.so</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Tell Apache which PHP to use this shared object <code>.so</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>httpd -V <span class="p">|</span> grep ROOT
+</span><span class='line'><span class="c"># -D HTTPD_ROOT=&quot;/usr&quot;</span>
+</span><span class='line'>vi /etc/apache2/httpd.conf
+</span><span class='line'><span class="c"># this following path is relative to /usr</span>
+</span><span class='line'>LoadModule php5_module <span class="nb">local</span>/Cellar/php56/5.6.5/libexec/apache2/libphp5.so
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add PHP to your path:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$(brew --prefix homebrew/php/php56)/bin:$PATH&quot;</span>
+</span><span class='line'>php -v
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -704,56 +785,6 @@ git push origin master
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-08-18T15:25:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:25 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>To view your current bin files:</p>
-
-<pre><code>$ mysql -u root -p
-mysql&gt; SHOW MASTER LOGS;
-</code></pre>
-
-<p>To clear all logs but the last one:</p>
-
-<pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
-</code></pre>
-
-<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
-
-<pre><code># log-bin=mysql-bin
-</code></pre>
-
-<p>Restart your server and confirm logging is now disabled:</p>
-
-<pre><code>$ mysql.server restart
-$ mysql -u root -p
-mysql&gt; SHOW MASTER LOGS;
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -769,6 +800,10 @@ mysql&gt; SHOW MASTER LOGS;
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
       </li>
     
@@ -782,10 +817,6 @@ mysql&gt; SHOW MASTER LOGS;
     
       <li class="post">
         <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
       </li>
     
   </ul>

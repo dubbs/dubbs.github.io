@@ -9,7 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="MySQL command line progress can be monitored using the terminal-based &ldquo;Pipe Viewer&rdquo; pv. Import pv /path/to/sqlfile.sql | mysql -uUSERNAME &hellip;">
+  <meta name="description" content="For long running processes, rather than blocking your prompt, it&rsquo;s often useful to push commands to the background and complete other tasks. To &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +82,88 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2013/09/16/working-with-background-processes/">Working With Background Processes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-09-16T21:33:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>9:33 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For long running processes, rather than blocking your prompt, it&rsquo;s often useful to push commands to the background and complete other tasks.</p>
+
+<p>To run a command in the background.</p>
+
+<pre><code>&lt;command&gt; &amp;
+</code></pre>
+
+<p>To run a command in the background, detached from your console.  The process will not terminate on logout.  <code>nice</code> sets a lower priority.</p>
+
+<pre><code>nohup nice &lt;command&gt; &amp;
+</code></pre>
+
+<p>List all background processes</p>
+
+<pre><code>jobs
+</code></pre>
+
+<p>To send currently running command to background, first stop the process, <code>Ctrl-z</code>.</p>
+
+<pre><code>bg
+</code></pre>
+
+<p>To bring a background process to the foreground</p>
+
+<pre><code>fg
+fg %1
+</code></pre>
+
+<p>To destroy a background process</p>
+
+<pre><code>kill %1 
+kill -9 %1  
+kill &lt;pid&gt;
+</code></pre>
+
+<p>To receive an email notification when a background process finishes</p>
+
+<pre><code>&lt;command&gt; | tee command.log | mailx -s 'PROCESS COMPLETE' test@example.com &amp;
+</code></pre>
+
+<p>To run a set of jobs when cpu levels permit, use batch.  <kbd>ctrl</kbd>+<kbd>d</kbd> to end input.</p>
+
+<pre><code>user@example.com &gt; ~/.forward
+batch -m
+command1
+command2
+command3
+</code></pre>
+
+<p>You can list batch jobs and kill using the id</p>
+
+<pre><code>at -l
+at -r id
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2013/09/05/mysql-import-slash-export-progress-bar/">MySQL Import/Export Progress Bar</a></h1>
     
     
@@ -148,6 +230,10 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
       </li>
     
@@ -161,10 +247,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-02-07T13:15:23-06:00</updated>
+  <updated>2015-02-14T12:02:43-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setup PHP With Apache and on the CLI]]></title>
+    <link href="http://dubbs.github.io/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/"/>
+    <updated>2015-02-14T11:59:16-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/02/14/setup-php-with-apache-and-on-the-cli</id>
+    <content type="html"><![CDATA[<p>Install PHP using brew:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew update
+</span><span class='line'>brew search php5
+</span><span class='line'>brew install php56
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Locate <code>libphp.so</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo /usr/libexec/locate.updatedb
+</span><span class='line'>locate libphp5.so
+</span><span class='line'><span class="c"># /usr/local/Cellar/php56/5.6.5/libexec/apache2/libphp5.so</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Tell Apache which PHP to use this shared object <code>.so</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>httpd -V <span class="p">|</span> grep ROOT
+</span><span class='line'><span class="c"># -D HTTPD_ROOT=&quot;/usr&quot;</span>
+</span><span class='line'>vi /etc/apache2/httpd.conf
+</span><span class='line'><span class="c"># this following path is relative to /usr</span>
+</span><span class='line'>LoadModule php5_module <span class="nb">local</span>/Cellar/php56/5.6.5/libexec/apache2/libphp5.so
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add PHP to your path:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$(brew --prefix homebrew/php/php56)/bin:$PATH&quot;</span>
+</span><span class='line'>php -v
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git Snippets]]></title>
@@ -966,40 +1019,6 @@ allows packet transfer between devices on the local link (not routable).</p>
 <p>After updating your hosts file, be sure to clear the directory service cache:</p>
 
 <pre><code>dscacheutil -flushcache
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Error: Failed to Create Host-Only Adapter]]></title>
-    <link href="http://dubbs.github.io/blog/2014/03/07/error-failed-to-create-host-only-adapter/"/>
-    <updated>2014-03-07T20:50:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2014/03/07/error-failed-to-create-host-only-adapter</id>
-    <content type="html"><![CDATA[<p>When trying to run <code>vagrant up</code>, received error:</p>
-
-<pre><code>There was an error while executing `VBoxManage`, a CLI used by Vagrant
-for controlling VirtualBox. The command and stderr is shown below.
-
-Command: ["hostonlyif", "create"]
-
-Stderr: 0%...
-Progress state: NS_ERROR_FAILURE
-VBoxManage: error: Failed to create the host-only adapter
-VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
-
-VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component HostNetworkInterface, interface IHostNetworkInterface
-VBoxManage: error: Context: "int handleCreate(HandlerArg*, int, int*)" at line 68 of file VBoxManageHostonly.cpp
-</code></pre>
-
-<p>This happens because another VM is running in VirtualBox, run:</p>
-
-<pre><code>sudo /Library/StartupItems/VirtualBox/VirtualBox restart
-</code></pre>
-
-<p>If VirtualBox is loading on startup, remove it:</p>
-
-<pre><code>cd /Library/StartupItems
-rm -r VirtualBox
 </code></pre>
 ]]></content>
   </entry>

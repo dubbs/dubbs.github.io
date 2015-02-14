@@ -9,7 +9,8 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="To quickly dump a large InnoDB database to file without locking it up: mysqldump --single-transaction --quick -u webuser -h example.com 'dbname' &gt &hellip;">
+  <meta name="description" content="To view your current bin files: $ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS; To clear all logs but the last one: mysql&gt; PURGE MASTER LOGS TO ' &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/18/deleting-mysql-bin-files/">Deleting MySQL Bin Files</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-08-18T15:25:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:25 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>To view your current bin files:</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
+
+<p>To clear all logs but the last one:</p>
+
+<pre><code>mysql&gt; PURGE MASTER LOGS TO 'mysql-bin.000107';
+</code></pre>
+
+<p>Open <code>my.cnf</code> and comment out the following lines to prevent logging in the future:</p>
+
+<pre><code># log-bin=mysql-bin
+</code></pre>
+
+<p>Restart your server and confirm logging is now disabled:</p>
+
+<pre><code>$ mysql.server restart
+$ mysql -u root -p
+mysql&gt; SHOW MASTER LOGS;
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -738,60 +789,6 @@ allows packet transfer between devices on the local link (not routable).</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/07/error-failed-to-create-host-only-adapter/">Error: Failed to Create Host-Only Adapter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-07T20:50:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>8:50 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When trying to run <code>vagrant up</code>, received error:</p>
-
-<pre><code>There was an error while executing `VBoxManage`, a CLI used by Vagrant
-for controlling VirtualBox. The command and stderr is shown below.
-
-Command: ["hostonlyif", "create"]
-
-Stderr: 0%...
-Progress state: NS_ERROR_FAILURE
-VBoxManage: error: Failed to create the host-only adapter
-VBoxManage: error: VBoxNetAdpCtl: Error while adding new interface: failed to open /dev/vboxnetctl: No such file or directory
-
-VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component HostNetworkInterface, interface IHostNetworkInterface
-VBoxManage: error: Context: "int handleCreate(HandlerArg*, int, int*)" at line 68 of file VBoxManageHostonly.cpp
-</code></pre>
-
-<p>This happens because another VM is running in VirtualBox, run:</p>
-
-<pre><code>sudo /Library/StartupItems/VirtualBox/VirtualBox restart
-</code></pre>
-
-<p>If VirtualBox is loading on startup, remove it:</p>
-
-<pre><code>cd /Library/StartupItems
-rm -r VirtualBox
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -809,6 +806,10 @@ rm -r VirtualBox
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
       </li>
     
@@ -822,10 +823,6 @@ rm -r VirtualBox
     
       <li class="post">
         <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/18/executing-drush-commands-outside-of-vagrant-using-aliases/">Executing Drush Commands Outside of Vagrant Using Aliases</a>
       </li>
     
   </ul>

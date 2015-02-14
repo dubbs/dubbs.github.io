@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/apache/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-02-07T13:15:23-06:00</updated>
+  <updated>2015-02-14T12:02:43-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setup PHP With Apache and on the CLI]]></title>
+    <link href="http://dubbs.github.io/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/"/>
+    <updated>2015-02-14T11:59:16-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/02/14/setup-php-with-apache-and-on-the-cli</id>
+    <content type="html"><![CDATA[<p>Install PHP using brew:</p>
+
+<pre><code class="bash">brew update
+brew search php5
+brew install php56
+</code></pre>
+
+<p>Locate <code>libphp.so</code></p>
+
+<pre><code class="bash">sudo /usr/libexec/locate.updatedb
+locate libphp5.so
+# /usr/local/Cellar/php56/5.6.5/libexec/apache2/libphp5.so
+</code></pre>
+
+<p>Tell Apache which PHP to use this shared object <code>.so</code>:</p>
+
+<pre><code class="bash">httpd -V | grep ROOT
+# -D HTTPD_ROOT="/usr"
+vi /etc/apache2/httpd.conf
+# this following path is relative to /usr
+LoadModule php5_module local/Cellar/php56/5.6.5/libexec/apache2/libphp5.so
+</code></pre>
+
+<p>Add PHP to your path:</p>
+
+<pre><code class="bash">export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
+php -v
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SSL Certificate for Localhost]]></title>
