@@ -9,16 +9,12 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Install PHP using brew: 1
+  <meta name="description" content="Install MySQL using brew: 1
 2
 3
 brew update
-brew search php5
-brew install php56 Locate libphp.so 1
-2
-3
-sudo /usr/libexec/locate.updatedb
-locate libphp5 &hellip;">
+brew search mysql
+brew install mysql Add a launch agent for MySQL, which runs on behalf of the current &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +81,58 @@ locate libphp5 &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/02/14/setup-mysql-with-a-launch-agent/">Setup MySQL With a Launch Agent</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-02-14T12:25:36-06:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:25 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Install MySQL using brew:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew update
+</span><span class='line'>brew search mysql
+</span><span class='line'>brew install mysql
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add a launch agent for MySQL, which runs on behalf of the current user:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Start the launch agent now:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -751,40 +799,6 @@ git push origin master
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-08-22T11:56:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>11:56 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation).</p>
-
-<p>To prevent them from installing during <code>gem install</code>, just add this line to your ~/.gemrc or /etc/gemrc:</p>
-
-<pre><code>gem: --no-rdoc --no-ri
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -800,6 +814,10 @@ git push origin master
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/14/setup-mysql-with-a-launch-agent/">Setup MySQL With a Launch Agent</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
       </li>
     
@@ -813,10 +831,6 @@ git push origin master
     
       <li class="post">
         <a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
       </li>
     
   </ul>

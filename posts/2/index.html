@@ -9,8 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="To view your current bin files: $ mysql -u root -p
-mysql&gt; SHOW MASTER LOGS; To clear all logs but the last one: mysql&gt; PURGE MASTER LOGS TO ' &hellip;">
+  <meta name="description" content="I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation). To prevent them from installing during gem install, just add this line to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +76,40 @@ mysql&gt; SHOW MASTER LOGS; To clear all logs but the last one: mysql&gt; PURGE 
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/22/ignorning-ri-and-rdoc-during-gem-install/">Ignorning Ri and RDoc During Gem Install</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-08-22T11:56:00-06:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>11:56 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I personally never use the ri (Ruby Index) and RDoc (Ruby Documentation).</p>
+
+<p>To prevent them from installing during <code>gem install</code>, just add this line to your ~/.gemrc or /etc/gemrc:</p>
+
+<pre><code>gem: --no-rdoc --no-ri
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -733,62 +766,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/08/using-the-loopback-interface/">Using the Loopback Interface</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-08T15:14:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:14 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The hosts file is used to map hostnames to ip addresses.</p>
-
-<p><strong>localhost</strong> is the hostname for the loopback network interface, in <code>/etc/hosts</code>:</p>
-
-<pre><code># IPv4 loopback address
-127.0.0.1 localhost
-
-# IPv6 loopback address
-::1 localhost
-
-# IPv6 link-local address
-fe80::1%lo0 localhost
-</code></pre>
-
-<p>An <strong>loopback</strong> address is used to send a packet to itself, whereas <strong>link-local</strong>
-allows packet transfer between devices on the local link (not routable).</p>
-
-<p>Loopback addresses are often used in web development:</p>
-
-<pre><code>127.0.0.1 localhost project1.local project2.local
-</code></pre>
-
-<p>They are also used to increase privacy and security.  Here is a very helpful <a href="http://someonewhocares.org/hosts/hosts">resource</a> on the subject.</p>
-
-<p>After updating your hosts file, be sure to clear the directory service cache:</p>
-
-<pre><code>dscacheutil -flushcache
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -806,6 +783,10 @@ allows packet transfer between devices on the local link (not routable).</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/14/setup-mysql-with-a-launch-agent/">Setup MySQL With a Launch Agent</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
       </li>
     
@@ -819,10 +800,6 @@ allows packet transfer between devices on the local link (not routable).</p>
     
       <li class="post">
         <a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
       </li>
     
   </ul>

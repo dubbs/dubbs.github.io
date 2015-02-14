@@ -9,7 +9,9 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="For long running processes, rather than blocking your prompt, it&rsquo;s often useful to push commands to the background and complete other tasks. To &hellip;">
+  <meta name="description" content="Moving along the command line will be a breeze, if you know the following shortcuts. ctrl+a - move to start of line
+ctrl+e - move to end of line
+alt+ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/17/moving-on-the-command-line/">Moving on the Command Line</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-09-17T20:13:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:13 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Moving along the command line will be a breeze, if you know the following shortcuts.</p>
+
+<p><kbd>ctrl</kbd>+<kbd>a</kbd> - move to start of line<br/>
+<kbd>ctrl</kbd>+<kbd>e</kbd> - move to end of line<br/>
+<kbd>alt</kbd>+<kbd>b</kbd> - move backwards a word<br/>
+<kbd>alt</kbd>+<kbd>f</kbd> - move forwards a word<br/>
+<kbd>alt</kbd>+<kbd>del</kbd> - remove word<br/>
+<kbd>ctrl</kbd>+<kbd>k</kbd> - remove to end of line</p>
+
+<p>On Mac, make sure you setup the following config in <code>Terminal &gt; Preferences &gt; Keyboard</code>:</p>
+
+<ul>
+<li>use option as meta key is checked</li>
+<li>option cursor left is set to \033b</li>
+<li>option cursor right is set to \033f</li>
+</ul>
+
+
+<p>where \033 = <kbd>esc</kbd></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -230,6 +279,10 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/02/14/setup-mysql-with-a-launch-agent/">Setup MySQL With a Launch Agent</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
       </li>
     
@@ -243,10 +296,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2014/12/05/how-to-flush-dns/">How to Flush DNS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/24/ssl-certificate-for-localhost/">SSL Certificate for Localhost</a>
       </li>
     
   </ul>

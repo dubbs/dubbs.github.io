@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mysql | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-02-14T12:02:43-06:00</updated>
+  <updated>2015-02-14T12:27:54-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setup MySQL With a Launch Agent]]></title>
+    <link href="http://dubbs.github.io/blog/2015/02/14/setup-mysql-with-a-launch-agent/"/>
+    <updated>2015-02-14T12:25:36-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/02/14/setup-mysql-with-a-launch-agent</id>
+    <content type="html"><![CDATA[<p>Install MySQL using brew:</p>
+
+<pre><code class="bash">brew update
+brew search mysql
+brew install mysql
+</code></pre>
+
+<p>Add a launch agent for MySQL, which runs on behalf of the current user:</p>
+
+<pre><code class="bash">ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+</code></pre>
+
+<p>Start the launch agent now:</p>
+
+<pre><code class="bash">launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Deleting MySQL Bin Files]]></title>
@@ -94,42 +118,6 @@ issued before your export completes, you will have a perfect snapshot:</p>
 
 <pre><code>mysql --help | grep cnf
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MySQL Import/Export Progress Bar]]></title>
-    <link href="http://dubbs.github.io/blog/2013/09/05/mysql-import-slash-export-progress-bar/"/>
-    <updated>2013-09-05T22:05:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2013/09/05/mysql-import-slash-export-progress-bar</id>
-    <content type="html"><![CDATA[<p>MySQL command line progress can be monitored using the terminal-based &ldquo;Pipe Viewer&rdquo; <code>pv</code>.</p>
-
-<h2>Import</h2>
-
-<pre><code>pv /path/to/sqlfile.sql | mysql -uUSERNAME -pPASSWORD -D DATABASE_NAME
-</code></pre>
-
-<h2>Export</h2>
-
-<p>We need to estimate the file size of our export to get an accurate reading.  This can be done via the information schema:</p>
-
-<pre><code>SELECT
-    Data_BB / POWER(1024,1) Data_KB,
-    Data_BB / POWER(1024,2) Data_MB,
-    Data_BB / POWER(1024,3) Data_GB
-FROM (
-    SELECT SUM(data_length) Data_BB
-    FROM information_schema.tables
-    WHERE table_schema IN ('DATABASE_NAME')
-) A;
-</code></pre>
-
-<p>We then use the estimated size to track export progress:</p>
-
-<pre><code>mysqldump -uUSERNAME -pPASSWORD DATABASE_NAME | pv -s 9999M &gt; DATABASE_NAME.sql 
-</code></pre>
-
-<p>Beer Break!</p>
 ]]></content>
   </entry>
   
