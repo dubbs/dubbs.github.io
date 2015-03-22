@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-02-14T12:27:54-06:00</updated>
+  <updated>2015-03-22T12:35:45-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,72 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Find a VirtualBox IP Address on Network]]></title>
+    <link href="http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network/"/>
+    <updated>2015-03-22T12:33:34-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network</id>
+    <content type="html"><![CDATA[<p>If you&rsquo;ve recently connected to your VM, it should be in the arp cache.<br/>
+Query the arp cache looking for a MAC address starting with <code>8:0:27</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>arp -an <span class="p">|</span> grep 8:0:27
+</span><span class='line'><span class="c"># ? (192.168.0.19) at 8:0:27:d:f1:55 on en0 ifscope [ethernet]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you don&rsquo;t see it, you need to do a bit more digging.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ifconfig
+</span><span class='line'><span class="c"># en0:</span>
+</span><span class='line'><span class="c">#     inet 192.168.0.10 netmask 0xffffff00 broadcast 192.168.0.255</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Since my network has a 192.168.0.10 with a netmask of 255.255.255.0,
+I can preform a &ldquo;ping sweep&rdquo; to count available machines on the network.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>nmap -sn 192.168.0.0/24
+</span><span class='line'><span class="c"># or</span>
+</span><span class='line'>nmap -sn 192.168.0.*
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is &ldquo;more reliable than pinging the broadcast address because many hosts
+do not reply to broadcast queries&rdquo;.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ping 192.168.0.255
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now the arp cache should show the VM, if its running:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>arp -an <span class="p">|</span> grep 8:0:27
+</span><span class='line'><span class="c"># ? (192.168.0.19) at 8:0:27:d:f1:55 on en0 ifscope [ethernet]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can find more information on the device by preforming an aggressive scan</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>nmap -A -v 192.168.0.19
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Setup MySQL With a Launch Agent]]></title>
@@ -72,7 +138,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Tell Apache which PHP to use this shared object <code>.so</code>:</p>
+<p>Tell Apache which PHP shared object <code>.so</code> to use:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -943,77 +1009,6 @@ end
 <li><strong>Suspend</strong> saves VM RAM and contents to disk, fast boot</li>
 <li><strong>Halt</strong> saves VM contents to disk, cold boot</li>
 <li><strong>Destroy</strong> removes VM from disk</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cloud Computing Service Models]]></title>
-    <link href="http://dubbs.github.io/blog/2014/03/10/cloud-computing-service-models/"/>
-    <updated>2014-03-10T12:50:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2014/03/10/cloud-computing-service-models</id>
-    <content type="html"><![CDATA[<h2>IaaS (Infrastructure as a Service)</h2>
-
-<ul>
-<li>Provider manages underlying infrastructure, eg. storage, network and computing resources</li>
-<li>You can deploy, run and control software</li>
-<li>Pricing model: usage and component based</li>
-</ul>
-
-
-<p>Providers:</p>
-
-<ul>
-<li>AWS EC2</li>
-<li>Joyent</li>
-<li>Rackspace</li>
-</ul>
-
-
-<h2>PaaS (Platform as a Service)</h2>
-
-<ul>
-<li>Provider manages underlying infrastructure</li>
-<li>Provider manages operating system</li>
-<li>Provider manages programming languages, frameworks, libraries, services and tools for you to create and deploy applications.</li>
-<li>You control deployed applications and configuration</li>
-<li>Pricing model: usage and component based</li>
-</ul>
-
-
-<p>Providers:</p>
-
-<ul>
-<li>Heroku</li>
-<li>AWS Elastic Beanstalk</li>
-<li>Engine Yard</li>
-<li>Google App Engine</li>
-<li>Windows Azure</li>
-<li>OpenStack</li>
-<li>Nodejitsu</li>
-</ul>
-
-
-<h2>SaaS (Software as a Service)</h2>
-
-<ul>
-<li>Provider manages underlying infrastructure</li>
-<li>Provider manages operating system</li>
-<li>Provider manages application platform and even individual application capabilities</li>
-<li>You control user-specific configuration</li>
-<li>You use application on client devices through either a web browser or API</li>
-<li>Pricing model: monthly or yearly flat fee</li>
-</ul>
-
-
-<p>Providers:</p>
-
-<ul>
-<li>Salesforce CRM</li>
-<li>Dropbox</li>
-<li>Google Apps</li>
-<li>LinkedIn</li>
 </ul>
 
 ]]></content>

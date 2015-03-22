@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Unix Pipelines vs Redirection - Kevin Warrington</title>
+  <title>Find a VirtualBox IP Address on Network - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Redirection is used to send data from standard streams to specific locations. To send the standard output stream to a file, instead of the terminal: &hellip;">
+  <meta name="description" content="If you&rsquo;ve recently connected to your VM, it should be in the arp cache.
+Query the arp cache looking for a MAC address starting with 8:0:27 1
+2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -79,7 +81,7 @@
   
   <header>
     
-      <h1 class="entry-title">Unix Pipelines vs Redirection</h1>
+      <h1 class="entry-title">Find a VirtualBox IP Address on Network</h1>
     
     
       <p class="meta">
@@ -88,76 +90,71 @@
 
 
 
-<time class='entry-date' datetime='2013-09-25T20:05:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:05 pm</span></time>
+<time class='entry-date' datetime='2015-03-22T12:33:34-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:33 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Redirection is used to send data from standard streams to specific locations.</p>
+<div class="entry-content"><p>If you&rsquo;ve recently connected to your VM, it should be in the arp cache.<br/>
+Query the arp cache looking for a MAC address starting with <code>8:0:27</code></p>
 
-<p>To send the standard output stream to a file, instead of the terminal:</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>arp -an <span class="p">|</span> grep 8:0:27
+</span><span class='line'><span class="c"># ? (192.168.0.19) at 8:0:27:d:f1:55 on en0 ifscope [ethernet]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<pre><code>command1 &gt; outfile
-command1 1&gt; outfile
-</code></pre>
 
-<p>Same as above, but instead send the standard error stream:</p>
+<p>If you don&rsquo;t see it, you need to do a bit more digging.</p>
 
-<pre><code>command1 2&gt; outfile
-</code></pre>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ifconfig
+</span><span class='line'><span class="c"># en0:</span>
+</span><span class='line'><span class="c">#     inet 192.168.0.10 netmask 0xffffff00 broadcast 192.168.0.255</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>To send standard output/error streams to a file, instead of the terminal:</p>
 
-<pre><code>command1 &gt; outfile 2&gt;&amp;1
-</code></pre>
+<p>Since my network has a 192.168.0.10 with a netmask of 255.255.255.0,
+I can preform a &ldquo;ping sweep&rdquo; to count available machines on the network.</p>
 
-<p>Output can also be disposed of using the null device:</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>nmap -sn 192.168.0.0/24
+</span><span class='line'><span class="c"># or</span>
+</span><span class='line'>nmap -sn 192.168.0.*
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<pre><code>command1 &gt; /dev/null 2&gt;&amp;1
-</code></pre>
 
-<p>To use the contents of a file as the standard input stream to a command, instead of using keyboard input:</p>
+<p>This is &ldquo;more reliable than pinging the broadcast address because many hosts
+do not reply to broadcast queries&rdquo;.</p>
 
-<pre><code>command1 &lt; infile
-</code></pre>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ping 192.168.0.255
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>Input can be read from one file and output to another:</p>
 
-<pre><code>command1 &lt; infile &gt; outfile
-</code></pre>
+<p>Now the arp cache should show the VM, if its running:</p>
 
-<p>The standard output of one command can also be used as the standard input to another using a temporary file:</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>arp -an <span class="p">|</span> grep 8:0:27
+</span><span class='line'><span class="c"># ? (192.168.0.19) at 8:0:27:d:f1:55 on en0 ifscope [ethernet]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<pre><code>command1 &gt; file
-command2 &lt; file
-rm file
-</code></pre>
 
-<p>However, this is inefficient as the second command has to wait for the first to complete before proceeding.  Also, there is a chance that the temporary file will overwrite an already existing one.</p>
+<p>You can find more information on the device by preforming an aggressive scan</p>
 
-<p>Instead, it is more efficient to directly stream the output of one command into another via <code>pipes</code>:</p>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>nmap -A -v 192.168.0.19
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<pre><code>command1 | command2
-</code></pre>
 
-<p>Along with the standard out, you can also send standard error, notice that it appears before the pipe.</p>
 
-<pre><code>command1 2&gt;&amp;1 | command2
-</code></pre>
-
-<p>It is also possible to direct the output of a command to standard out and an outfile using <code>tee</code>.</p>
-
-<pre><code>command1 | tee outfile
-</code></pre>
-
-<p>Lastly, if you want to avoid overwriting files when redirecting, set noclobber:</p>
-
-<pre><code>set -o noclobber
-command1 &gt; existingfile
-# -bash: existingfile: cannot overwrite existing file
-</code></pre>
 </div>
 
 
@@ -173,12 +170,12 @@ command1 &gt; existingfile
 
 
 
-<time class='entry-date' datetime='2013-09-25T20:05:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:05 pm</span></time> <time class='updated' datetime='2013-09-25T20:05:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>8:05 pm</span></time>
+<time class='entry-date' datetime='2015-03-22T12:33:34-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>12:33 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/unix/'>unix</a>
+    <a class='category' href='/blog/categories/vm/'>vm</a>
   
 </span>
 
@@ -187,7 +184,7 @@ command1 &gt; existingfile
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network/" >Tweet</a>
   
   
   
@@ -198,10 +195,8 @@ command1 &gt; existingfile
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/09/23/mounting-an-afp-filesystem/" title="Previous Post: Mounting an AFP Filesystem">&laquo; Mounting an AFP Filesystem</a>
+        <a class="basic-alignment left" href="/blog/2015/02/14/setup-mysql-with-a-launch-agent/" title="Previous Post: Setup MySQL with a Launch Agent">&laquo; Setup MySQL with a Launch Agent</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/09/26/converting-between-formats/" title="Next Post: Converting between formats">Converting between formats &raquo;</a>
       
     </p>
   </footer>
@@ -296,8 +291,8 @@ command1 &gt; existingfile
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection/';
-        var disqus_url = 'http://dubbs.github.io/blog/2013/09/25/unix-pipelines-vs-redirection/';
+        var disqus_identifier = 'http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network/';
+        var disqus_url = 'http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network/';
         var disqus_script = 'embed.js';
       
     (function () {

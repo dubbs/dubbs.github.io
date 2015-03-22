@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Vm | Kevin Warrington]]></title>
+  <link href="http://dubbs.github.io/blog/categories/vm/atom.xml" rel="self"/>
+  <link href="http://dubbs.github.io/"/>
+  <updated>2015-03-22T12:35:45-06:00</updated>
+  <id>http://dubbs.github.io/</id>
+  <author>
+    <name><![CDATA[Kevin Warrington]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Find a VirtualBox IP Address on Network]]></title>
+    <link href="http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network/"/>
+    <updated>2015-03-22T12:33:34-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/03/22/find-a-virtualbox-ip-address-on-network</id>
+    <content type="html"><![CDATA[<p>If you&rsquo;ve recently connected to your VM, it should be in the arp cache.<br/>
+Query the arp cache looking for a MAC address starting with <code>8:0:27</code></p>
+
+<pre><code class="bash">arp -an | grep 8:0:27
+# ? (192.168.0.19) at 8:0:27:d:f1:55 on en0 ifscope [ethernet]
+</code></pre>
+
+<p>If you don&rsquo;t see it, you need to do a bit more digging.</p>
+
+<pre><code class="bash">ifconfig
+# en0:
+#   inet 192.168.0.10 netmask 0xffffff00 broadcast 192.168.0.255
+</code></pre>
+
+<p>Since my network has a 192.168.0.10 with a netmask of 255.255.255.0,
+I can preform a &ldquo;ping sweep&rdquo; to count available machines on the network.</p>
+
+<pre><code class="bash">nmap -sn 192.168.0.0/24
+# or
+nmap -sn 192.168.0.*
+</code></pre>
+
+<p>This is &ldquo;more reliable than pinging the broadcast address because many hosts
+do not reply to broadcast queries&rdquo;.</p>
+
+<pre><code class="bash">ping 192.168.0.255
+</code></pre>
+
+<p>Now the arp cache should show the VM, if its running:</p>
+
+<pre><code class="bash">arp -an | grep 8:0:27
+# ? (192.168.0.19) at 8:0:27:d:f1:55 on en0 ifscope [ethernet]
+</code></pre>
+
+<p>You can find more information on the device by preforming an aggressive scan</p>
+
+<pre><code class="bash">nmap -A -v 192.168.0.19
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
