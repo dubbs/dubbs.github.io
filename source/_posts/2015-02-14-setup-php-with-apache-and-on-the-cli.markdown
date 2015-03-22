@@ -23,7 +23,7 @@ locate libphp5.so
 # /usr/local/Cellar/php56/5.6.5/libexec/apache2/libphp5.so
 ```
 
-Tell Apache which PHP to use this shared object `.so`:
+Tell Apache which PHP shared object `.so` to use:
 
 ``` bash
 httpd -V | grep ROOT
