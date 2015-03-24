@@ -2,7 +2,7 @@
 layout: post
 title: "Working with Background Processes"
 date: 2013-09-16 21:33
-updated: 2013-09-16 21:33
+updated: 2015-03-24 13:38
 comments: true
 categories: unix
 ---
@@ -11,11 +11,21 @@ For long running processes, rather than blocking your prompt, it's often useful 
 
 To run a command in the background.
 
-	<command> &
+```bash
+<command> &
+```
 
-To run a command in the background, detached from your console.  The process will not terminate on logout.  `nice` sets a lower priority.
+With `nohup` you can run a command which will continue after logout.  It will ignore SIGHUP signals. `nice` sets a lower priority.
 
-	nohup nice <command> &
+```bash
+nohup nice <command> &
+```
+
+With `screen` you can run a command which can be resumed after logout.  It creates a new window with multiple processes instead of multiple Unix login sessions, so it is resource efficient.
+
+```bash
+screen -A -m -d -S mysessionname ./myscript.sh &
+```
 
 List all background processes
 
