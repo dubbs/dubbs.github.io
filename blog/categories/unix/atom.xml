@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Unix | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/unix/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-03-22T12:35:45-06:00</updated>
+  <updated>2015-06-24T16:59:32-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using Results From the Find Command]]></title>
+    <link href="http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command/"/>
+    <updated>2015-06-24T16:42:23-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command</id>
+    <content type="html"><![CDATA[<p>The following will find all <code>.patch</code> files and copy them to some directory:</p>
+
+<pre><code class="bash">find . -name '*.patch' -print0 | xargs -0 -I % cp % some/directory
+</code></pre>
+
+<h2>Explanation</h2>
+
+<p>Each result is printed to stdout, followed by an ASCII NUL character <code>-print0</code>.  These are passed to <code>xargs</code> which is configured to expect the NUL character <code>-0</code> as the separator. <code>-I %</code> is used to identify a substitution character, which will be replaced in the following command <code>cp % some/directory</code>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Manipulating Unix Routing Tables]]></title>
@@ -159,11 +175,11 @@ ssh remoteServer1
 
 <h3>Resources:</h3>
 
-<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  ">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  </a>
-<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/  ">https://developer.github.com/guides/using-ssh-agent-forwarding/  </a>
-<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  ">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  </a>
-<a href="https://kimmo.suominen.com/docs/ssh/  ">https://kimmo.suominen.com/docs/ssh/  </a>
-<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html  ">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html  </a>
+<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html</a><br/>
+<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/">https://developer.github.com/guides/using-ssh-agent-forwarding/</a><br/>
+<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/</a><br/>
+<a href="https://kimmo.suominen.com/docs/ssh/">https://kimmo.suominen.com/docs/ssh/</a><br/>
+<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html</a><br/>
 <a href="http://www.symantec.com/connect/articles/ssh-and-ssh-agent">http://www.symantec.com/connect/articles/ssh-and-ssh-agent</a></p>
 ]]></content>
   </entry>
@@ -215,24 +231,6 @@ issued before your export completes, you will have a perfect snapshot:</p>
 </code></pre>
 
 <p>MyISAM or MEMORY tables dumped while using this option may still change state.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Update Your Locate Database]]></title>
-    <link href="http://dubbs.github.io/blog/2014/08/16/update-your-locate-database/"/>
-    <updated>2014-08-16T16:15:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2014/08/16/update-your-locate-database</id>
-    <content type="html"><![CDATA[<p>The <code>locate</code> command is great for searching the entire filesystem for files:</p>
-
-<pre><code>locate my.cnf
-</code></pre>
-
-<p>Recently created files and directories might not show up, so update the index:</p>
-
-<pre><code>locate updatedb
-/usr/libexec/locate.updatedb
-</code></pre>
 ]]></content>
   </entry>
   

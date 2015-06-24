@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ssh | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/ssh/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-03-22T12:35:45-06:00</updated>
+  <updated>2015-06-24T16:59:32-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -160,11 +160,11 @@ ssh remoteServer1
 
 <h3>Resources:</h3>
 
-<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  ">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  </a>
-<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/  ">https://developer.github.com/guides/using-ssh-agent-forwarding/  </a>
-<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  ">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  </a>
-<a href="https://kimmo.suominen.com/docs/ssh/  ">https://kimmo.suominen.com/docs/ssh/  </a>
-<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html  ">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html  </a>
+<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html</a><br/>
+<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/">https://developer.github.com/guides/using-ssh-agent-forwarding/</a><br/>
+<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/</a><br/>
+<a href="https://kimmo.suominen.com/docs/ssh/">https://kimmo.suominen.com/docs/ssh/</a><br/>
+<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html</a><br/>
 <a href="http://www.symantec.com/connect/articles/ssh-and-ssh-agent">http://www.symantec.com/connect/articles/ssh-and-ssh-agent</a></p>
 ]]></content>
   </entry>

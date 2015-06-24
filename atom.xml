@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-03-22T12:35:45-06:00</updated>
+  <updated>2015-06-24T16:59:32-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using Results From the Find Command]]></title>
+    <link href="http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command/"/>
+    <updated>2015-06-24T16:42:23-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command</id>
+    <content type="html"><![CDATA[<p>The following will find all <code>.patch</code> files and copy them to some directory:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>find . -name <span class="s1">&#39;*.patch&#39;</span> -print0 <span class="p">|</span> xargs -0 -I % cp % some/directory
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Explanation</h2>
+
+<p>Each result is printed to stdout, followed by an ASCII NUL character <code>-print0</code>.  These are passed to <code>xargs</code> which is configured to expect the NUL character <code>-0</code> as the separator. <code>-I %</code> is used to identify a substitution character, which will be replaced in the following command <code>cp % some/directory</code>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Find a VirtualBox IP Address on Network]]></title>
@@ -539,11 +557,11 @@ ssh remoteServer1
 
 <h3>Resources:</h3>
 
-<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  ">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html  </a>
-<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/  ">https://developer.github.com/guides/using-ssh-agent-forwarding/  </a>
-<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  ">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/  </a>
-<a href="https://kimmo.suominen.com/docs/ssh/  ">https://kimmo.suominen.com/docs/ssh/  </a>
-<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html  ">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html  </a>
+<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html</a><br/>
+<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/">https://developer.github.com/guides/using-ssh-agent-forwarding/</a><br/>
+<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/</a><br/>
+<a href="https://kimmo.suominen.com/docs/ssh/">https://kimmo.suominen.com/docs/ssh/</a><br/>
+<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html</a><br/>
 <a href="http://www.symantec.com/connect/articles/ssh-and-ssh-agent">http://www.symantec.com/connect/articles/ssh-and-ssh-agent</a></p>
 ]]></content>
   </entry>
@@ -891,126 +909,6 @@ http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which
   });
 }(this, document, this.Modernizr));
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Vagrant]]></title>
-    <link href="http://dubbs.github.io/blog/2014/03/12/vagrant/"/>
-    <updated>2014-03-12T10:45:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2014/03/12/vagrant</id>
-    <content type="html"><![CDATA[<p>Vagrant is used to <em>create</em> and <em>configure</em>
-lightweight, reproducible, and portable (Linux, Mac OS X or Windows) development environments</p>
-
-<h2>Setup</h2>
-
-<p>A <code>Vagrantfile</code> is used to describe your project&rsquo;s environment, specifically:</p>
-
-<ol>
-<li>root directory</li>
-<li>box or machine type, allocated resources and how it is accessed</li>
-<li>software installed</li>
-</ol>
-
-
-<p>Software installation can be deferred to provisioning tools such as <strong>shell scripts</strong>, <strong>Chef</strong>, or <strong>Puppet</strong>.</p>
-
-<p>To create a new Vagrantfile, run:</p>
-
-<pre><code>vagrant init
-</code></pre>
-
-<h2>Boxes</h2>
-
-<p>Vagrant uses as a box (base image) to clone a virtual machine.</p>
-
-<p>So, the first step is to add a box from the <a href="https://www.vagrantcloud.com/discover/">Vagrant Cloud</a>:</p>
-
-<pre><code>vagrant box add chef/ubuntu-13.10
-</code></pre>
-
-<p>Inside your <code>Vagrantfile</code>, reference this box:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.box = "chef/ubuntu-13.10"
-end
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>vagrant up
-vagrant ssh
-</code></pre>
-
-<h2>Provisioning</h2>
-
-<p>Vagrant has built in provisioning via the <strong>shell</strong> provisioner.</p>
-
-<p>First create a public directory to house our web files:</p>
-
-<pre><code>mkdir public
-echo "HI" &gt; public/index.html
-</code></pre>
-
-<p>Simply create a bootstrap.sh file at the root of our project:</p>
-
-<pre><code>#!/usr/bin/env bash
-
-apt-get update
-apt-get install -y apache2
-rm -rf /var/www
-ln -fs /vagrant/public /var/www
-</code></pre>
-
-<p>Add this script reference to our Vagrantfile:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.provision :shell, :path =&gt; "bootstrap.sh"
-end
-</code></pre>
-
-<p>Then reload and run the provisoner</p>
-
-<pre><code>vagrant reload --provision
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>vagrant ssh
-wget -qO- 127.0.0.1
-</code></pre>
-
-<h2>Networking</h2>
-
-<p>Vagrant supports port forwarding, public and private networks</p>
-
-<p>To setup port forwarding for our apache server simply:</p>
-
-<pre><code>Vagrant.configure("2") do |config|
-    config.vm.network :forwarded_port, host: 4567, guest: 80
-end
-</code></pre>
-
-<p>Then reload</p>
-
-<pre><code>vagrant reload
-</code></pre>
-
-<p>Verify</p>
-
-<pre><code>http://localhost:4567
-</code></pre>
-
-<h2>Teardown</h2>
-
-<p>Vagrant supports a number of teardown options:</p>
-
-<ul>
-<li><strong>Suspend</strong> saves VM RAM and contents to disk, fast boot</li>
-<li><strong>Halt</strong> saves VM contents to disk, cold boot</li>
-<li><strong>Destroy</strong> removes VM from disk</li>
-</ul>
-
 ]]></content>
   </entry>
   

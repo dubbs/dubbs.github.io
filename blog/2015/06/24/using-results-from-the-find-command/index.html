@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Clear the DNS Cache - Kevin Warrington</title>
+  <title>Using Results From the Find Command - Kevin Warrington</title>
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="You&rsquo;ve updated /etc/hosts and your changes aren&rsquo;t reflected in Google Chrome. Try clearing the DNS cache. Chrome Navigate to chrome://net &hellip;">
+  <meta name="description" content="The following will find all .patch files and copy them to some directory: 1
+find . -name &#39;*.patch&#39; -print0 | xargs -0 -I % cp % some/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache/">
+  <link rel="canonical" href="http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Kevin Warrington" type="application/atom+xml">
@@ -79,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">Clear the DNS Cache</h1>
+      <h1 class="entry-title">Using Results From the Find Command</h1>
     
     
       <p class="meta">
@@ -88,29 +89,23 @@
 
 
 
-<time class='entry-date' datetime='2014-09-04T12:55:27-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:55 pm</span></time>
+<time class='entry-date' datetime='2015-06-24T16:42:23-06:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:42 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>You&rsquo;ve updated <code>/etc/hosts</code> and your changes aren&rsquo;t reflected in Google Chrome.  Try clearing the DNS cache.</p>
+<div class="entry-content"><p>The following will find all <code>.patch</code> files and copy them to some directory:</p>
 
-<h2>Chrome</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>find . -name <span class="s1">&#39;*.patch&#39;</span> -print0 <span class="p">|</span> xargs -0 -I % cp % some/directory
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Navigate to <code>chrome://net-internals/#dns</code> and click &ldquo;Clear Host Cache&rdquo;<br/>
-Navigate to <code>chrome://net-internals/#sockets</code> and click &ldquo;Flush Socket Pools&rdquo;</p>
 
-<h2>Mac OS X v10.6</h2>
+<h2>Explanation</h2>
 
-<pre><code>sudo dscacheutil -flushcache
-</code></pre>
-
-<h2>Mac OS X v10.7+</h2>
-
-<pre><code>sudo killall -HUP mDNSResponder
-</code></pre>
+<p>Each result is printed to stdout, followed by an ASCII NUL character <code>-print0</code>.  These are passed to <code>xargs</code> which is configured to expect the NUL character <code>-0</code> as the separator. <code>-I %</code> is used to identify a substitution character, which will be replaced in the following command <code>cp % some/directory</code>.</p>
 </div>
 
 
@@ -126,12 +121,12 @@ Navigate to <code>chrome://net-internals/#sockets</code> and click &ldquo;Flush 
 
 
 
-<time class='entry-date' datetime='2014-09-04T12:55:27-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:55 pm</span></time> <time class='updated' datetime='2014-09-04T12:55:27-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:55 pm</span></time>
+<time class='entry-date' datetime='2015-06-24T16:42:23-06:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:42 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/dns/'>dns</a>, <a class='category' href='/blog/categories/mac/'>mac</a>
+    <a class='category' href='/blog/categories/unix/'>unix</a>
   
 </span>
 
@@ -140,7 +135,7 @@ Navigate to <code>chrome://net-internals/#sockets</code> and click &ldquo;Flush 
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command/" data-via="strictlyk3v" data-counturl="http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command/" >Tweet</a>
   
   
   
@@ -151,10 +146,8 @@ Navigate to <code>chrome://net-internals/#sockets</code> and click &ldquo;Flush 
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/09/02/keeping-your-fork-up-to-date/" title="Previous Post: Keeping your git fork up-to-date">&laquo; Keeping your git fork up-to-date</a>
+        <a class="basic-alignment left" href="/blog/2015/03/22/find-a-virtualbox-ip-address-on-network/" title="Previous Post: Find a VirtualBox IP address on network">&laquo; Find a VirtualBox IP address on network</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/09/10/ssh-config-and-agent-forwarding/" title="Next Post: SSH Config and Agent Forwarding">SSH Config and Agent Forwarding &raquo;</a>
       
     </p>
   </footer>
@@ -249,8 +242,8 @@ Navigate to <code>chrome://net-internals/#sockets</code> and click &ldquo;Flush 
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache/';
-        var disqus_url = 'http://dubbs.github.io/blog/2014/09/04/clear-the-dns-cache/';
+        var disqus_identifier = 'http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command/';
+        var disqus_url = 'http://dubbs.github.io/blog/2015/06/24/using-results-from-the-find-command/';
         var disqus_script = 'embed.js';
       
     (function () {
