@@ -9,7 +9,8 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="A proxy server acts as an intermediary between a client and a destination server, primarily controlling access to resources and caching content. To &hellip;">
+  <meta name="description" content="Here&rsquo;s a simple way to connect to an Apple Filing Protocol (AFP) based server and access shared files. mkdir /Volumes/my-share
+mount_afp "afp &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,41 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/23/mounting-an-afp-filesystem/">Mounting an AFP Filesystem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-09-23T13:35:00-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2013</span></span> <span class='time'>1:35 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Here&rsquo;s a simple way to connect to an Apple Filing Protocol (AFP) based server and access shared files.</p>
+
+<pre><code>mkdir /Volumes/my-share
+mount_afp "afp://192.168.0.1/folder/" /Volumes/my-share
+</code></pre>
+
+<p>You can access your new connection in either <code>/Volumes</code> or in left pane of the finder.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -428,6 +464,10 @@ FROM (
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/29/installing-solr-on-centos-6/">Installing Solr 5 on CentOS 6</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/24/using-results-from-the-find-command/">Using Results From the Find Command</a>
       </li>
     
@@ -441,10 +481,6 @@ FROM (
     
       <li class="post">
         <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
       </li>
     
   </ul>

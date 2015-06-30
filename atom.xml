@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-06-24T16:59:32-06:00</updated>
+  <updated>2015-06-30T10:25:16-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Installing Solr 5 on CentOS 6]]></title>
+    <link href="http://dubbs.github.io/blog/2015/06/29/installing-solr-on-centos-6/"/>
+    <updated>2015-06-29T13:40:14-06:00</updated>
+    <id>http://dubbs.github.io/blog/2015/06/29/installing-solr-on-centos-6</id>
+    <content type="html"><![CDATA[<h2>Install Java</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># install java-1.7.0-openjdk</span>
+</span><span class='line'>sudo yum -y install java-1.7.0-openjdk
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install Solr 5</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># http://lucene.apache.org/solr/downloads.html</span>
+</span><span class='line'>wget http://archive.apache.org/dist/lucene/solr/5.0.0/solr-5.0.0.tgz
+</span><span class='line'>tar zxf solr-5.0.0.tgz
+</span><span class='line'><span class="nb">cd </span>solr-5.0.0/
+</span><span class='line'>bin/solr start
+</span><span class='line'>bin/solr create -c demo
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using Results From the Find Command]]></title>
@@ -884,31 +917,6 @@ http://serverfault.com/questions/273260/when-should-i-switch-to-nginx
 http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which-web-server-is-right-for-your
  -->
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Modernizr Plugin API]]></title>
-    <link href="http://dubbs.github.io/blog/2014/03/13/modernizr-plugin-api/"/>
-    <updated>2014-03-13T16:22:00-06:00</updated>
-    <id>http://dubbs.github.io/blog/2014/03/13/modernizr-plugin-api</id>
-    <content type="html"><![CDATA[<p>Modernizr provides a great plugin API, where custom tests can be added, for features that are currently not supported.</p>
-
-<p>To add a test, simply call the <code>addTest</code> method.</p>
-
-<p>Here is a example of a test used to determine if a browser <a href="http://responsivenews.co.uk/post/18948466399/cutting-the-mustard">cuts the mustard</a>:</p>
-
-<pre><code>(function (window, document, Modernizr) {
-  'use strict';
-  Modernizr.addTest('mustard', function () {
-    if('querySelector' in document &amp;&amp;
-        'localStorage' in window &amp;&amp;
-        'addEventListener' in window) {
-      return true;
-    }
-  });
-}(this, document, this.Modernizr));
-</code></pre>
 ]]></content>
   </entry>
   

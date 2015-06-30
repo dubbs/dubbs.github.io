@@ -9,7 +9,7 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="You&rsquo;ve updated /etc/hosts and your changes aren&rsquo;t reflected in Google Chrome. Try clearing the DNS cache. Chrome Navigate to chrome://net &hellip;">
+  <meta name="description" content="Quick guide to setting up ssh config and agent forwarding. 1. Setup remote server Enable authorized keys on remote, /etc/sshd_config: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,144 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/10/ssh-config-and-agent-forwarding/">SSH Config and Agent Forwarding</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-10T21:50:59-06:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:50 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Quick guide to setting up ssh config and agent forwarding.</p>
+
+<h2>1. Setup remote server</h2>
+
+<p>Enable authorized keys on remote, <code>/etc/sshd_config</code>:</p>
+
+<pre><code>RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile  .ssh/authorized_keys
+</code></pre>
+
+<h2>2. Setup client keys</h2>
+
+<p>Generate an ssh key</p>
+
+<pre><code>ssh-keygen -t rsa
+</code></pre>
+
+<p>Copy public key to remote server</p>
+
+<pre><code>ssh-copy-id -i ~/.ssh/id_rsa.pub user@example.com
+</code></pre>
+
+<p>Test connection using private key</p>
+
+<pre><code>ssh -i ~/.ssh/id_rsa user@example.com date
+</code></pre>
+
+<h2>3. Setup client config</h2>
+
+<p>This allows for separate ssh configuration per host:</p>
+
+<pre><code>touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+</code></pre>
+
+<p>Add the following to <code>~/.ssh/config</code>:</p>
+
+<pre><code>Host remoteServer1
+HostName example.com
+User user
+PubkeyAuthentication yes
+IdentityFile ~/.ssh/id_rsa
+</code></pre>
+
+<p>Test the connection:</p>
+
+<pre><code>ssh remoteServer1 date
+</code></pre>
+
+<h2>4. Setup agent forwarding</h2>
+
+<p><code>ssh-agent</code> is a user daemon which holds unencrypted ssh keys in memory.  Key
+challenges are sent from a remote machine, through any intermediary servers
+and back to your local machine.  This saves you from having to store your
+private keys on remote servers.</p>
+
+<p>Turn on agent forwarding for your host, <code>~/.ssh/config</code>:</p>
+
+<pre><code>Host remoteServer1
+...
+ForwardAgent yes
+</code></pre>
+
+<p>Verify ssh-agent is running:</p>
+
+<pre><code>echo "$SSH_AUTH_SOCK"
+</code></pre>
+
+<p>Verify you have an identity loaded:</p>
+
+<pre><code>ssh-add -L
+</code></pre>
+
+<p>If not, add an identity:</p>
+
+<pre><code>ssh-add ~/.ssh/id_rsa
+</code></pre>
+
+<p>Login, logout, login to remote, first login requires passphrase.
+Subsequent logins do not:</p>
+
+<pre><code>ssh remoteServer1
+exit
+ssh remoteServer1
+</code></pre>
+
+<p>Lock your agent when you are away:</p>
+
+<pre><code>ssh-add -x
+</code></pre>
+
+<p>Unlock your agent when you are back:</p>
+
+<pre><code>ssh-add -X
+</code></pre>
+
+<p>Delete all keys from your agent:</p>
+
+<pre><code>ssh-add -D
+</code></pre>
+
+<h3>Resources:</h3>
+
+<p><a href="http://www.unixwiz.net/techtips/ssh-agent-forwarding.html">http://www.unixwiz.net/techtips/ssh-agent-forwarding.html</a><br/>
+<a href="https://developer.github.com/guides/using-ssh-agent-forwarding/">https://developer.github.com/guides/using-ssh-agent-forwarding/</a><br/>
+<a href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/">http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/</a><br/>
+<a href="https://kimmo.suominen.com/docs/ssh/">https://kimmo.suominen.com/docs/ssh/</a><br/>
+<a href="http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html">http://blogs.perl.org/users/smylers/2011/08/ssh-productivity-tips.html</a><br/>
+<a href="http://www.symantec.com/connect/articles/ssh-and-ssh-agent">http://www.symantec.com/connect/articles/ssh-and-ssh-agent</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -578,51 +716,6 @@ http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/13/modernizr-plugin-api/">Modernizr Plugin API</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-13T16:22:00-06:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>13</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:22 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Modernizr provides a great plugin API, where custom tests can be added, for features that are currently not supported.</p>
-
-<p>To add a test, simply call the <code>addTest</code> method.</p>
-
-<p>Here is a example of a test used to determine if a browser <a href="http://responsivenews.co.uk/post/18948466399/cutting-the-mustard">cuts the mustard</a>:</p>
-
-<pre><code>(function (window, document, Modernizr) {
-  'use strict';
-  Modernizr.addTest('mustard', function () {
-    if('querySelector' in document &amp;&amp;
-        'localStorage' in window &amp;&amp;
-        'addEventListener' in window) {
-      return true;
-    }
-  });
-}(this, document, this.Modernizr));
-</code></pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -640,6 +733,10 @@ http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/06/29/installing-solr-on-centos-6/">Installing Solr 5 on CentOS 6</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/06/24/using-results-from-the-find-command/">Using Results From the Find Command</a>
       </li>
     
@@ -653,10 +750,6 @@ http://www.inetu.net/about/server-smarts-blog/january-2013/nginx-vs-apache-which
     
       <li class="post">
         <a href="/blog/2015/02/14/setup-php-with-apache-and-on-the-cli/">Setup PHP With Apache and on the CLI</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/02/07/git-snippets/">Git Snippets</a>
       </li>
     
   </ul>
