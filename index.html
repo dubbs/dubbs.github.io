@@ -9,16 +9,16 @@
   <meta name="author" content="Kevin Warrington">
 
   
-  <meta name="description" content="Install Java 1
-2
-# install java-1.7.0-openjdk
-sudo yum -y install java-1.7.0-openjdk Install Solr 5 1
+  <meta name="description" content="Verify CentOS Version 1
+cat /etc/centos-release Install Tomcat 1
 2
 3
 4
 5
 6
-# http://lucene.apache.org/solr/ &hellip;">
+# install java-1.7.0-openjdk
+sudo yum -y install java-1.7.0-openjdk
+# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,7 +91,7 @@ sudo yum -y install java-1.7.0-openjdk Install Solr 5 1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/06/29/installing-solr-on-centos-6/">Installing Solr 5 on CentOS 6</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/06/29/installing-solr-on-centos-6/">Installing Solr 4 on CentOS 6</a></h1>
     
     
       <p class="meta">
@@ -107,16 +107,14 @@ sudo yum -y install java-1.7.0-openjdk Install Solr 5 1
   </header>
 
 
-  <div class="entry-content"><h2>Install Java</h2>
+  <div class="entry-content"><h2>Verify CentOS Version</h2>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># install java-1.7.0-openjdk</span>
-</span><span class='line'>sudo yum -y install java-1.7.0-openjdk
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>cat /etc/centos-release
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>Install Solr 5</h2>
+<h2>Install Tomcat</h2>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -124,13 +122,64 @@ sudo yum -y install java-1.7.0-openjdk Install Solr 5 1
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># http://lucene.apache.org/solr/downloads.html</span>
-</span><span class='line'>wget http://archive.apache.org/dist/lucene/solr/5.0.0/solr-5.0.0.tgz
-</span><span class='line'>tar zxf solr-5.0.0.tgz
-</span><span class='line'><span class="nb">cd </span>solr-5.0.0/
-</span><span class='line'>bin/solr start
-</span><span class='line'>bin/solr create -c demo
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># install java-1.7.0-openjdk</span>
+</span><span class='line'>sudo yum -y install java-1.7.0-openjdk
+</span><span class='line'><span class="c"># install tomcat6</span>
+</span><span class='line'>sudo yum -y install tomcat6 tomcat6-webapps tomcat6-admin-webapps
+</span><span class='line'><span class="c"># change port</span>
+</span><span class='line'>sudo sed -i s/8080/8983/g /etc/tomcat6/server.xml
 </span></code></pre></td></tr></table></div></figure>
+
+
+<p>To use the manager webapp you need to create a user with the role &ldquo;manager&rdquo;.  Add a user to <code>&lt;tomcat-users&gt;</code> in <code>/etc/tomcat6/tomcat-users.xml</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">&quot;manager&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;role</span> <span class="na">rolename=</span><span class="s">&quot;admin&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;user</span> <span class="na">username=</span><span class="s">&quot;admin&quot;</span> <span class="na">password=</span><span class="s">&quot;password&quot;</span> <span class="na">roles=</span><span class="s">&quot;manager,admin&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Start tomcat</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo service tomcat6 start
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Open the <a href="http://admin:password@localhost:8983/manager/html">Tomcat Web Application Manager</a></p>
+
+<h2>Install Solr</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>wget http://archive.apache.org/dist/lucene/solr/4.6.1/solr-4.6.1.tgz
+</span><span class='line'>tar xvf solr-4.6.1.tgz
+</span><span class='line'>sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
+</span><span class='line'><span class="c"># restart so tomcat creates directory</span>
+</span><span class='line'>sudo service tomcat6 restart
+</span><span class='line'><span class="c"># copy default example config to home, where data will live</span>
+</span><span class='line'>sudo cp -a solr-4.6.1/example/solr /home/
+</span><span class='line'><span class="c"># copy drupal configuration to core conf</span>
+</span><span class='line'>sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/collection1/conf/
+</span><span class='line'><span class="c"># set appropriate permissions</span>
+</span><span class='line'>sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
+</span><span class='line'>sudo service tomcat6 restart
+</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
   
@@ -769,7 +818,7 @@ host.  You should be able to run the above command from any directory.</p>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/06/29/installing-solr-on-centos-6/">Installing Solr 5 on CentOS 6</a>
+        <a href="/blog/2015/06/29/installing-solr-on-centos-6/">Installing Solr 4 on CentOS 6</a>
       </li>
     
       <li class="post">

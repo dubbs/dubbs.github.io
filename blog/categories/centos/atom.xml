@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Centos | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/centos/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-06-30T10:25:16-06:00</updated>
+  <updated>2015-06-30T13:17:31-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -14,24 +14,53 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Installing Solr 5 on CentOS 6]]></title>
+    <title type="html"><![CDATA[Installing Solr 4 on CentOS 6]]></title>
     <link href="http://dubbs.github.io/blog/2015/06/29/installing-solr-on-centos-6/"/>
     <updated>2015-06-29T13:40:14-06:00</updated>
     <id>http://dubbs.github.io/blog/2015/06/29/installing-solr-on-centos-6</id>
-    <content type="html"><![CDATA[<h2>Install Java</h2>
+    <content type="html"><![CDATA[<h2>Verify CentOS Version</h2>
+
+<pre><code class="bash">cat /etc/centos-release
+</code></pre>
+
+<h2>Install Tomcat</h2>
 
 <pre><code class="bash"># install java-1.7.0-openjdk
 sudo yum -y install java-1.7.0-openjdk
+# install tomcat6
+sudo yum -y install tomcat6 tomcat6-webapps tomcat6-admin-webapps
+# change port
+sudo sed -i s/8080/8983/g /etc/tomcat6/server.xml
 </code></pre>
 
-<h2>Install Solr 5</h2>
+<p>To use the manager webapp you need to create a user with the role &ldquo;manager&rdquo;.  Add a user to <code>&lt;tomcat-users&gt;</code> in <code>/etc/tomcat6/tomcat-users.xml</code></p>
 
-<pre><code class="bash"># http://lucene.apache.org/solr/downloads.html
-wget http://archive.apache.org/dist/lucene/solr/5.0.0/solr-5.0.0.tgz
-tar zxf solr-5.0.0.tgz
-cd solr-5.0.0/
-bin/solr start
-bin/solr create -c demo
+<pre><code class="xml">&lt;role rolename="manager" /&gt;
+&lt;role rolename="admin" /&gt;
+&lt;user username="admin" password="password" roles="manager,admin" /&gt;
+</code></pre>
+
+<p>Start tomcat</p>
+
+<pre><code class="bash">sudo service tomcat6 start
+</code></pre>
+
+<p>Open the <a href="http://admin:password@localhost:8983/manager/html">Tomcat Web Application Manager</a></p>
+
+<h2>Install Solr</h2>
+
+<pre><code class="bash">wget http://archive.apache.org/dist/lucene/solr/4.6.1/solr-4.6.1.tgz
+tar xvf solr-4.6.1.tgz
+sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
+# restart so tomcat creates directory
+sudo service tomcat6 restart
+# copy default example config to home, where data will live
+sudo cp -a solr-4.6.1/example/solr /home/
+# copy drupal configuration to core conf
+sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/collection1/conf/
+# set appropriate permissions
+sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
+sudo service tomcat6 restart
 </code></pre>
 ]]></content>
   </entry>
