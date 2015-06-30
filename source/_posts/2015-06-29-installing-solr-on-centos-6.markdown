@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Installing Solr 4 on CentOS 6"
-date: 2015-06-29 13:40:14 -0600
-modified: 2015-06-29 13:40:14 -0600
+date: 2015-06-29 11:40:14 -0600
+modified: 2015-06-29 13:18:14 -0600
 comments: true
 categories: [centos, solr]
 ---
