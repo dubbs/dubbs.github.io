@@ -2,7 +2,7 @@
 layout: post
 title: "Installing Solr 4 on CentOS 6"
 date: 2015-06-29 11:40:14 -0600
-modified: 2015-06-29 13:18:14 -0600
+modified: 2015-07-03 11:20:14 -0600
 comments: true
 categories: [centos, solr]
 ---
@@ -42,20 +42,35 @@ Open the [Tomcat Web Application Manager](http://admin:password@localhost:8983/m
 ```bash
 wget http://archive.apache.org/dist/lucene/solr/4.6.1/solr-4.6.1.tgz
 tar xvf solr-4.6.1.tgz
+# install solr app
 sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
-# restart so tomcat creates directory
-sudo service tomcat6 restart
 # copy default example config to home, where data will live
 sudo cp -a solr-4.6.1/example/solr /home/
-# create new collection
-cd /home/solr
-sudo cp -a collection1 document_library
-sudo rm -rf document_library/data
-sudo mkdir document_library/data
-# copy drupal configuration to core conf
-sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 # set appropriate permissions
 sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
+# update solr home directory in WEB-INF
+#    <env-entry>
+#       <env-entry-name>solr/home</env-entry-name>
+#       <env-entry-value>/home/solr</env-entry-value>
+#       <env-entry-type>java.lang.String</env-entry-type>
+#    </env-entry>
+sudo vim /var/lib/tomcat6/webapps/solr/WEB-INF/web.xml
+# restart so tomcat creates directory
+sudo service tomcat6 restart
+```
+
+## Create a new core
+```bash
+cd /home/solr
+sudo cp -a collection1 document_library
+# clean data directory
+sudo rm -rf document_library/data
+sudo mkdir document_library/data
+```
+
+## Add drupal solr configuration to new core
+```bash
+sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 sudo service tomcat6 restart
 ```
 
