@@ -63,14 +63,18 @@ sudo service tomcat6 restart
 ```bash
 cd /home/solr
 sudo cp -a collection1 document_library
+# update core name
+echo 'name=document_library' | sudo tee document_library/core.properties
 # clean data directory
 sudo rm -rf document_library/data
 sudo mkdir document_library/data
+sudo chown -R tomcat:tomcat document_library
 ```
 
 ## Add drupal solr configuration to new core
 ```bash
 sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
+sudo chown -R tomcat:tomcat document_library
 sudo service tomcat6 restart
 ```
 
