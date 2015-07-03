@@ -20,6 +20,14 @@ sudo yum -y install java-1.7.0-openjdk
 sudo yum -y install tomcat6 tomcat6-webapps tomcat6-admin-webapps
 # change port
 sudo sed -i s/8080/8983/g /etc/tomcat6/server.xml
+# install Simple Logging Facade for Java
+wget -qO- http://www.slf4j.org/dist/slf4j-1.7.12.tar.gz | tar xvz
+sudo cp -a slf4j-1.7.12/slf4j-*.jar /usr/share/tomcat6/lib
+# remove android files that mess up startup
+sudo rm -rf /usr/share/tomcat6/lib/slf4j-android*
+# install Apache Commons Logging
+wget -qO- http://apache.mirror.rafal.ca//commons/logging/binaries/commons-logging-1.2-bin.tar.gz | tar xvz
+sudo cp -a commons-logging-1.2/commons-logging-1.2*.jar /usr/share/tomcat6/lib
 ```
 
 To use the manager webapp you need to create a user with the role "manager".  Add a user to `<tomcat-users>` in `/etc/tomcat6/tomcat-users.xml`
