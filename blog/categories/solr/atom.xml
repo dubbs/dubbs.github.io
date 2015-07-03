@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Solr | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/solr/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-07-03T09:49:13-06:00</updated>
+  <updated>2015-07-03T11:21:06-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -51,20 +51,35 @@ sudo sed -i s/8080/8983/g /etc/tomcat6/server.xml
 
 <pre><code class="bash">wget http://archive.apache.org/dist/lucene/solr/4.6.1/solr-4.6.1.tgz
 tar xvf solr-4.6.1.tgz
+# install solr app
 sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
-# restart so tomcat creates directory
-sudo service tomcat6 restart
 # copy default example config to home, where data will live
 sudo cp -a solr-4.6.1/example/solr /home/
-# create new collection
-cd /home/solr
-sudo cp -a collection1 document_library
-sudo rm -rf document_library/data
-sudo mkdir document_library/data
-# copy drupal configuration to core conf
-sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 # set appropriate permissions
 sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
+# update solr home directory in WEB-INF
+#    &lt;env-entry&gt;
+#       &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;
+#       &lt;env-entry-value&gt;/home/solr&lt;/env-entry-value&gt;
+#       &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
+#    &lt;/env-entry&gt;
+sudo vim /var/lib/tomcat6/webapps/solr/WEB-INF/web.xml
+# restart so tomcat creates directory
+sudo service tomcat6 restart
+</code></pre>
+
+<h2>Create a new core</h2>
+
+<pre><code class="bash">cd /home/solr
+sudo cp -a collection1 document_library
+# clean data directory
+sudo rm -rf document_library/data
+sudo mkdir document_library/data
+</code></pre>
+
+<h2>Add drupal solr configuration to new core</h2>
+
+<pre><code class="bash">sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 sudo service tomcat6 restart
 </code></pre>
 ]]></content>

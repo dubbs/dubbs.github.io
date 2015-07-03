@@ -169,20 +169,44 @@ sudo yum -y install java-1.7.0-openjdk
 <span class='line-number'>17</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>wget http://archive.apache.org/dist/lucene/solr/4.6.1/solr-4.6.1.tgz
 </span><span class='line'>tar xvf solr-4.6.1.tgz
+</span><span class='line'><span class="c"># install solr app</span>
 </span><span class='line'>sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
-</span><span class='line'><span class="c"># restart so tomcat creates directory</span>
-</span><span class='line'>sudo service tomcat6 restart
 </span><span class='line'><span class="c"># copy default example config to home, where data will live</span>
 </span><span class='line'>sudo cp -a solr-4.6.1/example/solr /home/
-</span><span class='line'><span class="c"># create new collection</span>
-</span><span class='line'><span class="nb">cd</span> /home/solr
-</span><span class='line'>sudo cp -a collection1 document_library
-</span><span class='line'>sudo rm -rf document_library/data
-</span><span class='line'>sudo mkdir document_library/data
-</span><span class='line'><span class="c"># copy drupal configuration to core conf</span>
-</span><span class='line'>sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 </span><span class='line'><span class="c"># set appropriate permissions</span>
 </span><span class='line'>sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
+</span><span class='line'><span class="c"># update solr home directory in WEB-INF</span>
+</span><span class='line'><span class="c">#    &lt;env-entry&gt;</span>
+</span><span class='line'><span class="c">#       &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</span>
+</span><span class='line'><span class="c">#       &lt;env-entry-value&gt;/home/solr&lt;/env-entry-value&gt;</span>
+</span><span class='line'><span class="c">#       &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</span>
+</span><span class='line'><span class="c">#    &lt;/env-entry&gt;</span>
+</span><span class='line'>sudo vim /var/lib/tomcat6/webapps/solr/WEB-INF/web.xml
+</span><span class='line'><span class="c"># restart so tomcat creates directory</span>
+</span><span class='line'>sudo service tomcat6 restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Create a new core</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> /home/solr
+</span><span class='line'>sudo cp -a collection1 document_library
+</span><span class='line'><span class="c"># clean data directory</span>
+</span><span class='line'>sudo rm -rf document_library/data
+</span><span class='line'>sudo mkdir document_library/data
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Add drupal solr configuration to new core</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 </span><span class='line'>sudo service tomcat6 restart
 </span></code></pre></td></tr></table></div></figure>
 
