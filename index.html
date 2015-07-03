@@ -100,7 +100,7 @@ sudo yum -y install java-1.7.0-openjdk
 
 
 
-<time class='entry-date' datetime='2015-06-29T13:40:14-06:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>1:40 pm</span></time>
+<time class='entry-date' datetime='2015-06-29T11:40:14-06:00'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>29</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:40 am</span></time>
         
       </p>
     
@@ -165,6 +165,11 @@ sudo yum -y install java-1.7.0-openjdk
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>wget http://archive.apache.org/dist/lucene/solr/4.6.1/solr-4.6.1.tgz
 </span><span class='line'>tar xvf solr-4.6.1.tgz
 </span><span class='line'>sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
@@ -172,8 +177,13 @@ sudo yum -y install java-1.7.0-openjdk
 </span><span class='line'>sudo service tomcat6 restart
 </span><span class='line'><span class="c"># copy default example config to home, where data will live</span>
 </span><span class='line'>sudo cp -a solr-4.6.1/example/solr /home/
+</span><span class='line'><span class="c"># create new collection</span>
+</span><span class='line'><span class="nb">cd</span> /home/solr
+</span><span class='line'>sudo cp -a collection1 document_library
+</span><span class='line'>sudo rm -rf document_library/data
+</span><span class='line'>sudo mkdir document_library/data
 </span><span class='line'><span class="c"># copy drupal configuration to core conf</span>
-</span><span class='line'>sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/collection1/conf/
+</span><span class='line'>sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 </span><span class='line'><span class="c"># set appropriate permissions</span>
 </span><span class='line'>sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
 </span><span class='line'>sudo service tomcat6 restart

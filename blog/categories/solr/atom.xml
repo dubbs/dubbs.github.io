@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Solr | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/solr/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-06-30T13:17:31-06:00</updated>
+  <updated>2015-07-03T09:49:13-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Installing Solr 4 on CentOS 6]]></title>
     <link href="http://dubbs.github.io/blog/2015/06/29/installing-solr-on-centos-6/"/>
-    <updated>2015-06-29T13:40:14-06:00</updated>
+    <updated>2015-06-29T11:40:14-06:00</updated>
     <id>http://dubbs.github.io/blog/2015/06/29/installing-solr-on-centos-6</id>
     <content type="html"><![CDATA[<h2>Verify CentOS Version</h2>
 
@@ -56,8 +56,13 @@ sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
 sudo service tomcat6 restart
 # copy default example config to home, where data will live
 sudo cp -a solr-4.6.1/example/solr /home/
+# create new collection
+cd /home/solr
+sudo cp -a collection1 document_library
+sudo rm -rf document_library/data
+sudo mkdir document_library/data
 # copy drupal configuration to core conf
-sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/collection1/conf/
+sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 # set appropriate permissions
 sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
 sudo service tomcat6 restart
