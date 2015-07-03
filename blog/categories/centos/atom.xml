@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Centos | Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/blog/categories/centos/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-07-03T11:21:06-06:00</updated>
+  <updated>2015-07-03T11:26:44-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -72,14 +72,18 @@ sudo service tomcat6 restart
 
 <pre><code class="bash">cd /home/solr
 sudo cp -a collection1 document_library
+# update core name
+echo 'name=document_library' | sudo tee document_library/core.properties
 # clean data directory
 sudo rm -rf document_library/data
 sudo mkdir document_library/data
+sudo chown -R tomcat:tomcat document_library
 </code></pre>
 
 <h2>Add drupal solr configuration to new core</h2>
 
 <pre><code class="bash">sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
+sudo chown -R tomcat:tomcat document_library
 sudo service tomcat6 restart
 </code></pre>
 ]]></content>

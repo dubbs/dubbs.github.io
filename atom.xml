@@ -4,7 +4,7 @@
   <title><![CDATA[Kevin Warrington]]></title>
   <link href="http://dubbs.github.io/atom.xml" rel="self"/>
   <link href="http://dubbs.github.io/"/>
-  <updated>2015-07-03T11:21:06-06:00</updated>
+  <updated>2015-07-03T11:26:44-06:00</updated>
   <id>http://dubbs.github.io/</id>
   <author>
     <name><![CDATA[Kevin Warrington]]></name>
@@ -108,11 +108,17 @@
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> /home/solr
 </span><span class='line'>sudo cp -a collection1 document_library
+</span><span class='line'><span class="c"># update core name</span>
+</span><span class='line'><span class="nb">echo</span> <span class="s1">&#39;name=document_library&#39;</span> <span class="p">|</span> sudo tee document_library/core.properties
 </span><span class='line'><span class="c"># clean data directory</span>
 </span><span class='line'>sudo rm -rf document_library/data
 </span><span class='line'>sudo mkdir document_library/data
+</span><span class='line'>sudo chown -R tomcat:tomcat document_library
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -120,7 +126,9 @@
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
+<span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
+</span><span class='line'>sudo chown -R tomcat:tomcat document_library
 </span><span class='line'>sudo service tomcat6 restart
 </span></code></pre></td></tr></table></div></figure>
 
