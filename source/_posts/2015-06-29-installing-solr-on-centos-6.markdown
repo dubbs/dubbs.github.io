@@ -47,8 +47,13 @@ sudo cp -a solr-4.6.1/dist/solr-4.6.1.war /var/lib/tomcat6/webapps/solr.war
 sudo service tomcat6 restart
 # copy default example config to home, where data will live
 sudo cp -a solr-4.6.1/example/solr /home/
+# create new collection
+cd /home/solr
+sudo cp -a collection1 document_library
+sudo rm -rf document_library/data
+sudo mkdir document_library/data
 # copy drupal configuration to core conf
-sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/collection1/conf/
+sudo cp /vagrant/htdocs/sites/all/modules/apachesolr/solr-conf/solr-4.x/* /home/solr/document_library/conf/
 # set appropriate permissions
 sudo chown -R tomcat:tomcat /home/solr /var/lib/tomcat6/webapps/solr
 sudo service tomcat6 restart
