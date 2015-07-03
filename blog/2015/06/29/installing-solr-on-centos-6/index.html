@@ -16,9 +16,16 @@ cat /etc/centos-release Install Tomcat 1
 4
 5
 6
+7
+8
+9
+10
+11
+12
+13
+14
 # install java-1.7.0-openjdk
-sudo yum -y install java-1.7.0-openjdk
-# &hellip;">
+sudo yum -y install java &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -119,12 +126,28 @@ sudo yum -y install java-1.7.0-openjdk
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># install java-1.7.0-openjdk</span>
 </span><span class='line'>sudo yum -y install java-1.7.0-openjdk
 </span><span class='line'><span class="c"># install tomcat6</span>
 </span><span class='line'>sudo yum -y install tomcat6 tomcat6-webapps tomcat6-admin-webapps
 </span><span class='line'><span class="c"># change port</span>
 </span><span class='line'>sudo sed -i s/8080/8983/g /etc/tomcat6/server.xml
+</span><span class='line'><span class="c"># install Simple Logging Facade for Java</span>
+</span><span class='line'>wget -qO- http://www.slf4j.org/dist/slf4j-1.7.12.tar.gz <span class="p">|</span> tar xvz
+</span><span class='line'>sudo cp -a slf4j-1.7.12/slf4j-*.jar /usr/share/tomcat6/lib
+</span><span class='line'><span class="c"># remove android files that mess up startup</span>
+</span><span class='line'>sudo rm -rf /usr/share/tomcat6/lib/slf4j-android*
+</span><span class='line'><span class="c"># install Apache Commons Logging</span>
+</span><span class='line'>wget -qO- http://apache.mirror.rafal.ca//commons/logging/binaries/commons-logging-1.2-bin.tar.gz <span class="p">|</span> tar xvz
+</span><span class='line'>sudo cp -a commons-logging-1.2/commons-logging-1.2*.jar /usr/share/tomcat6/lib
 </span></code></pre></td></tr></table></div></figure>
 
 
