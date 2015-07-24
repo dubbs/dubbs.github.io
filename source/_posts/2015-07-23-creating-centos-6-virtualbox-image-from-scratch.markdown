@@ -85,6 +85,10 @@ UseDNS no
 PermitRootLogin no
 AllowUsers vagrant
 
+# http://unix.stackexchange.com/questions/122616/why-do-i-need-a-tty-to-run-sudo-if-i-can-sudo-without-a-password#answer-122624
+vi /etc/sudoers
+#Defaults requiretty
+
 su - vagrant
 mkdir .ssh
 curl https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub > .ssh/authorized_keys
@@ -105,7 +109,13 @@ IdentityFile ~/.ssh/vagrant
 test ssh
 ssh centos
 
+# zero out disk
+http://superuser.com/questions/529149/how-to-compact-virtualboxs-vdi-file-size
+
 # package
 vagrant package --base centos-6.6
+vagrant box add centos-6.6 package.box
+vagrant init centos-6.6
+vagrant up
 
 
