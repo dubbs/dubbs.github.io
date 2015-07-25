@@ -7,115 +7,138 @@ comments: true
 categories: [centos, virtualbox]
 ---
 
-download centos6.6.iso from http://wiki.centos.org/Download x86_64
+## Install VirtualBox 4.3.30 on host
+```bash
+# https://www.virtualbox.org/wiki/Download_Old_Builds_4_3
+wget http://download.virtualbox.org/virtualbox/4.3.30/virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb
+sudo dpkg -i virtualbox-4.3_4.3.30-101610~Ubuntu~raring_amd64.deb
+```
 
-open virtualbox and create a new virtual machine 
-name: centos-6.6
-type: linux
-version: Red Hat (64 bit)
-memory: 512MB
-harddrive: virtual
-drivetype: vdi
-storage: dynamically allocated
-maxsize: 8GB
+## Download CentOS 6.6 ISO
+```bash
+# http://wiki.centos.org/Download
+wget http://mirror.its.dal.ca/centos/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.iso
+```
 
-SETTINGS
+## Create base VirtualBox VDI
+1. Create a new virtual machine in VirtualBox
+	Name: centos-6.6
+	Type: linux
+	Version: Red Hat (64 bit)
+	Memory: 512MB
+	HD: new virtual drive
+	DriveType: VDI
+	Storage: dynamically allocated
+	Maxsize: 8GB
 
-NETWORK
-Attached to: NAT
-MAC Address: 080027F9414F
-Port Forwarding: host 2229 guest 22
+2. Configure settings
+	Storage:
+		Click add CD/DVD Device beside Controller: IDE	
+		Choose disk: find and select CentOs-6.6-x86_64-minimal.iso
+	Audio:
+		Disable
+	Network:
+		Attached to: NAT
+	USB:
+		Disable
 
-STORAGE
-controller:ide > add cd/dvd device > choose disk
-select centos6.6.iso
+3. Install OS
+	root password: vagrant
 
-AUDIO
-disable
 
-USB
-disable controller
+## Install Guest Additions on guest
 
-NOW INSTALL
-
-install centos, root password "vagrant"
-
-restart and login as root
-
+Restart and login as root.  Bring up eth0 interface and run update.
+```bash
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
-
-DEVICE=eth0
-HWADDR=08:00:27:F9:41:4F
-TYPE=Ethernet
 ONBOOT=yes
-NM_CONTROLLED=yes
-BOOTPROTO=dhcp
-
+# start eth0
 ifup eth0
+yum -y update
+```
 
-restart and login as root
-
+Install dkms so virtualbox-dkms module is recompiled with every new kernel
+```bash
 rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 yum -y --enablerepo rpmforge install dkms
+```
+
+Install the CentOS development tools so we can add virtualbox to the kernel
+```bash
 yum -y groupinstall "Development Tools"
 yum -y install kernel-devel
-yum -y update
-yum -y install openssh-server
-# install guest additions
-wget http://download.virtualbox.org/virtualbox/4.3.30/VBoxGuestAdditions_4.3.30.iso
+```
+
+Restart to get new kernel headers
+```bash
+shutdown -r now
+ifup eth0
+```
+
+Install Guest Additions
+```bash
+curl http://download.virtualbox.org/virtualbox/4.3.30/VBoxGuestAdditions_4.3.30.iso > vboxguest.iso
 mkdir -p /mnt/iso
-mount -t iso9660 -o loop VBoxGuestAdditions_4.3.30.iso /mnt/iso
+mount -t iso9660 -o loop vboxguest.iso /mnt/iso
 cd /mnt/iso
 ./VBoxLinuxAdditions.run
 cd
 umount /mnt/iso
+```
 
-
-# install user
-
+## Create vagrant user on guest
+```bash
+# add user
 /usr/sbin/adduser vagrant
 passwd vagrant
-set as vagrant
-
+# add sudo
 /usr/sbin/visudo
 vagrant ALL=(ALL) NOPASSWD: ALL
-
-vi /etc/ssh/sshd_config
-UseDNS no
-PermitRootLogin no
-AllowUsers vagrant
-
-# http://unix.stackexchange.com/questions/122616/why-do-i-need-a-tty-to-run-sudo-if-i-can-sudo-without-a-password#answer-122624
-vi /etc/sudoers
-#Defaults requiretty
-
+# add insecure key
 su - vagrant
 mkdir .ssh
 curl https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub > .ssh/authorized_keys
 chmod 0700 .ssh
 chmod 0600 .ssh/authorized_keys
-
-
 exit
+```
 
-on host download private vagrant key to .ssh, chmod 0600
+## Configure SSH on guest
+```bash
+vi /etc/ssh/sshd_config
+# set following
+UseDNS no
+PermitRootLogin no
+AllowUsers vagrant
 
-Host centos
-HostName 127.0.0.1
-User vagrant
-Port 2229
-IdentityFile ~/.ssh/vagrant
+vi /etc/sudoers
+# comment out following
+#Defaults requiretty
 
-test ssh
-ssh centos
+service sshd restart
+```
 
-# zero out disk
-http://superuser.com/questions/529149/how-to-compact-virtualboxs-vdi-file-size
+## Free up space on guest
+```bash
+yum clean all
+dd if=/dev/zero of=/bigemptyfile bs=4096k
+rm -rf /bigemptyfile
+```
 
-# package
+## compact VDI on host
+```bash
+# ensure VM is shutdown
+# find vdi
+find ~ -name centos-6.6.vdi
+cd VirtualBox\ VMs/centos-6.6/
+vboxmanage modifyhd centos-6.6.vdi --compact
+```
+
+## create vagrant box
+```bash
 vagrant package --base centos-6.6
 vagrant box add centos-6.6 package.box
 vagrant init centos-6.6
 vagrant up
-
-
+vagrant ssh
+```
