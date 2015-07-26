@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Creating a CentOS 6.6 VirtualBox Image from Scratch"
+title: "How to Create a CentOS 6 VirtualBox Provider for Vagrant"
 date: 2015-07-23 11:40:14 -0600
 modified: 2015-07-23 11:40:14 -0600
 comments: true
-categories: [centos, virtualbox]
+categories: [centos, virtualbox, vagrant]
 ---
 
 ## Install VirtualBox 4.3.30 on host
@@ -45,15 +45,24 @@ wget http://mirror.its.dal.ca/centos/6.6/isos/x86_64/CentOS-6.6-x86_64-minimal.i
 3. Install OS
 	root password: vagrant
 
+## Remove GRUB timeout on guest
+```bash
+vi /boot/grub/grub.conf
+timeout=0
+```
 
-## Install Guest Additions on guest
-
-Restart and login as root.  Bring up eth0 interface and run update.
+## Initialize network on guest
 ```bash
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
 ONBOOT=yes
 # start eth0
 ifup eth0
+```
+
+## Install Guest Additions on guest
+
+Install updates
+```bash
 yum -y update
 ```
 
@@ -72,7 +81,6 @@ yum -y install kernel-devel
 Restart to get new kernel headers
 ```bash
 shutdown -r now
-ifup eth0
 ```
 
 Install Guest Additions
@@ -125,16 +133,15 @@ dd if=/dev/zero of=/bigemptyfile bs=4096k
 rm -rf /bigemptyfile
 ```
 
-## compact VDI on host
+## Compact VDI on host
+Shutdown VM and use vboxmanage to compact image
 ```bash
 # ensure VM is shutdown
-# find vdi
-find ~ -name centos-6.6.vdi
 cd VirtualBox\ VMs/centos-6.6/
 vboxmanage modifyhd centos-6.6.vdi --compact
 ```
 
-## create vagrant box
+## Create vagrant box
 ```bash
 vagrant package --base centos-6.6
 vagrant box add centos-6.6 package.box
@@ -142,3 +149,14 @@ vagrant init centos-6.6
 vagrant up
 vagrant ssh
 ```
+
+## Configure Vagrantfile
+```ruby
+config.vm.provider "virtualbox" do |vb|
+  vb.memory = "1024"
+  vb.cpus = 2 
+end 
+```
+
+
+
