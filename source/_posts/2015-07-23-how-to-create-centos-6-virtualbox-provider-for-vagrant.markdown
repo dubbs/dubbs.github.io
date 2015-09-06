@@ -136,8 +136,10 @@ rm -rf /bigemptyfile
 ## Compact VDI on host
 Shutdown VM and use vboxmanage to compact image
 ```bash
-# ensure VM is shutdown
 cd VirtualBox\ VMs/centos-6.6/
+# convert vmdk if you have one
+vboxmanage clonehd centos-6.6.vmdk centos-6.6.vdi --format VDI
+# ensure VM is shutdown
 vboxmanage modifyhd centos-6.6.vdi --compact
 ```
 
