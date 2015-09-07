@@ -133,20 +133,15 @@ dd if=/dev/zero of=/bigemptyfile bs=4096k
 rm -rf /bigemptyfile
 ```
 
-## Compact VDI on host
-Shutdown VM and use vboxmanage to compact image
+## Package
 ```bash
-cd VirtualBox\ VMs/centos-6.6/
-# convert vmdk if you have one
-vboxmanage clonehd centos-6.6.vmdk centos-6.6.vdi --format VDI
-# ensure VM is shutdown
-vboxmanage modifyhd centos-6.6.vdi --compact
+vboxmanage list vms
+vagrant package --base centos-6.6 --output centos-6.6.box
 ```
 
 ## Create vagrant box
 ```bash
-vagrant package --base centos-6.6
-vagrant box add centos-6.6 package.box
+vagrant box add centos-6.6 centos-6.6.box
 vagrant init centos-6.6
 vagrant up
 vagrant ssh
