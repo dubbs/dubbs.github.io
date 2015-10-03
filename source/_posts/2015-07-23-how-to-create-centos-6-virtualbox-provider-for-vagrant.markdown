@@ -136,10 +136,33 @@ rm -rf /bigemptyfile
 ## Package
 ```bash
 vboxmanage list vms
-vagrant package --base centos-6.6 --output centos-6.6.box
+vagrant package --output example.box
 ```
 
-## Create vagrant box
+## Create a new box
+```
+https://atlas.hashicorp.com/dubbs/boxes/example/versions/new
+version: 1.0.2 
+provider: virtualbox 
+Upload: Continue to upload
+```
+
+## Find upload url
+```
+USERNAME=dubbs
+BOX_NAME=example
+VERSION=1.0.2
+PROVIDER_NAME=virtualbox
+ACCESS_TOKEN=1361287368213681726381726387126382176382173612876
+curl "https://atlas.hashicorp.com/api/v1/box/{$USERNAME}/{$BOX_NAME}/version/{$VERSION}/provider/{$PROVIDER_NAME}/upload?access_token={$ACCESS_TOKEN}"
+```
+
+## Upload
+```
+curl --keepalive-time 1 -o output -# -X PUT --upload-file example.box $URL
+```
+
+## Initialize new box
 ```bash
 vagrant box add centos-6.6 centos-6.6.box
 vagrant init centos-6.6
